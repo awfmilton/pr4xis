@@ -294,6 +294,15 @@ pub mod svo {
         )
     }
 
+    /// Question copula with adjective: (S[q]/(S[adj]\NP))/NP
+    /// "are" in "are you happy?" — takes NP then predicate adjective.
+    pub fn question_copula_adj() -> LambekType {
+        LambekType::right_div(
+            LambekType::right_div(LambekType::q(), predicate_adjective()),
+            LambekType::np(),
+        )
+    }
+
     /// Ditransitive verb: ((NP\S)/NP)/NP — "gives"
     pub fn ditransitive_verb() -> LambekType {
         LambekType::right_div(transitive_verb(), LambekType::np())
@@ -362,6 +371,14 @@ pub mod svo {
     pub fn wh_what() -> LambekType {
         // CCGbank: S[wq]/(S[dcl]\NP) — takes a sentence-missing-subject on the right.
         // "what is a dog" → what + [is a dog : NP\S] → S[wq]
+        LambekType::right_div(
+            LambekType::wq(),
+            LambekType::left_div(LambekType::np(), LambekType::s()),
+        )
+    }
+
+    /// "how" as question word: S[wq]/(S/NP) — "how are you?"
+    pub fn wh_how() -> LambekType {
         LambekType::right_div(
             LambekType::wq(),
             LambekType::left_div(LambekType::np(), LambekType::s()),

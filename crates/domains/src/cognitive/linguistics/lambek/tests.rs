@@ -277,10 +277,38 @@ fn is_a_dog_a_mammal_question() {
 }
 
 #[test]
+fn are_you_big_question() {
+    let tokens = tokenize::tokenize("are you big", &sample_lang());
+    assert_eq!(tokens.len(), 3);
+    assert_eq!(tokens[0].lambek_type, svo::question_copula_adj());
+    assert_eq!(tokens[2].lambek_type, svo::predicate_adjective());
+    let result = reduce_sequence(&tokens);
+    assert!(result.success, "expected Q, got {:?}", result.remaining);
+    assert_eq!(result.final_type, Some(LambekType::q()));
+}
+
+#[test]
 fn what_is_a_dog() {
     let tokens = tokenize::tokenize("what is a dog", &sample_lang());
     assert_eq!(tokens.len(), 4);
     assert_eq!(tokens[0].lambek_type, svo::wh_what()); // what
+}
+
+#[test]
+fn tokenize_how_are_you() {
+    let tokens = tokenize::tokenize("how are you", &sample_lang());
+    assert_eq!(tokens.len(), 3);
+    assert_eq!(tokens[0].word, "how");
+    assert_eq!(tokens[0].lambek_type, svo::wh_how());
+}
+
+#[test]
+fn tokenize_math_operators() {
+    let tokens = tokenize::tokenize("1 + 1", &sample_lang());
+    assert_eq!(tokens.len(), 3);
+    assert_eq!(tokens[0].word, "1");
+    assert_eq!(tokens[1].word, "+");
+    assert_eq!(tokens[2].word, "1");
 }
 
 // =============================================================================

@@ -21,7 +21,7 @@ use pr4xis::category::entity::Concept;
 pub fn tokenize(text: &str, language: &dyn Language) -> Vec<TypedToken> {
     let cleaned = text
         .trim()
-        .trim_end_matches(|c: char| c.is_ascii_punctuation());
+        .trim_end_matches(|c: char| c.is_ascii_punctuation() && !"+-*/=".contains(c));
 
     let words: Vec<&str> = cleaned.split_whitespace().collect();
 
@@ -29,7 +29,8 @@ pub fn tokenize(text: &str, language: &dyn Language) -> Vec<TypedToken> {
         .iter()
         .enumerate()
         .filter_map(|(i, word)| {
-            let word_clean = word.trim_matches(|c: char| c.is_ascii_punctuation());
+            let word_clean =
+                word.trim_matches(|c: char| c.is_ascii_punctuation() && !"+-*/=".contains(c));
             if word_clean.is_empty() {
                 return None;
             }
@@ -44,6 +45,7 @@ pub fn tokenize(text: &str, language: &dyn Language) -> Vec<TypedToken> {
 
     // Post-processing: assign predicate adjective types based on context.
     assign_predicate_adjectives(&mut tokens);
+    assign_question_copula_adj(&mut tokens);
 
     tokens
 }
@@ -56,7 +58,7 @@ pub fn tokenize_with_alternatives(
 ) -> (Vec<TypedToken>, Vec<Vec<LambekType>>) {
     let cleaned = text
         .trim()
-        .trim_end_matches(|c: char| c.is_ascii_punctuation());
+        .trim_end_matches(|c: char| c.is_ascii_punctuation() && !"+-*/=".contains(c));
 
     let words: Vec<&str> = cleaned.split_whitespace().collect();
 
@@ -64,7 +66,8 @@ pub fn tokenize_with_alternatives(
     let mut alternatives = Vec::new();
 
     for (i, word) in words.iter().enumerate() {
-        let word_clean = word.trim_matches(|c: char| c.is_ascii_punctuation());
+        let word_clean =
+            word.trim_matches(|c: char| c.is_ascii_punctuation() && !"+-*/=".contains(c));
         if word_clean.is_empty() {
             continue;
         }
@@ -91,6 +94,7 @@ pub fn tokenize_with_alternatives(
     }
 
     assign_predicate_adjectives(&mut tokens);
+    assign_question_copula_adj(&mut tokens);
 
     (tokens, alternatives)
 }
@@ -104,7 +108,7 @@ pub fn tokenize_with_alternatives(
 pub fn tokenize_ontological(text: &str, language: &dyn Language) -> Vec<Token> {
     let cleaned = text
         .trim()
-        .trim_end_matches(|c: char| c.is_ascii_punctuation());
+        .trim_end_matches(|c: char| c.is_ascii_punctuation() && !"+-*/=".contains(c));
 
     let words: Vec<&str> = cleaned.split_whitespace().collect();
 
@@ -112,7 +116,8 @@ pub fn tokenize_ontological(text: &str, language: &dyn Language) -> Vec<Token> {
         .iter()
         .enumerate()
         .filter_map(|(i, word)| {
-            let word_clean = word.trim_matches(|c: char| c.is_ascii_punctuation());
+            let word_clean =
+                word.trim_matches(|c: char| c.is_ascii_punctuation() && !"+-*/=".contains(c));
             if word_clean.is_empty() {
                 return None;
             }
@@ -136,6 +141,7 @@ pub fn tokenize_ontological(text: &str, language: &dyn Language) -> Vec<Token> {
         .collect();
 
     assign_predicate_adjectives_typed(&mut tokens);
+    assign_question_copula_adj_typed(&mut tokens);
     tokens
 }
 
@@ -147,6 +153,33 @@ fn assign_predicate_adjectives_typed(tokens: &mut [Token]) {
         if is_copula && is_adj {
             tokens[i].lambek_type = svo_types::copula_adj();
             tokens[i + 1].lambek_type = svo_types::predicate_adjective();
+        }
+    }
+}
+
+/// Post-processing for interrogatives: is a dog big?
+/// Initial question copula followed by adjective (at index 3 usually, but we check all).
+fn assign_question_copula_adj(tokens: &mut [TypedToken]) {
+    if tokens.is_empty() || tokens[0].lambek_type != svo_types::question_copula() {
+        return;
+    }
+    // "is a dog big" -> is:0 a:1 dog:2 big:3
+    for i in 1..tokens.len() {
+        if tokens[i].lambek_type == svo_types::adjective() {
+            tokens[0].lambek_type = svo_types::question_copula_adj();
+            tokens[i].lambek_type = svo_types::predicate_adjective();
+        }
+    }
+}
+
+fn assign_question_copula_adj_typed(tokens: &mut [Token]) {
+    if tokens.is_empty() || tokens[0].lambek_type != svo_types::question_copula() {
+        return;
+    }
+    for i in 1..tokens.len() {
+        if tokens[i].lambek_type == svo_types::adjective() {
+            tokens[0].lambek_type = svo_types::question_copula_adj();
+            tokens[i].lambek_type = svo_types::predicate_adjective();
         }
     }
 }
@@ -169,6 +202,9 @@ fn assign_type(word: &str, position: usize, language: &dyn Language) -> LambekTy
 
         // Interrogative pronouns at sentence start → wh-question type
         if first.is_some_and(|e| e.is_interrogative()) {
+            if word.eq_ignore_ascii_case("how") {
+                return svo_types::wh_how();
+            }
             return svo_types::wh_what();
         }
     }

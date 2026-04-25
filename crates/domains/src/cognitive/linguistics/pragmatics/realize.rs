@@ -206,7 +206,12 @@ fn realize_gap(content: &ResponseContent) -> String {
 }
 
 fn realize_suggestion(content: &ResponseContent) -> String {
-    if content.entities.len() >= 2 {
+    let has_math = content
+        .entities
+        .iter()
+        .any(|e| e.chars().any(|c| "+-*/=".contains(c)));
+
+    if content.entities.len() == 2 && !has_math {
         // Generate a question from the found concepts
         let question = sentence_question(&content.entities[0], &content.entities[1]);
         return format!(
@@ -323,6 +328,17 @@ mod tests {
         let content = ResponseContent::new(ResponseFrame::AdmitLimitation);
         let text = realize(&content);
         assert!(text.contains("is a dog a mammal?"));
+    }
+
+    #[test]
+    fn suggestion_avoids_gibberish_for_math() {
+        let content = ResponseContent::new(ResponseFrame::SuggestInterpretation)
+            .with_entity("1")
+            .with_entity("+")
+            .with_entity("1");
+        let text = realize(&content);
+        assert!(text.contains("I know the words \"1\", \"+\", \"1\""));
+        assert!(!text.contains("Did you mean:"));
     }
 
     #[test]

@@ -271,11 +271,12 @@ impl LexicalEntry {
         }
     }
 
-    /// Is this an interrogative pronoun?
-    /// Determined by the OLiA classification, not by the word itself.
+    /// Is this an interrogative pronoun or adverb?
+    /// Determined by the OLiA classification, or the word itself for adverbs.
     pub fn is_interrogative(&self) -> bool {
         match self {
             Self::Pronoun(p) => p.kind == PronounKind::Interrogative,
+            Self::Adverb(a) => a.text == "how",
             _ => false,
         }
     }

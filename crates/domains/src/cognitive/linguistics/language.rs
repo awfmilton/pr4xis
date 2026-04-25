@@ -626,6 +626,11 @@ fn build_english_function_words_embedded() -> HashMap<String, Vec<LexicalEntry>>
         }));
     }
 
+    // ---- Interrogative Adverbs (OLiA: InterrogativeAdverb) ----
+    add(LexicalEntry::Adverb(Adverb {
+        text: "how".into(),
+    }));
+
     // ---- Prepositions (OLiA: Preposition) ----
     for text in [
         "in", "on", "at", "with", "to", "from", "by", "for", "of", "about", "into", "through",
