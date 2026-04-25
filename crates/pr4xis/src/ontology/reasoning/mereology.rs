@@ -132,7 +132,7 @@ impl<T: MereologyDef> crate::logic::Axiom for NoCycles<T> {
     }
 
     crate::axiom_meta!(
-        "NoCycles[Mereology]",
+        NoCycles[Mereology],
         "mereology has no cycles (part-whole is a DAG)",
         "Casati & Varzi (1999) 'Parts and Places' — Classical Extensional Mereology"
     );
@@ -176,7 +176,7 @@ impl<T: MereologyDef> crate::logic::Axiom for WeakSupplementation<T> {
     }
 
     crate::axiom_meta!(
-        "WeakSupplementation[Mereology]",
+        WeakSupplementation[Mereology],
         "weak supplementation: every proper whole has at least two direct parts",
         "Simons (1987) 'Parts: A Study in Ontology'; Casati & Varzi (1999)"
     );

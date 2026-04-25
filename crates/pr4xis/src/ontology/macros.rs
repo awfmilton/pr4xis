@@ -379,12 +379,18 @@ macro_rules! define_ontology {
                 $(
                     _source = $source;
                 )?
-                $crate::ontology::meta::RelationshipMeta {
-                    name: $crate::ontology::meta::OntologyName::new_static(stringify!($ont_name)),
-                    description: $crate::ontology::meta::Label::new_static(stringify!($ont_name)),
-                    citation: $crate::ontology::meta::Citation::parse_static(_source),
-                    module_path: $crate::ontology::meta::ModulePath::new_static(module_path!()),
+                static META: $crate::ontology::meta::RelationshipMeta =
+                    $crate::ontology::meta::RelationshipMeta::new_static(
+                        stringify!($ont_name),
+                        stringify!($ont_name),
+                        $crate::parse_citation!(""), // Placeholder, see below
+                        module_path!(),
+                    );
+                let mut meta = META.clone();
+                if !_source.is_empty() {
+                    meta.citation = $crate::ontology::meta::Citation::parse_static(_source);
                 }
+                meta
             }
 
             /// Runtime Vocabulary — instance of Knowledge::Vocabulary (VoID).
@@ -482,12 +488,14 @@ macro_rules! functor {
             }
 
             fn meta() -> $crate::ontology::meta::RelationshipMeta {
-                $crate::ontology::meta::RelationshipMeta {
-                    name: $crate::ontology::meta::OntologyName::new_static(stringify!($name)),
-                    description: $crate::ontology::meta::Label::new_static(stringify!($name)),
-                    citation: $crate::ontology::meta::Citation::parse_static($citation),
-                    module_path: $crate::ontology::meta::ModulePath::new_static(module_path!()),
-                }
+                static META: $crate::ontology::meta::RelationshipMeta =
+                    $crate::ontology::meta::RelationshipMeta::new_static(
+                        stringify!($name),
+                        stringify!($name),
+                        $crate::parse_citation!($citation),
+                        module_path!(),
+                    );
+                META.clone()
             }
         }
 
@@ -560,12 +568,14 @@ macro_rules! adjunction {
             }
 
             fn meta() -> $crate::ontology::meta::RelationshipMeta {
-                $crate::ontology::meta::RelationshipMeta {
-                    name: $crate::ontology::meta::OntologyName::new_static(stringify!($name)),
-                    description: $crate::ontology::meta::Label::new_static(stringify!($name)),
-                    citation: $crate::ontology::meta::Citation::parse_static($citation),
-                    module_path: $crate::ontology::meta::ModulePath::new_static(module_path!()),
-                }
+                static META: $crate::ontology::meta::RelationshipMeta =
+                    $crate::ontology::meta::RelationshipMeta::new_static(
+                        stringify!($name),
+                        stringify!($name),
+                        $crate::parse_citation!($citation),
+                        module_path!(),
+                    );
+                META.clone()
             }
         }
 
@@ -637,12 +647,14 @@ macro_rules! natural_transformation {
             }
 
             fn meta() -> $crate::ontology::meta::RelationshipMeta {
-                $crate::ontology::meta::RelationshipMeta {
-                    name: $crate::ontology::meta::OntologyName::new_static(stringify!($name)),
-                    description: $crate::ontology::meta::Label::new_static(stringify!($name)),
-                    citation: $crate::ontology::meta::Citation::parse_static($citation),
-                    module_path: $crate::ontology::meta::ModulePath::new_static(module_path!()),
-                }
+                static META: $crate::ontology::meta::RelationshipMeta =
+                    $crate::ontology::meta::RelationshipMeta::new_static(
+                        stringify!($name),
+                        stringify!($name),
+                        $crate::parse_citation!($citation),
+                        module_path!(),
+                    );
+                META.clone()
             }
         }
 
@@ -681,7 +693,7 @@ macro_rules! natural_transformation {
 /// impl Axiom for MyAxiom {
 ///     fn description(&self) -> &str { "..." }
 ///     fn holds(&self) -> bool { ... }
-///     pr4xis::axiom_meta!("MyAxiom", "Smith (1999)");
+///     pr4xis::axiom_meta!(MyAxiom, "Smith (1999)");
 /// }
 /// pr4xis::register_axiom!(MyAxiom);
 /// ```
@@ -719,11 +731,15 @@ macro_rules! register_axiom {
             #[$crate::linkme::distributed_slice($crate::ontology::AXIOMS)]
             #[linkme(crate = $crate::linkme)]
             static [<_REGISTER_AXIOM_ $name:snake:upper>]: fn() -> $crate::ontology::meta::RelationshipMeta =
-                || $crate::ontology::meta::RelationshipMeta {
-                    name: $crate::ontology::meta::OntologyName::new_static(stringify!($name)),
-                    description: $crate::ontology::meta::Label::new_static(stringify!($name)),
-                    citation: $crate::ontology::meta::Citation::parse_static($citation),
-                    module_path: $crate::ontology::meta::ModulePath::new_static(module_path!()),
+                || {
+                    static META: $crate::ontology::meta::RelationshipMeta =
+                        $crate::ontology::meta::RelationshipMeta::new_static(
+                            stringify!($name),
+                            stringify!($name),
+                            $crate::parse_citation!($citation),
+                            module_path!(),
+                        );
+                    META.clone()
                 };
         }
     };
@@ -758,11 +774,15 @@ macro_rules! register_functor {
             #[$crate::linkme::distributed_slice($crate::ontology::FUNCTORS)]
             #[linkme(crate = $crate::linkme)]
             static [<_REGISTER_FUNCTOR_ $name:snake:upper>]: fn() -> $crate::ontology::meta::RelationshipMeta =
-                || $crate::ontology::meta::RelationshipMeta {
-                    name: $crate::ontology::meta::OntologyName::new_static(stringify!($name)),
-                    description: $crate::ontology::meta::Label::new_static(stringify!($name)),
-                    citation: $crate::ontology::meta::Citation::parse_static($citation),
-                    module_path: $crate::ontology::meta::ModulePath::new_static(module_path!()),
+                || {
+                    static META: $crate::ontology::meta::RelationshipMeta =
+                        $crate::ontology::meta::RelationshipMeta::new_static(
+                            stringify!($name),
+                            stringify!($name),
+                            $crate::parse_citation!($citation),
+                            module_path!(),
+                        );
+                    META.clone()
                 };
         }
     };
@@ -786,11 +806,15 @@ macro_rules! register_adjunction {
             #[$crate::linkme::distributed_slice($crate::ontology::ADJUNCTIONS)]
             #[linkme(crate = $crate::linkme)]
             static [<_REGISTER_ADJUNCTION_ $name:snake:upper>]: fn() -> $crate::ontology::meta::RelationshipMeta =
-                || $crate::ontology::meta::RelationshipMeta {
-                    name: $crate::ontology::meta::OntologyName::new_static(stringify!($name)),
-                    description: $crate::ontology::meta::Label::new_static(stringify!($name)),
-                    citation: $crate::ontology::meta::Citation::parse_static($citation),
-                    module_path: $crate::ontology::meta::ModulePath::new_static(module_path!()),
+                || {
+                    static META: $crate::ontology::meta::RelationshipMeta =
+                        $crate::ontology::meta::RelationshipMeta::new_static(
+                            stringify!($name),
+                            stringify!($name),
+                            $crate::parse_citation!($citation),
+                            module_path!(),
+                        );
+                    META.clone()
                 };
         }
     };
@@ -814,11 +838,15 @@ macro_rules! register_natural_transformation {
             #[$crate::linkme::distributed_slice($crate::ontology::NATURAL_TRANSFORMATIONS)]
             #[linkme(crate = $crate::linkme)]
             static [<_REGISTER_NAT_TRANS_ $name:snake:upper>]: fn() -> $crate::ontology::meta::RelationshipMeta =
-                || $crate::ontology::meta::RelationshipMeta {
-                    name: $crate::ontology::meta::OntologyName::new_static(stringify!($name)),
-                    description: $crate::ontology::meta::Label::new_static(stringify!($name)),
-                    citation: $crate::ontology::meta::Citation::parse_static($citation),
-                    module_path: $crate::ontology::meta::ModulePath::new_static(module_path!()),
+                || {
+                    static META: $crate::ontology::meta::RelationshipMeta =
+                        $crate::ontology::meta::RelationshipMeta::new_static(
+                            stringify!($name),
+                            stringify!($name),
+                            $crate::parse_citation!($citation),
+                            module_path!(),
+                        );
+                    META.clone()
                 };
         }
     };
@@ -838,29 +866,33 @@ macro_rules! register_natural_transformation {
 ///     type Target = ...;
 ///     fn map_object(...) -> ... { ... }
 ///     fn map_morphism(...) -> ... { ... }
-///     pr4xis::relationship_meta!("MyFunctor", "Mac Lane (1971) Ch. II §1");
+///     pr4xis::relationship_meta!(MyFunctor, "Mac Lane (1971) Ch. II §1");
 /// }
 /// ```
 #[macro_export]
 macro_rules! relationship_meta {
-    ($name:literal, $description:literal, $citation:literal) => {
+    ($name:ident, $description:literal, $citation:literal) => {
         fn meta() -> $crate::ontology::meta::RelationshipMeta {
-            $crate::ontology::meta::RelationshipMeta {
-                name: $crate::ontology::meta::OntologyName::new_static($name),
-                description: $crate::ontology::meta::Label::new_static($description),
-                citation: $crate::ontology::meta::Citation::parse_static($citation),
-                module_path: $crate::ontology::meta::ModulePath::new_static(module_path!()),
-            }
+            static META: $crate::ontology::meta::RelationshipMeta =
+                $crate::ontology::meta::RelationshipMeta::new_static(
+                    stringify!($name),
+                    $description,
+                    $crate::parse_citation!($citation),
+                    module_path!(),
+                );
+            META.clone()
         }
     };
-    ($name:literal, $citation:literal) => {
+    ($name:ident, $citation:literal) => {
         fn meta() -> $crate::ontology::meta::RelationshipMeta {
-            $crate::ontology::meta::RelationshipMeta {
-                name: $crate::ontology::meta::OntologyName::new_static($name),
-                description: $crate::ontology::meta::Label::new_static($name),
-                citation: $crate::ontology::meta::Citation::parse_static($citation),
-                module_path: $crate::ontology::meta::ModulePath::new_static(module_path!()),
-            }
+            static META: $crate::ontology::meta::RelationshipMeta =
+                $crate::ontology::meta::RelationshipMeta::new_static(
+                    stringify!($name),
+                    stringify!($name),
+                    $crate::parse_citation!($citation),
+                    module_path!(),
+                );
+            META.clone()
         }
     };
 }

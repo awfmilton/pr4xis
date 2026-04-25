@@ -100,3 +100,57 @@ pub fn ontology(input: TokenStream) -> TokenStream {
     let def = syn::parse_macro_input!(input as ontology::OntologyDef);
     ontology::generate(def).into()
 }
+
+/// Parse a citation string into a static `Citation` at compile time.
+#[proc_macro]
+pub fn parse_citation(input: TokenStream) -> TokenStream {
+    let input = syn::parse_macro_input!(input as syn::LitStr);
+    let s = input.value();
+    let entries = parse_entries_internal(&s);
+
+    let pr4xis = pr4xis_crate();
+
+    let entry_tokens: Vec<_> = entries
+        .iter()
+        .map(|(authors, year)| {
+            let year_tokens = if let Some(y) = year {
+                quote! { Some(#y) }
+            } else {
+                quote! { None }
+            };
+            quote! {
+                #pr4xis::ontology::meta::CitationEntry::new(#authors, #year_tokens)
+            }
+        })
+        .collect();
+
+    let expanded = quote! {
+        #pr4xis::ontology::meta::Citation::new_static(
+            #s,
+            &[#(#entry_tokens),*]
+        )
+    };
+
+    expanded.into()
+}
+
+fn parse_entries_internal(s: &str) -> Vec<(String, Option<u32>)> {
+    if s.is_empty() {
+        return Vec::new();
+    }
+    s.split(';')
+        .map(str::trim)
+        .filter(|p| !p.is_empty())
+        .map(|part| {
+            if let (Some(open), Some(close)) = (part.rfind('('), part.rfind(')'))
+                && close > open
+            {
+                let year_str = &part[open + 1..close];
+                let year = year_str.parse::<u32>().ok();
+                let authors = part[..open].trim().to_string();
+                return (authors, year);
+            }
+            (part.to_string(), None)
+        })
+        .collect()
+}

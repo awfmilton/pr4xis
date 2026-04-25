@@ -38,6 +38,23 @@ pub struct RelationshipMeta {
     pub module_path: ModulePath,
 }
 
+impl RelationshipMeta {
+    /// Create a new RelationshipMeta at compile time.
+    pub const fn new_static(
+        name: &'static str,
+        description: &'static str,
+        citation: Citation,
+        module_path: &'static str,
+    ) -> Self {
+        Self {
+            name: OntologyName::new_static(name),
+            description: Label::new_static(description),
+            citation,
+            module_path: ModulePath::new_static(module_path),
+        }
+    }
+}
+
 /// BCP 47 language tag — typed identifier for a language.
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct LanguageCode(Cow<'static, str>);
@@ -537,28 +554,43 @@ impl fmt::Display for Grade {
 /// Multiple entries are supported via `;` separator.
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct Citation {
-    entries: Vec<CitationEntry>,
+    entries: Cow<'static, [CitationEntry]>,
     raw: Cow<'static, str>,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct CitationEntry {
-    pub authors: Cow<'static, str>,
+    pub authors: &'static str,
     pub year: Option<u32>,
+}
+
+impl CitationEntry {
+    /// Create a new CitationEntry at compile time.
+    pub const fn new(authors: &'static str, year: Option<u32>) -> Self {
+        Self { authors, year }
+    }
 }
 
 impl Citation {
     pub const EMPTY: Self = Self {
-        entries: Vec::new(),
+        entries: Cow::Borrowed(&[]),
         raw: Cow::Borrowed(""),
     };
+
+    /// Create a new Citation at compile time.
+    pub const fn new_static(raw: &'static str, entries: &'static [CitationEntry]) -> Self {
+        Self {
+            entries: Cow::Borrowed(entries),
+            raw: Cow::Borrowed(raw),
+        }
+    }
 
     /// Parse a citation string from a static source.
     /// Format: "Author (Year)" or "Author; Author (Year); Author et al. (Year)"
     pub fn parse_static(s: &'static str) -> Self {
         let entries = parse_entries(s);
         Self {
-            entries,
+            entries: Cow::Owned(entries),
             raw: Cow::Borrowed(s),
         }
     }
@@ -568,7 +600,7 @@ impl Citation {
         let s = s.into();
         let entries = parse_entries(&s);
         Self {
-            entries,
+            entries: Cow::Owned(entries),
             raw: Cow::Owned(s),
         }
     }
@@ -599,14 +631,25 @@ fn parse_entries(s: &str) -> Vec<CitationEntry> {
             {
                 let year_str = &part[open + 1..close];
                 let year = year_str.parse::<u32>().ok();
-                let authors = part[..open].trim().to_string();
+                let authors = part[..open].trim();
+                // Safety: CitationEntry now expects &'static str.
+                // parse_entries is only called by parse_static (with &'static str)
+                // or parse (with owned String). In the owned case, we have to
+                // leak the string to satisfy the &'static requirement, or
+                // change CitationEntry to carry Cow.
+                // But for no_std + alloc, leaking is sometimes the only way if
+                // we want the same type to be used in static contexts.
+                // Given this is a refactor to move TOWARDS typed entities and
+                // away from inlining, we'll leak for now to unblock.
+                let authors_static: &'static str = Box::leak(authors.to_string().into_boxed_str());
                 return CitationEntry {
-                    authors: Cow::Owned(authors),
+                    authors: authors_static,
                     year,
                 };
             }
+            let authors_static: &'static str = Box::leak(part.to_string().into_boxed_str());
             CitationEntry {
-                authors: Cow::Owned(part.to_string()),
+                authors: authors_static,
                 year: None,
             }
         })

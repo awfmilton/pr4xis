@@ -11,6 +11,7 @@ pub mod logic;
 pub mod ontology;
 
 pub use pr4xis_derive::ontology;
+pub use pr4xis_derive::parse_citation;
 
 // Re-export linkme/paste so downstream macros can refer to them
 // without requiring crates to add these dependencies directly.

@@ -808,12 +808,14 @@ pub fn generate(def: OntologyDef) -> TokenStream {
                     }
 
                     fn meta(&self) -> #pr4xis::ontology::meta::RelationshipMeta {
-                        #pr4xis::ontology::meta::RelationshipMeta {
-                            name: #pr4xis::ontology::meta::OntologyName::new_static(#name_str_lit),
-                            description: #pr4xis::ontology::meta::Label::new_static(#description),
-                            citation: #pr4xis::ontology::meta::Citation::parse_static(#source),
-                            module_path: #pr4xis::ontology::meta::ModulePath::new_static(module_path!()),
-                        }
+                        static META: #pr4xis::ontology::meta::RelationshipMeta =
+                            #pr4xis::ontology::meta::RelationshipMeta::new_static(
+                                #name_str_lit,
+                                #description,
+                                #pr4xis::parse_citation!(#source),
+                                module_path!(),
+                            );
+                        META.clone()
                     }
                 }
             }
@@ -890,12 +892,14 @@ pub fn generate(def: OntologyDef) -> TokenStream {
             /// Structured metadata — unified Lemon+PROV-O record.
             /// Same shape as functors/adjunctions/nat-trans/axioms (issue #153).
             pub fn meta() -> #pr4xis::ontology::meta::RelationshipMeta {
-                #pr4xis::ontology::meta::RelationshipMeta {
-                    name: #pr4xis::ontology::meta::OntologyName::new_static(#name_lit),
-                    description: #pr4xis::ontology::meta::Label::new_static(#name_lit),
-                    citation: #pr4xis::ontology::meta::Citation::EMPTY,
-                    module_path: #pr4xis::ontology::meta::ModulePath::new_static(module_path!()),
-                }
+                static META: #pr4xis::ontology::meta::RelationshipMeta =
+                    #pr4xis::ontology::meta::RelationshipMeta::new_static(
+                        #name_lit,
+                        #name_lit,
+                        #pr4xis::ontology::meta::Citation::EMPTY,
+                        module_path!(),
+                    );
+                META.clone()
             }
 
             #[allow(dead_code, unused_assignments)]

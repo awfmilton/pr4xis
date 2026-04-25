@@ -52,7 +52,7 @@ where
     }
 
     crate::relationship_meta!(
-        "TerminalFunctor",
+        TerminalFunctor,
         "constant functor collapsing source to a single target aspect",
         "Mac Lane (1971) Ch. II §1"
     );

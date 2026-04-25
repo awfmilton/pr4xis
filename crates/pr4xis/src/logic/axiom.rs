@@ -16,32 +16,61 @@ use alloc::{boxed::Box, format, string::String, string::ToString, vec, vec::Vec}
 /// impl Axiom for MyAxiom {
 ///     fn description(&self) -> &str { "..." }
 ///     fn holds(&self) -> bool { ... }
-///     pr4xis::axiom_meta!("MyAxiom", "Smith (1999) Journal of X");
+///     pr4xis::axiom_meta!(MyAxiom, "Smith (1999) Journal of X");
 /// }
 /// ```
 #[macro_export]
 macro_rules! axiom_meta {
-    // Three-argument form — name, description (English label), citation.
-    ($name:literal, $description:literal, $citation:literal) => {
+    // Three-argument form with kind — name, kind, description, citation.
+    ($name:ident [$kind:ident], $description:literal, $citation:literal) => {
         fn meta(&self) -> $crate::ontology::meta::RelationshipMeta {
-            $crate::ontology::meta::RelationshipMeta {
-                name: $crate::ontology::meta::OntologyName::new_static($name),
-                description: $crate::ontology::meta::Label::new_static($description),
-                citation: $crate::ontology::meta::Citation::parse_static($citation),
-                module_path: $crate::ontology::meta::ModulePath::new_static(module_path!()),
-            }
+            static META: $crate::ontology::meta::RelationshipMeta =
+                $crate::ontology::meta::RelationshipMeta::new_static(
+                    concat!(stringify!($name), "[", stringify!($kind), "]"),
+                    $description,
+                    $crate::parse_citation!($citation),
+                    module_path!(),
+                );
+            META.clone()
+        }
+    };
+    // Two-argument form with kind — name, kind, citation.
+    ($name:ident [$kind:ident], $citation:literal) => {
+        fn meta(&self) -> $crate::ontology::meta::RelationshipMeta {
+            static META: $crate::ontology::meta::RelationshipMeta =
+                $crate::ontology::meta::RelationshipMeta::new_static(
+                    concat!(stringify!($name), "[", stringify!($kind), "]"),
+                    concat!(stringify!($name), "[", stringify!($kind), "]"),
+                    $crate::parse_citation!($citation),
+                    module_path!(),
+                );
+            META.clone()
+        }
+    };
+    // Three-argument form — name, description (English label), citation.
+    ($name:ident, $description:literal, $citation:literal) => {
+        fn meta(&self) -> $crate::ontology::meta::RelationshipMeta {
+            static META: $crate::ontology::meta::RelationshipMeta =
+                $crate::ontology::meta::RelationshipMeta::new_static(
+                    stringify!($name),
+                    $description,
+                    $crate::parse_citation!($citation),
+                    module_path!(),
+                );
+            META.clone()
         }
     };
     // Two-argument form — name + citation, description defaults to name.
-    // Convenience for axioms where the struct name is itself the English label.
-    ($name:literal, $citation:literal) => {
+    ($name:ident, $citation:literal) => {
         fn meta(&self) -> $crate::ontology::meta::RelationshipMeta {
-            $crate::ontology::meta::RelationshipMeta {
-                name: $crate::ontology::meta::OntologyName::new_static($name),
-                description: $crate::ontology::meta::Label::new_static($name),
-                citation: $crate::ontology::meta::Citation::parse_static($citation),
-                module_path: $crate::ontology::meta::ModulePath::new_static(module_path!()),
-            }
+            static META: $crate::ontology::meta::RelationshipMeta =
+                $crate::ontology::meta::RelationshipMeta::new_static(
+                    stringify!($name),
+                    stringify!($name),
+                    $crate::parse_citation!($citation),
+                    module_path!(),
+                );
+            META.clone()
         }
     };
 }

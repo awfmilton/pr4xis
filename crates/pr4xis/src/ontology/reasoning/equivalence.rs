@@ -194,7 +194,7 @@ impl<T: EquivalenceDef> crate::logic::Axiom for Symmetric<T> {
     }
 
     crate::axiom_meta!(
-        "Symmetric[Equivalence]",
+        Symmetric[Equivalence],
         "equivalence is symmetric: if A ≡ B then B ≡ A",
         "Standard equivalence-relation axioms (reflexive, symmetric, transitive); Mac Lane (1971) Ch. I"
     );
@@ -230,7 +230,7 @@ impl<T: EquivalenceDef> crate::logic::Axiom for NoSelfEquivalence<T> {
     }
 
     crate::axiom_meta!(
-        "NoSelfEquivalence[Equivalence]",
+        NoSelfEquivalence[Equivalence],
         "no entity is declared equivalent to itself (reflexivity is implicit via identity morphisms)",
         "Mac Lane (1971) — explicit self-pairs are redundant given identity morphisms"
     );
