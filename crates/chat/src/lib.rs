@@ -718,6 +718,7 @@ pub fn extract_entity_name(sem: &montague::Sem) -> String {
         montague::Sem::Prop { predicate, .. } | montague::Sem::Question { predicate, .. } => {
             predicate.clone()
         }
+        montague::Sem::Op { word } => word.clone(),
     }
 }
 

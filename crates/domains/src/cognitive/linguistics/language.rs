@@ -367,6 +367,15 @@ pub fn lexical_entry_to_pregroup(entry: &LexicalEntry) -> PregroupType {
             ])
         }
         LexicalEntry::Numeral(_) => pregroup::svo::determiner(),
+        LexicalEntry::Operator(_) => {
+            // (np^r · s)^r · np^r · s (like adverb but infix)
+            // Simplified: s · s^l · s^l
+            PregroupType::new(vec![
+                pregroup::PregroupElement::basic(pregroup::BasicType::S),
+                pregroup::PregroupElement::left_adj(pregroup::BasicType::S),
+                pregroup::PregroupElement::left_adj(pregroup::BasicType::S),
+            ])
+        }
     }
 }
 
@@ -626,6 +635,22 @@ fn build_english_function_words_embedded() -> HashMap<String, Vec<LexicalEntry>>
         }));
     }
 
+    // Interrogative Determiners (for "what dog", "which mammal")
+    for text in ["what", "which"] {
+        add(LexicalEntry::Determiner(Determiner {
+            text: text.into(),
+            definiteness: Definiteness::Indefinite,
+            number: None,
+        }));
+    }
+
+    // Interrogative Adverbs (OLiA: InterrogativeAdverb)
+    for text in ["how", "where", "why", "when"] {
+        add(LexicalEntry::Adverb(Adverb {
+            text: text.into(),
+        }));
+    }
+
     // ---- Prepositions (OLiA: Preposition) ----
     for text in [
         "in", "on", "at", "with", "to", "from", "by", "for", "of", "about", "into", "through",
@@ -644,6 +669,13 @@ fn build_english_function_words_embedded() -> HashMap<String, Vec<LexicalEntry>>
     // ---- Particles (OLiA: Particle) ----
     for text in ["not", "to"] {
         add(LexicalEntry::Particle(Particle { text: text.into() }));
+    }
+
+    // ---- Operators (OLiA: Operator) ----
+    for text in ["+", "-", "*", "/", "=", "<", ">", "%", "^"] {
+        add(LexicalEntry::Operator(Operator {
+            text: text.into(),
+        }));
     }
 
     // ---- Interjections (OLiA: Interjection) — classified by function ----

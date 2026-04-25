@@ -193,6 +193,12 @@ pub struct Numeral {
     pub text: String,
 }
 
+/// A mathematical operator: "+", "-", "*", "/", "=", "<", ">".
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub struct Operator {
+    pub text: String,
+}
+
 /// A lexical entry — a word with its full part-of-speech structure.
 /// Each variant carries the rich type for that part of speech.
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
@@ -210,6 +216,7 @@ pub enum LexicalEntry {
     Interjection(Interjection),
     Particle(Particle),
     Numeral(Numeral),
+    Operator(Operator),
 }
 
 impl LexicalEntry {
@@ -228,6 +235,7 @@ impl LexicalEntry {
             Self::Interjection(i) => &i.text,
             Self::Particle(p) => &p.text,
             Self::Numeral(n) => &n.text,
+            Self::Operator(o) => &o.text,
         }
     }
 
@@ -271,11 +279,13 @@ impl LexicalEntry {
         }
     }
 
-    /// Is this an interrogative pronoun?
-    /// Determined by the OLiA classification, not by the word itself.
+    /// Is this an interrogative word?
+    /// Determined by the OLiA classification or common wh-words.
     pub fn is_interrogative(&self) -> bool {
         match self {
             Self::Pronoun(p) => p.kind == PronounKind::Interrogative,
+            Self::Adverb(a) => matches!(a.text.as_str(), "how" | "where" | "why" | "when"),
+            Self::Determiner(d) => matches!(d.text.as_str(), "what" | "which"),
             _ => false,
         }
     }
@@ -295,6 +305,7 @@ impl LexicalEntry {
             Self::Interjection(_) => PosTag::Interjection,
             Self::Particle(_) => PosTag::Particle,
             Self::Numeral(_) => PosTag::Numeral,
+            Self::Operator(_) => PosTag::Operator,
         }
     }
 }
@@ -326,6 +337,8 @@ pub enum PosTag {
     Particle,
     /// OLiA: Numeral — number words ("one", "two", "first").
     Numeral,
+    /// OLiA: Operator — mathematical and logical operators ("+", "-", "=", ">").
+    Operator,
 }
 
 impl PosTag {

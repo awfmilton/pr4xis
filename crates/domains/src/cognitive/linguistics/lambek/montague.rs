@@ -36,6 +36,8 @@ pub enum Sem {
     },
     /// Predicate domain (N): a property that can be true of entities.
     Pred { word: String },
+    /// Operator domain (Operator): a mathematical or logical operation.
+    Op { word: String },
     /// Proposition domain (S): a complete truth-evaluable statement.
     Prop {
         predicate: String,
@@ -55,6 +57,7 @@ impl Sem {
         match self {
             Sem::Concept { word, .. } => word.clone(),
             Sem::Pred { word } => format!("λx.{}(x)", word),
+            Sem::Op { word } => word.clone(),
             Sem::Prop {
                 predicate,
                 arguments,
@@ -99,10 +102,17 @@ fn lex(word: &str, ty: &LambekType, en: &English) -> Sem {
         LambekType::Atom(super::types::AtomicType::N) => Sem::Pred { word: word.into() },
         // A/B or A\B → Function domain
         // The function takes a B-domain value and produces an A-domain value
-        LambekType::RightDiv(_, _) | LambekType::LeftDiv(_, _) => Sem::Func {
-            word: word.into(),
-            body: Box::new(Sem::Pred { word: word.into() }),
-        },
+        LambekType::RightDiv(_, _) | LambekType::LeftDiv(_, _) => {
+            // Handle Operators separately in the lexicon mapping
+            if word == "+" || word == "-" || word == "*" || word == "/" || word == "=" {
+                Sem::Op { word: word.into() }
+            } else {
+                Sem::Func {
+                    word: word.into(),
+                    body: Box::new(Sem::Pred { word: word.into() }),
+                }
+            }
+        }
         // S or other atoms — predicate as default
         _ => Sem::Pred { word: word.into() },
     }
@@ -156,6 +166,15 @@ pub fn interpret(tokens: &[TypedToken], en: &English) -> Sem {
 /// When types reduce via A/B + B → A, the semantics is f(x).
 /// The result domain is determined by the result type.
 fn apply(func: &Sem, arg: &Sem, result_type: &LambekType) -> Sem {
+    // Special case: infix operators (N\N)/N
+    // If func is Op or a partial Op, build a Prop/Question
+    if let Sem::Op { word } = func {
+        return Sem::Func {
+            word: word.clone(),
+            body: Box::new(arg.clone()),
+        };
+    }
+
     match result_type {
         // Result is S (any feature) — check if question or proposition
         LambekType::Atom(super::types::AtomicType::S(feature)) => {
@@ -185,6 +204,15 @@ fn apply(func: &Sem, arg: &Sem, result_type: &LambekType) -> Sem {
         },
         // Result is N (predicate) — modifier applied to predicate
         LambekType::Atom(super::types::AtomicType::N) => {
+            if let Sem::Func { word, body } = func {
+                 // Check if it's a partial operator (e.g., "+ 2")
+                 // Type is N\N, applied to N
+                 return Sem::Prop {
+                     predicate: word.clone(),
+                     arguments: vec![*body.clone(), arg.clone()],
+                 };
+            }
+
             let func_word = extract_word(func);
             let arg_word = extract_word(arg);
             Sem::Pred {
@@ -206,6 +234,7 @@ fn apply(func: &Sem, arg: &Sem, result_type: &LambekType) -> Sem {
 fn extract_predicate(sem: &Sem) -> String {
     match sem {
         Sem::Pred { word } => word.clone(),
+        Sem::Op { word } => word.clone(),
         Sem::Func { word, .. } => word.clone(),
         Sem::Concept { word, .. } => word.clone(),
         Sem::Prop { predicate, .. } | Sem::Question { predicate, .. } => predicate.clone(),
@@ -215,6 +244,7 @@ fn extract_predicate(sem: &Sem) -> String {
 fn extract_word(sem: &Sem) -> String {
     match sem {
         Sem::Pred { word } => word.clone(),
+        Sem::Op { word } => word.clone(),
         Sem::Func { word, .. } => word.clone(),
         Sem::Concept { word, .. } => word.clone(),
         Sem::Prop { predicate, .. } | Sem::Question { predicate, .. } => predicate.clone(),

@@ -367,4 +367,15 @@ pub mod svo {
             LambekType::left_div(LambekType::np(), LambekType::s()),
         )
     }
+
+    /// Interrogative determiner: (S[wq]/(S\NP))/N — "what dog is big?"
+    /// Or simpler: NP[wq]/N — "what dog"
+    pub fn interrogative_determiner() -> LambekType {
+        LambekType::right_div(LambekType::np(), LambekType::n())
+    }
+
+    /// Infix operator (for math): (N\N)/N — "2 + 2"
+    pub fn infix_operator() -> LambekType {
+        LambekType::right_div(LambekType::left_div(LambekType::n(), LambekType::n()), LambekType::n())
+    }
 }

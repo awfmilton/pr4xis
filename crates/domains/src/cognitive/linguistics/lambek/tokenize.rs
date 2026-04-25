@@ -5,6 +5,7 @@ use super::reduce::TypedToken;
 use super::types::LambekType;
 use super::types::svo as svo_types;
 use crate::cognitive::linguistics::language::Language;
+use crate::cognitive::linguistics::lexicon::pos::LexicalEntry;
 use crate::cognitive::linguistics::lemon::lexicon::ConceptRef;
 use crate::cognitive::linguistics::orthography::distance;
 use crate::cognitive::linguistics::text::Token;
@@ -21,7 +22,7 @@ use pr4xis::category::entity::Concept;
 pub fn tokenize(text: &str, language: &dyn Language) -> Vec<TypedToken> {
     let cleaned = text
         .trim()
-        .trim_end_matches(|c: char| c.is_ascii_punctuation());
+        .trim_end_matches(|c: char| c.is_ascii_punctuation() && !is_math_operator(c));
 
     let words: Vec<&str> = cleaned.split_whitespace().collect();
 
@@ -29,7 +30,7 @@ pub fn tokenize(text: &str, language: &dyn Language) -> Vec<TypedToken> {
         .iter()
         .enumerate()
         .filter_map(|(i, word)| {
-            let word_clean = word.trim_matches(|c: char| c.is_ascii_punctuation());
+            let word_clean = word.trim_matches(|c: char| c.is_ascii_punctuation() && !is_math_operator(c));
             if word_clean.is_empty() {
                 return None;
             }
@@ -56,7 +57,7 @@ pub fn tokenize_with_alternatives(
 ) -> (Vec<TypedToken>, Vec<Vec<LambekType>>) {
     let cleaned = text
         .trim()
-        .trim_end_matches(|c: char| c.is_ascii_punctuation());
+        .trim_end_matches(|c: char| c.is_ascii_punctuation() && !is_math_operator(c));
 
     let words: Vec<&str> = cleaned.split_whitespace().collect();
 
@@ -64,7 +65,7 @@ pub fn tokenize_with_alternatives(
     let mut alternatives = Vec::new();
 
     for (i, word) in words.iter().enumerate() {
-        let word_clean = word.trim_matches(|c: char| c.is_ascii_punctuation());
+        let word_clean = word.trim_matches(|c: char| c.is_ascii_punctuation() && !is_math_operator(c));
         if word_clean.is_empty() {
             continue;
         }
@@ -104,7 +105,7 @@ pub fn tokenize_with_alternatives(
 pub fn tokenize_ontological(text: &str, language: &dyn Language) -> Vec<Token> {
     let cleaned = text
         .trim()
-        .trim_end_matches(|c: char| c.is_ascii_punctuation());
+        .trim_end_matches(|c: char| c.is_ascii_punctuation() && !is_math_operator(c));
 
     let words: Vec<&str> = cleaned.split_whitespace().collect();
 
@@ -112,7 +113,7 @@ pub fn tokenize_ontological(text: &str, language: &dyn Language) -> Vec<Token> {
         .iter()
         .enumerate()
         .filter_map(|(i, word)| {
-            let word_clean = word.trim_matches(|c: char| c.is_ascii_punctuation());
+            let word_clean = word.trim_matches(|c: char| c.is_ascii_punctuation() && !is_math_operator(c));
             if word_clean.is_empty() {
                 return None;
             }
@@ -167,9 +168,16 @@ fn assign_type(word: &str, position: usize, language: &dyn Language) -> LambekTy
             return svo_types::question_copula();
         }
 
-        // Interrogative pronouns at sentence start → wh-question type
-        if first.is_some_and(|e| e.is_interrogative()) {
-            return svo_types::wh_what();
+        // Interrogative words at sentence start → wh-question type
+        if let Some(e) = first {
+            if e.is_interrogative() {
+                // If it's a determiner like "what", check if it's followed by a noun
+                // "what dog" (interrogative determiner) vs "what is" (interrogative pronoun)
+                if matches!(e, LexicalEntry::Determiner(_)) {
+                    return svo_types::interrogative_determiner();
+                }
+                return svo_types::wh_what();
+            }
         }
     }
 
@@ -207,6 +215,12 @@ fn select_best_entry(
 /// Noisy channel adjunction: Observation → Correction → Intention.
 /// Given an unknown word, find the closest known word and use its type.
 fn try_spelling_correction(word: &str, language: &dyn Language) -> Option<LambekType> {
+    // Skip numeric strings and very short symbols — these shouldn't be "corrected"
+    // to function words (e.g., "2" should NOT become "a").
+    if word.chars().all(|c| c.is_numeric() || is_math_operator(c)) || word.len() < 2 {
+        return None;
+    }
+
     let known = language.known_words();
     let matches = distance::closest_matches(word, &known, 1);
     if let Some((corrected, _)) = matches.first()
@@ -215,6 +229,10 @@ fn try_spelling_correction(word: &str, language: &dyn Language) -> Option<Lambek
         return Some(pos_to_lambek(&entry));
     }
     None
+}
+
+fn is_math_operator(c: char) -> bool {
+    matches!(c, '+' | '-' | '*' | '/' | '=' | '<' | '>' | '%' | '^')
 }
 
 /// Post-processing: when copula is followed by adjective, reassign types.
@@ -251,5 +269,6 @@ fn pos_to_lambek(entry: &crate::cognitive::linguistics::lexicon::pos::LexicalEnt
         LexicalEntry::Auxiliary(_) => svo_types::intransitive_verb(),
         LexicalEntry::Interjection(_) => svo_types::noun(),
         LexicalEntry::Particle(_) => svo_types::adverb(),
+        LexicalEntry::Operator(_) => svo_types::infix_operator(),
     }
 }
