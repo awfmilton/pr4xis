@@ -84,6 +84,16 @@ register_manual!(
 );
 
 register_manual!(
+    ident: HTML,
+    category: crate::social::software::markup::html::ontology::HtmlCategory,
+    entity: crate::social::software::markup::html::ontology::HtmlNodeKind,
+    name: "HTML",
+    module: "pr4xis_domains::social::software::markup::html",
+    source: "WHATWG HTML Living Standard",
+    being: SocialObject,
+);
+
+register_manual!(
     ident: RDF,
     category: crate::social::software::markup::xml::rdf::ontology::RdfCategory,
     entity: crate::social::software::markup::xml::rdf::ontology::RdfNodeKind,
