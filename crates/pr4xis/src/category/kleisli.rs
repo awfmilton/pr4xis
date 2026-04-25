@@ -9,7 +9,7 @@ use super::relationship::Relationship;
 //   Composition: f >=> g = |a| f(a) >>= g (monadic composition)
 //   Identity: pure/return
 //
-// In pr4xis, Category::compose returns Option<Morphism>.
+// In pr4xis, Category::compose returns Option<C::Morphism>.
 // This IS the Kleisli category for the Maybe monad:
 //   Objects: Entity variants
 //   Morphisms: the morphisms that may or may not compose

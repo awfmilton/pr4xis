@@ -49,7 +49,7 @@ pub use kleisli::KleisliMorphism;
 pub use monad::Writer;
 pub use monoid::Monoid;
 pub use monoidal::{Coproduct, Product};
-pub use morphism::{Morphism, compose_all, direct_morphisms};
+pub use morphism::{BoundMorphism, compose_all, direct_morphisms};
 pub use op::{Op, OpMorphism};
 pub use optics::{Iso, Lens, Prism};
 #[doc(hidden)]

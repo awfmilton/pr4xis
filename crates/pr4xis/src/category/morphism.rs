@@ -7,16 +7,16 @@ use alloc::{boxed::Box, format, string::String, string::ToString, vec, vec::Vec}
 ///
 /// Wraps a raw relationship with its category context so you can write:
 /// ```ignore
-/// Morphism::of::<MyCat>(f)
+/// BoundMorphism::of::<MyCat>(f)
 ///     .then(&g)
 ///     .then(&h)
 /// ```
 #[derive(Debug, Clone)]
-pub struct Morphism<C: Category> {
+pub struct BoundMorphism<C: Category> {
     inner: C::Morphism,
 }
 
-impl<C: Category> Morphism<C> {
+impl<C: Category> BoundMorphism<C> {
     /// Wrap a relationship in its category context.
     pub fn of(m: C::Morphism) -> Self {
         Self { inner: m }
@@ -66,7 +66,7 @@ impl<C: Category> Morphism<C> {
     }
 }
 
-impl<C: Category> PartialEq for Morphism<C>
+impl<C: Category> PartialEq for BoundMorphism<C>
 where
     C::Morphism: PartialEq,
 {
@@ -75,7 +75,7 @@ where
     }
 }
 
-impl<C: Category> Eq for Morphism<C> where C::Morphism: Eq {}
+impl<C: Category> Eq for BoundMorphism<C> where C::Morphism: Eq {}
 
 /// Compose a sequence of morphisms left to right.
 ///
@@ -83,22 +83,23 @@ impl<C: Category> Eq for Morphism<C> where C::Morphism: Eq {}
 /// let path = compose_all::<MyCat>(&[f, g, h]);
 /// // equivalent to: f.then(g).then(h)
 /// ```
-pub fn compose_all<C: Category>(morphisms: &[C::Morphism]) -> Option<Morphism<C>>
+pub fn compose_all<C: Category>(morphisms: &[C::Morphism]) -> Option<BoundMorphism<C>>
 where
     C::Morphism: Clone,
 {
     let mut iter = morphisms.iter();
-    let first = Morphism::<C>::of(iter.next()?.clone());
+    let first = BoundMorphism::<C>::of(iter.next()?.clone());
     iter.try_fold(first, |acc, m| acc.then(m))
 }
 
 /// All direct morphisms from `start` to `end` (single-step, not multi-hop).
-pub fn direct_morphisms<C: Category>(start: &C::Object, end: &C::Object) -> Vec<C::Morphism>
+pub fn direct_morphisms<C: Category>(start: &C::Object, end: &C::Object) -> Vec<BoundMorphism<C>>
 where
     C::Object: PartialEq,
 {
     C::morphisms()
         .into_iter()
         .filter(|m| m.source() == *start && m.target() == *end)
+        .map(BoundMorphism::of)
         .collect()
 }
