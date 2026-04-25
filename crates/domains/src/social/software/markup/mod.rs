@@ -1,3 +1,5 @@
+#[cfg(feature = "codegen")]
+pub mod emit;
 pub mod ontology;
 pub mod xml;
 
