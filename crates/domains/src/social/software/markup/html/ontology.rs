@@ -151,8 +151,13 @@ impl Classified for HtmlCategory {
 /// An HTML node.
 #[derive(Debug, Clone, PartialEq)]
 pub enum HtmlNode {
+    /// A DOCTYPE declaration.
+    Doctype(String),
+    /// An HTML element.
     Element(HtmlElement),
+    /// Text content.
     Text(String),
+    /// A comment.
     Comment(String),
 }
 
@@ -168,6 +173,13 @@ impl HtmlNode {
     /// Convert to the generic markup representation.
     pub fn to_markup(&self) -> MarkupNode {
         match self {
+            Self::Doctype(content) => MarkupNode {
+                kind: crate::social::software::markup::NodeKind::ProcessingInstruction,
+                name: Some("DOCTYPE".into()),
+                value: Some(content.clone()),
+                attributes: Vec::new(),
+                children: Vec::new(),
+            },
             Self::Element(elem) => {
                 let attrs: Vec<(&str, &str)> = elem
                     .attributes
@@ -189,13 +201,21 @@ impl HtmlNode {
 /// An HTML document.
 #[derive(Debug, Clone, PartialEq)]
 pub struct HtmlDocument {
+    /// The DOCTYPE declaration (optional but standard).
+    pub doctype: Option<String>,
+    /// The root element (typically <html>).
     pub root: HtmlElement,
 }
 
 impl HtmlDocument {
     /// Convert to generic markup representation.
     pub fn to_markup(&self) -> MarkupNode {
-        MarkupNode::document(vec![HtmlNode::Element(self.root.clone()).to_markup()])
+        let mut children = Vec::new();
+        if let Some(dt) = &self.doctype {
+            children.push(HtmlNode::Doctype(dt.clone()).to_markup());
+        }
+        children.push(HtmlNode::Element(self.root.clone()).to_markup());
+        MarkupNode::document(children)
     }
 }
 
@@ -204,11 +224,18 @@ pub struct HtmlSingleRootElement;
 
 impl pr4xis::logic::Axiom for HtmlSingleRootElement {
     fn description(&self) -> &str {
-        "an HTML document must have exactly one root element (WHATWG HTML §13.1)"
+        "an HTML document must have exactly one root element, which must be the <html> element (WHATWG HTML §13.1)"
     }
 
     fn holds(&self) -> bool {
-        true // structural — enforced by HtmlDocument having exactly one root field
+        true // structural — the single-root rule is enforced by the HtmlDocument type
+    }
+}
+
+impl HtmlSingleRootElement {
+    /// Check if a specific document satisfies the root element requirement.
+    pub fn is_satisfied_by(&self, doc: &HtmlDocument) -> bool {
+        doc.root.tag == "html"
     }
 }
 pr4xis::register_axiom!(HtmlSingleRootElement);
