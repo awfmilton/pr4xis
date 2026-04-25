@@ -132,6 +132,49 @@ fn comment_is_preserved() {
     assert_eq!(node.value.as_deref(), Some("this is a comment"));
 }
 
+// =============================================================================
+// Emission tests
+// =============================================================================
+
+#[test]
+#[cfg(feature = "codegen")]
+fn html_emission() {
+    use super::emit::Html;
+    use pr4xis::codegen::Emit;
+
+    let doc = MarkupNode::document(vec![MarkupNode::element(
+        "html",
+        vec![],
+        vec![
+            MarkupNode::element(
+                "head",
+                vec![],
+                vec![MarkupNode::element(
+                    "title",
+                    vec![],
+                    vec![MarkupNode::text("Test Page")],
+                )],
+            ),
+            MarkupNode::element(
+                "body",
+                vec![("class", "main")],
+                vec![
+                    MarkupNode::element("h1", vec![], vec![MarkupNode::text("Hello World")]),
+                    MarkupNode::comment("section start"),
+                    MarkupNode::element(
+                        "p",
+                        vec![],
+                        vec![MarkupNode::text("This is a paragraph.")],
+                    ),
+                ],
+            ),
+        ],
+    )]);
+
+    let expected = "<html><head><title>Test Page</title></head><body class=\"main\"><h1>Hello World</h1><!--section start--><p>This is a paragraph.</p></body></html>";
+    assert_eq!(Emit::<Html>::emit(&doc), expected);
+}
+
 use pr4xis::category::Category;
 
 // =============================================================================

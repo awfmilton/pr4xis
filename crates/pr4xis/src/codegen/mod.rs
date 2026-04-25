@@ -1,8 +1,10 @@
 mod builder;
+pub mod emit;
 mod generate;
 pub mod wordnet;
 
 pub use builder::{EntityDef, GenerateConfig, OntologyBuilder};
+pub use emit::Emit;
 pub use generate::generate_rust;
 
 // Re-export CodegenData from the always-available module.
