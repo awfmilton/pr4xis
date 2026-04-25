@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "userContext": {
+    "projectType": "Other",
+    "description": "**pr4xis is a new kind of AI: axiomatic, not statistical.** Where LLMs predict the next token from training data, pr4xis derives the next claim from accepted axioms — the same way mathematicians prove theorems.\n\nAristotle named three kinds of knowing:\n\n- **episteme** — knowing how things are\n- **techne** — knowing how to make things\n- **praxis** — *the doing itself, done well*\n\npr4xis is the doing.\n\nThe mathematical foundation runs from G. Spencer-Brown's *Laws of Form* (1969) through Heim's syntrometric logic to contemporary applied category theory — see [Foundations](docs/understand/foundations.md) for the academic lineage. Every step in that chain is **verified at test time**, not asserted:",
+    "techStack": "",
+    "conventions": "",
+    "extraContext": ""
+  },
+  "files": {
+    "CLAUDE.md": {
+      "updatedAt": "2026-04-25T08:55:39.346Z",
+      "method": "claude",
+      "appVersion": "1.0.0"
+    },
+    "AGENTS.md": {
+      "updatedAt": "2026-04-25T08:55:39.346Z",
+      "method": "claude",
+      "appVersion": "1.0.0"
+    },
+    "PROJECT_BLUEPRINT.md": {
+      "updatedAt": "2026-04-25T08:55:39.346Z",
+      "method": "claude",
+      "appVersion": "1.0.0"
+    },
+    "TRIAGE_WORKFLOW.md": {
+      "updatedAt": "2026-04-25T08:55:39.346Z",
+      "method": "built",
+      "appVersion": "1.0.0"
+    },
+    "AI CLI Reference Guide.md": {
+      "updatedAt": "2026-04-25T08:55:39.346Z",
+      "method": "copy",
+      "appVersion": "1.0.0"
+    }
+  }
+}
