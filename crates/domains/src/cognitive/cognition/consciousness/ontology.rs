@@ -129,9 +129,6 @@ impl Quality for C2Dimension {
 pub struct AttentionCausesAccess;
 
 impl Axiom for AttentionCausesAccess {
-    fn description(&self) -> &str {
-        "Attention selects ConsciousAccess (Baars 1988)"
-    }
     fn holds(&self) -> bool {
         C1Category::morphisms().iter().any(|r| {
             r.from == C1Concept::Attention
@@ -150,9 +147,6 @@ pr4xis::register_axiom!(
 pub struct HigherOrderRepresentsFirst;
 
 impl Axiom for HigherOrderRepresentsFirst {
-    fn description(&self) -> &str {
-        "HigherOrderRepresentation represents FirstOrderState (Rosenthal 2005)"
-    }
     fn holds(&self) -> bool {
         C2Category::morphisms().iter().any(|r| {
             r.from == C2Concept::HigherOrderRepresentation

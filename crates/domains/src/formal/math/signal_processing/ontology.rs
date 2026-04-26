@@ -58,9 +58,6 @@ impl Quality for ConceptDescription {
 pub struct NyquistTheorem;
 
 impl Axiom for NyquistTheorem {
-    fn description(&self) -> &str {
-        "Nyquist theorem: sampling at f_s >= 2*bandwidth preserves signal information"
-    }
 
     fn holds(&self) -> bool {
         let bandwidths = [1.0, 100.0, 22050.0, 1e6];
@@ -82,9 +79,6 @@ pr4xis::register_axiom!(NyquistTheorem, "Shannon (1949), Nyquist (1928).");
 pub struct AliasingOccursBelowNyquist;
 
 impl Axiom for AliasingOccursBelowNyquist {
-    fn description(&self) -> &str {
-        "aliasing occurs when sample rate < 2 * bandwidth (below Nyquist rate)"
-    }
 
     fn holds(&self) -> bool {
         let bandwidths = [100.0, 1000.0, 22050.0];
@@ -106,9 +100,6 @@ pr4xis::register_axiom!(
 pub struct BandwidthPositive;
 
 impl Axiom for BandwidthPositive {
-    fn description(&self) -> &str {
-        "bandwidth is positive, therefore Nyquist rate is positive"
-    }
 
     fn holds(&self) -> bool {
         let bandwidths = [0.001, 1.0, 100.0, 1e9];

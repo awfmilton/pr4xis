@@ -102,9 +102,6 @@ impl Quality for IsProprioceptive {
 pub struct AccelerometerIsSensor;
 
 impl Axiom for AccelerometerIsSensor {
-    fn description(&self) -> &str {
-        "Accelerometer is-a Sensor (transitive via ProprioceptiveSensor)"
-    }
     fn holds(&self) -> bool {
         taxonomy::is_a::<SensorTaxonomy>(&SensorType::Accelerometer, &SensorType::Sensor)
     }
@@ -114,9 +111,6 @@ pr4xis::register_axiom!(AccelerometerIsSensor);
 pub struct ImuComposition;
 
 impl Axiom for ImuComposition {
-    fn description(&self) -> &str {
-        "IMU has-a Accelerometer and has-a Gyroscope"
-    }
     fn holds(&self) -> bool {
         let parts = parts_of(SensorType::IMU);
         parts.contains(&SensorType::Accelerometer) && parts.contains(&SensorType::Gyroscope)
@@ -127,9 +121,6 @@ pr4xis::register_axiom!(ImuComposition);
 pub struct RadarDualClassification;
 
 impl Axiom for RadarDualClassification {
-    fn description(&self) -> &str {
-        "Radar is-a ExteroceptiveSensor AND is-a ActiveSensor"
-    }
     fn holds(&self) -> bool {
         taxonomy::is_a::<SensorTaxonomy>(&SensorType::Radar, &SensorType::ExteroceptiveSensor)
             && taxonomy::is_a::<SensorTaxonomy>(&SensorType::Radar, &SensorType::ActiveSensor)
@@ -140,9 +131,6 @@ pr4xis::register_axiom!(RadarDualClassification);
 pub struct CameraIsPassive;
 
 impl Axiom for CameraIsPassive {
-    fn description(&self) -> &str {
-        "Camera is-a PassiveSensor and is NOT ActiveSensor"
-    }
     fn holds(&self) -> bool {
         taxonomy::is_a::<SensorTaxonomy>(&SensorType::Camera, &SensorType::PassiveSensor)
             && !taxonomy::is_a::<SensorTaxonomy>(&SensorType::Camera, &SensorType::ActiveSensor)

@@ -176,9 +176,6 @@ impl<T: EquivalenceDef> Default for Symmetric<T> {
 }
 
 impl<T: EquivalenceDef> crate::logic::Axiom for Symmetric<T> {
-    fn description(&self) -> &str {
-        "equivalence is symmetric: if A ≡ B then B ≡ A"
-    }
 
     fn holds(&self) -> bool {
         // Always true by construction (symmetric_adj), but we verify
@@ -193,12 +190,16 @@ impl<T: EquivalenceDef> crate::logic::Axiom for Symmetric<T> {
         true
     }
 
-    crate::axiom_meta!(
-        "Symmetric[Equivalence]",
-        "equivalence is symmetric: if A ≡ B then B ≡ A",
-        "Standard equivalence-relation axioms (reflexive, symmetric, transitive); Mac Lane (1971) Ch. I"
-    );
+    crate::axiom_meta!("Symmetric[Equivalence]");
 }
+
+crate::register_lexicon!(
+    Symmetric_Equivalence,
+    "Symmetric[Equivalence]",
+    "Symmetric[Equivalence]",
+    "equivalence is symmetric: if A ≡ B then B ≡ A",
+    "Standard equivalence-relation axioms (reflexive, symmetric, transitive); Mac Lane (1971) Ch. I"
+);
 
 /// Axiom: no entity is equivalent to itself in the declared pairs.
 /// (Reflexivity comes from identity morphisms, not from explicit declarations.)
@@ -221,17 +222,18 @@ impl<T: EquivalenceDef> Default for NoSelfEquivalence<T> {
 }
 
 impl<T: EquivalenceDef> crate::logic::Axiom for NoSelfEquivalence<T> {
-    fn description(&self) -> &str {
-        "no entity is declared equivalent to itself (reflexivity is implicit)"
-    }
 
     fn holds(&self) -> bool {
         T::pairs().iter().all(|(a, b)| a != b)
     }
 
-    crate::axiom_meta!(
-        "NoSelfEquivalence[Equivalence]",
-        "no entity is declared equivalent to itself (reflexivity is implicit via identity morphisms)",
-        "Mac Lane (1971) — explicit self-pairs are redundant given identity morphisms"
-    );
+    crate::axiom_meta!("NoSelfEquivalence[Equivalence]");
 }
+
+crate::register_lexicon!(
+    NoSelfEquivalence_Equivalence,
+    "NoSelfEquivalence[Equivalence]",
+    "NoSelfEquivalence[Equivalence]",
+    "no entity is declared equivalent to itself (reflexivity is implicit via identity morphisms)",
+    "Mac Lane (1971) — explicit self-pairs are redundant given identity morphisms"
+);

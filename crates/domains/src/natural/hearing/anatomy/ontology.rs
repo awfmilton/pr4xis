@@ -208,9 +208,6 @@ impl Quality for CharacteristicFrequency {
 
 pub struct ThreeOssicles;
 impl Axiom for ThreeOssicles {
-    fn description(&self) -> &str {
-        "malleus, incus, and stapes are ossicles"
-    }
     fn holds(&self) -> bool {
         use AuditoryEntity::*;
         taxonomy::is_a::<AuditoryTaxonomy>(&Malleus, &Ossicle)
@@ -222,9 +219,6 @@ pr4xis::register_axiom!(ThreeOssicles);
 
 pub struct CochleaContainsHairCells;
 impl Axiom for CochleaContainsHairCells {
-    fn description(&self) -> &str {
-        "cochlea transitively contains both inner and outer hair cells"
-    }
     fn holds(&self) -> bool {
         use AuditoryEntity::*;
         let parts = mereology::parts_of::<AuditoryMereology>(&Cochlea);
@@ -235,9 +229,6 @@ pr4xis::register_axiom!(CochleaContainsHairCells);
 
 pub struct EarContainsHairCells;
 impl Axiom for EarContainsHairCells {
-    fn description(&self) -> &str {
-        "ear transitively contains inner and outer hair cells"
-    }
     fn holds(&self) -> bool {
         use AuditoryEntity::*;
         let parts = mereology::parts_of::<AuditoryMereology>(&Ear);
@@ -248,9 +239,6 @@ pr4xis::register_axiom!(EarContainsHairCells);
 
 pub struct CochleaHasThreeScalae;
 impl Axiom for CochleaHasThreeScalae {
-    fn description(&self) -> &str {
-        "cochlea contains scala vestibuli, scala media, and scala tympani"
-    }
     fn holds(&self) -> bool {
         use AuditoryEntity::*;
         let parts = mereology::parts_of::<AuditoryMereology>(&Cochlea);
@@ -263,9 +251,6 @@ pr4xis::register_axiom!(CochleaHasThreeScalae);
 
 pub struct AllRegionsRepresented;
 impl Axiom for AllRegionsRepresented {
-    fn description(&self) -> &str {
-        "all four non-abstract anatomical regions are represented"
-    }
     fn holds(&self) -> bool {
         use AnatomicalRegion::*;
         let quality = RegionQuality;
@@ -280,9 +265,6 @@ pr4xis::register_axiom!(AllRegionsRepresented);
 
 pub struct HairCellsAreMechanicallyActive;
 impl Axiom for HairCellsAreMechanicallyActive {
-    fn description(&self) -> &str {
-        "both inner and outer hair cells are mechanically active"
-    }
     fn holds(&self) -> bool {
         use AuditoryEntity::*;
         IsMechanicallyActive.get(&InnerHairCell) == Some(true)

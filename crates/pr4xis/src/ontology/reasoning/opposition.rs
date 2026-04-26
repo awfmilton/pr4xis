@@ -70,9 +70,6 @@ impl<T: OppositionDef> Default for Symmetric<T> {
 }
 
 impl<T: OppositionDef> crate::logic::Axiom for Symmetric<T> {
-    fn description(&self) -> &str {
-        "opposition is symmetric: if A opposes B then B opposes A"
-    }
 
     fn holds(&self) -> bool {
         for (a, b) in &T::pairs() {
@@ -83,12 +80,16 @@ impl<T: OppositionDef> crate::logic::Axiom for Symmetric<T> {
         true
     }
 
-    crate::axiom_meta!(
-        "Symmetric[Opposition]",
-        "opposition is symmetric: if A opposes B then B opposes A",
-        "Aristotle 'Peri Hermeneias' — Square of Opposition"
-    );
+    crate::axiom_meta!("Symmetric[Opposition]");
 }
+
+crate::register_lexicon!(
+    Symmetric_Opposition,
+    "Symmetric[Opposition]",
+    "Symmetric[Opposition]",
+    "opposition is symmetric: if A opposes B then B opposes A",
+    "Aristotle 'Peri Hermeneias' — Square of Opposition"
+);
 
 /// Axiom: opposition is irreflexive — nothing opposes itself.
 pub struct Irreflexive<T: OppositionDef> {
@@ -110,20 +111,21 @@ impl<T: OppositionDef> Default for Irreflexive<T> {
 }
 
 impl<T: OppositionDef> crate::logic::Axiom for Irreflexive<T> {
-    fn description(&self) -> &str {
-        "opposition is irreflexive: nothing opposes itself"
-    }
 
     fn holds(&self) -> bool {
         T::pairs().iter().all(|(a, b)| a != b)
     }
 
-    crate::axiom_meta!(
-        "Irreflexive[Opposition]",
-        "opposition is irreflexive: nothing opposes itself",
-        "Aristotle 'Peri Hermeneias' — an entity is not the opposite of itself"
-    );
+    crate::axiom_meta!("Irreflexive[Opposition]");
 }
+
+crate::register_lexicon!(
+    Irreflexive_Opposition,
+    "Irreflexive[Opposition]",
+    "Irreflexive[Opposition]",
+    "opposition is irreflexive: nothing opposes itself",
+    "Aristotle 'Peri Hermeneias' — an entity is not the opposite of itself"
+);
 
 /// Axiom: opposition is exclusive with equivalence — if A opposes B,
 /// then A and B must not be in the same equivalence class.
@@ -147,9 +149,6 @@ impl<T: OppositionDef, F: Fn(&T::Concept, &T::Concept) -> bool> ExclusiveWithEqu
 impl<T: OppositionDef, F: Fn(&T::Concept, &T::Concept) -> bool> crate::logic::Axiom
     for ExclusiveWithEquivalence<T, F>
 {
-    fn description(&self) -> &str {
-        "opposites cannot be equivalent (A opposes B implies A ≢ B)"
-    }
 
     fn holds(&self) -> bool {
         for (a, b) in &T::pairs() {
@@ -160,9 +159,13 @@ impl<T: OppositionDef, F: Fn(&T::Concept, &T::Concept) -> bool> crate::logic::Ax
         true
     }
 
-    crate::axiom_meta!(
-        "ExclusiveWithEquivalence[Opposition]",
-        "opposites cannot be equivalent (A opposes B implies A ≢ B)",
-        "Aristotle 'Peri Hermeneias' — opposition excludes equivalence"
-    );
+    crate::axiom_meta!("ExclusiveWithEquivalence[Opposition]");
 }
+
+crate::register_lexicon!(
+    ExclusiveWithEquivalence_Opposition,
+    "ExclusiveWithEquivalence[Opposition]",
+    "ExclusiveWithEquivalence[Opposition]",
+    "opposites cannot be equivalent (A opposes B implies A ≢ B)",
+    "Aristotle 'Peri Hermeneias' — opposition excludes equivalence"
+);

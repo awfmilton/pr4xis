@@ -44,9 +44,6 @@ impl Quality for MeasuredQuantity {
 pub struct DepthNonNegative;
 
 impl Axiom for DepthNonNegative {
-    fn description(&self) -> &str {
-        "depth measurements are non-negative (at or below the surface)"
-    }
     fn holds(&self) -> bool {
         true
     }
@@ -60,9 +57,6 @@ pr4xis::register_axiom!(
 pub struct DvlRequiresBottomLock;
 
 impl Axiom for DvlRequiresBottomLock {
-    fn description(&self) -> &str {
-        "DVL velocity measurement requires bottom lock (finite altitude above seabed)"
-    }
     fn holds(&self) -> bool {
         true
     }

@@ -107,9 +107,6 @@ impl Present for SelfModelInstance {
 pub struct KnowledgeBaseIsNonEmpty;
 
 impl Axiom for KnowledgeBaseIsNonEmpty {
-    fn description(&self) -> &str {
-        "describe_knowledge_base() returns at least one registered Vocabulary"
-    }
     fn holds(&self) -> bool {
         !describe_knowledge_base().is_empty()
     }
@@ -122,9 +119,6 @@ pr4xis::register_axiom!(KnowledgeBaseIsNonEmpty);
 pub struct SelfModelIsRegistered;
 
 impl Axiom for SelfModelIsRegistered {
-    fn description(&self) -> &str {
-        "SelfModelOntology is registered in the knowledge base"
-    }
     fn holds(&self) -> bool {
         describe_knowledge_base()
             .iter()
@@ -138,9 +132,6 @@ pr4xis::register_axiom!(SelfModelIsRegistered);
 pub struct KnowledgeIsRegistered;
 
 impl Axiom for KnowledgeIsRegistered {
-    fn description(&self) -> &str {
-        "KnowledgeOntology is registered in the knowledge base"
-    }
     fn holds(&self) -> bool {
         describe_knowledge_base()
             .iter()

@@ -151,9 +151,6 @@ impl Quality for MainlobeBandwidth {
 
 pub struct RectangularNarrowestMainlobe;
 impl Axiom for RectangularNarrowestMainlobe {
-    fn description(&self) -> &str {
-        "rectangular window has narrowest mainlobe bandwidth"
-    }
     fn holds(&self) -> bool {
         use SignalEntity::*;
         let r = MainlobeBandwidth.get(&RectangularWindow).unwrap();
@@ -165,9 +162,6 @@ impl Axiom for RectangularNarrowestMainlobe {
 pr4xis::register_axiom!(RectangularNarrowestMainlobe);
 pub struct SpectrogramContainsDomains;
 impl Axiom for SpectrogramContainsDomains {
-    fn description(&self) -> &str {
-        "spectrogram contains time and frequency domain components"
-    }
     fn holds(&self) -> bool {
         use SignalEntity::*;
         let parts = mereology::parts_of::<SignalMereology>(&Spectrogram);
@@ -179,9 +173,6 @@ impl Axiom for SpectrogramContainsDomains {
 pr4xis::register_axiom!(SpectrogramContainsDomains);
 pub struct FFTSubsumption;
 impl Axiom for FFTSubsumption {
-    fn description(&self) -> &str {
-        "FFT is-a FourierTransform is-a Transform"
-    }
     fn holds(&self) -> bool {
         use SignalEntity::*;
         taxonomy::is_a::<SignalTaxonomy>(&FFT, &FourierTransform)
@@ -192,9 +183,6 @@ impl Axiom for FFTSubsumption {
 pr4xis::register_axiom!(FFTSubsumption);
 pub struct DomainsOpposed;
 impl Axiom for DomainsOpposed {
-    fn description(&self) -> &str {
-        "time and frequency domains are opposed"
-    }
     fn holds(&self) -> bool {
         opposition::are_opposed::<SignalOpposition>(
             &SignalEntity::TimeDomain,
@@ -205,9 +193,6 @@ impl Axiom for DomainsOpposed {
 pr4xis::register_axiom!(DomainsOpposed);
 pub struct BlackmanBestSidelobes;
 impl Axiom for BlackmanBestSidelobes {
-    fn description(&self) -> &str {
-        "Blackman window has lowest sidelobes"
-    }
     fn holds(&self) -> bool {
         use SignalEntity::*;
         let s = SidelobeLevel;
@@ -218,9 +203,6 @@ impl Axiom for BlackmanBestSidelobes {
 pr4xis::register_axiom!(BlackmanBestSidelobes);
 pub struct GammatoneIsBandpass;
 impl Axiom for GammatoneIsBandpass {
-    fn description(&self) -> &str {
-        "gammatone filter is-a bandpass filter"
-    }
     fn holds(&self) -> bool {
         taxonomy::is_a::<SignalTaxonomy>(
             &SignalEntity::GammatoneFilter,
@@ -231,9 +213,6 @@ impl Axiom for GammatoneIsBandpass {
 pr4xis::register_axiom!(GammatoneIsBandpass);
 pub struct RawSignalCausesClassification;
 impl Axiom for RawSignalCausesClassification {
-    fn description(&self) -> &str {
-        "raw signal transitively causes pattern classification"
-    }
     fn holds(&self) -> bool {
         use SignalCausalEvent::*;
         causation::effects_of::<SignalCausalGraph>(&RawSignal).contains(&PatternClassification)

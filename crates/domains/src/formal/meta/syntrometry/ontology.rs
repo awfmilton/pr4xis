@@ -221,8 +221,6 @@ fn direct_parts_of(whole: SyntrometryConcept) -> Vec<SyntrometryConcept> {
 pub struct AspectIsTripleProduct;
 
 impl Axiom for AspectIsTripleProduct {
-    fn description(&self) -> &str {
-        "Aspect mereologically contains {Dialectic, Coordination, PredicateMatrix} (Heim §1)"
     }
     fn holds(&self) -> bool {
         let parts = direct_parts_of(SyntrometryConcept::Aspect);
@@ -244,9 +242,6 @@ pr4xis::register_axiom!(
 pub struct SyncolatorIsComposer;
 
 impl Axiom for SyncolatorIsComposer {
-    fn description(&self) -> &str {
-        "Syncolator is-a Composer (endofunctor specialises functor)"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::taxonomy::TaxonomyDef;
         SyntrometryTaxonomy::relations().iter().any(|(c, p)| {
@@ -264,9 +259,6 @@ pr4xis::register_axiom!(
 pub struct SyntrixIsLeveled;
 
 impl Axiom for SyntrixIsLeveled {
-    fn description(&self) -> &str {
-        "Syntrix carries LevelOf and InhabitsLevelOf edges from SyntrixLevel and Aspect"
-    }
     fn holds(&self) -> bool {
         use SyntrometryConcept as S;
         use SyntrometryRelationKind as K;
@@ -289,8 +281,6 @@ pr4xis::register_axiom!(
 pub struct MetroplexContainsSyntrixAndLevels;
 
 impl Axiom for MetroplexContainsSyntrixAndLevels {
-    fn description(&self) -> &str {
-        "Metroplex contains {Syntrix, TranscendenceLevel} (Heim Metroplextheorie)"
     }
     fn holds(&self) -> bool {
         let parts = direct_parts_of(SyntrometryConcept::Metroplex);
@@ -310,9 +300,6 @@ pr4xis::register_axiom!(
 pub struct MaximConvergesTowardTelecenter;
 
 impl Axiom for MaximConvergesTowardTelecenter {
-    fn description(&self) -> &str {
-        "Maxim carries a ConvergesToward edge into Telecenter (Heim Telezentrik)"
-    }
     fn holds(&self) -> bool {
         use SyntrometryConcept as S;
         use SyntrometryRelationKind as K;
@@ -334,9 +321,6 @@ pr4xis::register_axiom!(
 pub struct TelecenterIsSyncolatorFixedPoint;
 
 impl Axiom for TelecenterIsSyncolatorFixedPoint {
-    fn description(&self) -> &str {
-        "Telecenter is a FixedPointOf Syncolator (eigenform X=F(X))"
-    }
     fn holds(&self) -> bool {
         use SyntrometryConcept as S;
         use SyntrometryRelationKind as K;

@@ -73,9 +73,6 @@ impl Quality for IsContinuous {
 pub struct TotalOrder;
 
 impl Axiom for TotalOrder {
-    fn description(&self) -> &str {
-        "time is a total order: for any two instants, exactly one of <, =, > holds"
-    }
 
     fn holds(&self) -> bool {
         let instants = canonical_instants();
@@ -105,9 +102,6 @@ pr4xis::register_axiom!(TotalOrder);
 pub struct DurationNonNegativity;
 
 impl Axiom for DurationNonNegativity {
-    fn description(&self) -> &str {
-        "duration from earlier to later instant is positive"
-    }
 
     fn holds(&self) -> bool {
         let instants = canonical_instants();
@@ -133,9 +127,6 @@ pr4xis::register_axiom!(DurationNonNegativity);
 pub struct DurationIdentity;
 
 impl Axiom for DurationIdentity {
-    fn description(&self) -> &str {
-        "duration from an instant to itself is zero"
-    }
 
     fn holds(&self) -> bool {
         for a in &canonical_instants() {
@@ -154,9 +145,6 @@ pr4xis::register_axiom!(DurationIdentity);
 pub struct DurationAntisymmetry;
 
 impl Axiom for DurationAntisymmetry {
-    fn description(&self) -> &str {
-        "d(a,b) = -d(b,a) (duration antisymmetry)"
-    }
 
     fn holds(&self) -> bool {
         let instants = canonical_instants();
@@ -181,9 +169,6 @@ pr4xis::register_axiom!(DurationAntisymmetry);
 pub struct DurationAdditivity;
 
 impl Axiom for DurationAdditivity {
-    fn description(&self) -> &str {
-        "d(a,b) + d(b,c) = d(a,c) (duration additivity)"
-    }
 
     fn holds(&self) -> bool {
         let instants = canonical_instants();
@@ -211,9 +196,6 @@ pr4xis::register_axiom!(DurationAdditivity);
 pub struct AllenExhaustive;
 
 impl Axiom for AllenExhaustive {
-    fn description(&self) -> &str {
-        "Allen's 13 relations are jointly exhaustive and pairwise disjoint"
-    }
 
     fn holds(&self) -> bool {
         let intervals = canonical_intervals();
@@ -232,8 +214,6 @@ pr4xis::register_axiom!(AllenExhaustive);
 pub struct AllenInverseLaw;
 
 impl Axiom for AllenInverseLaw {
-    fn description(&self) -> &str {
-        "Allen's inverse: if R(X,Y) then R^{-1}(Y,X)"
     }
 
     fn holds(&self) -> bool {
@@ -256,9 +236,6 @@ pr4xis::register_axiom!(AllenInverseLaw);
 pub struct GpsTaiConversion;
 
 impl Axiom for GpsTaiConversion {
-    fn description(&self) -> &str {
-        "GPS = TAI - 19 seconds (fixed offset, IS-GPS-200)"
-    }
 
     fn holds(&self) -> bool {
         let test_times = [0.0, 1000.0, 1e6, 1.7e9];
@@ -283,9 +260,6 @@ pr4xis::register_axiom!(GpsTaiConversion);
 pub struct TtTaiConversion;
 
 impl Axiom for TtTaiConversion {
-    fn description(&self) -> &str {
-        "TT = TAI + 32.184 seconds (IAU 2000 Resolution B1.9)"
-    }
 
     fn holds(&self) -> bool {
         let test_times = [0.0, 1000.0, 1e6];

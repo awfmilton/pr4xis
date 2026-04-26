@@ -146,9 +146,6 @@ fn direct_children_of(parent: Pr4xisSubstrateConcept) -> Vec<Pr4xisSubstrateConc
 pub struct EndofunctorIsFunctor;
 
 impl Axiom for EndofunctorIsFunctor {
-    fn description(&self) -> &str {
-        "SubEndofunctor is a direct taxonomic sub-kind of SubFunctor (Mac Lane 1971 Ch. II §1)"
-    }
     fn holds(&self) -> bool {
         direct_children_of(Pr4xisSubstrateConcept::SubFunctor)
             .contains(&Pr4xisSubstrateConcept::SubEndofunctor)
@@ -162,9 +159,6 @@ pr4xis::register_axiom!(EndofunctorIsFunctor);
 pub struct ProductCategoryIsCategory;
 
 impl Axiom for ProductCategoryIsCategory {
-    fn description(&self) -> &str {
-        "SubProductCategory is a direct taxonomic sub-kind of SubCategory (Mac Lane 1971 Ch. II §3)"
-    }
     fn holds(&self) -> bool {
         direct_children_of(Pr4xisSubstrateConcept::SubCategory)
             .contains(&Pr4xisSubstrateConcept::SubProductCategory)
@@ -180,9 +174,6 @@ pr4xis::register_axiom!(ProductCategoryIsCategory);
 pub struct GradedObjectIsEntity;
 
 impl Axiom for GradedObjectIsEntity {
-    fn description(&self) -> &str {
-        "SubGradedObject is a direct taxonomic sub-kind of SubEntity (Mac Lane, Homology 1963 Ch. II §2; Stanley, Enumerative Combinatorics 1986 Ch. 3)"
-    }
     fn holds(&self) -> bool {
         direct_children_of(Pr4xisSubstrateConcept::SubEntity)
             .contains(&Pr4xisSubstrateConcept::SubGradedObject)
@@ -198,9 +189,6 @@ pr4xis::register_axiom!(GradedObjectIsEntity);
 pub struct SubobjectIsMorphism;
 
 impl Axiom for SubobjectIsMorphism {
-    fn description(&self) -> &str {
-        "SubObject is a direct taxonomic sub-kind of SubMorphism (Mac Lane 1971 Ch. V §1; Awodey 2010 Ch. 5)"
-    }
     fn holds(&self) -> bool {
         direct_children_of(Pr4xisSubstrateConcept::SubMorphism)
             .contains(&Pr4xisSubstrateConcept::SubObject)

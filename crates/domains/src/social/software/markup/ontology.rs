@@ -276,9 +276,6 @@ impl MarkupNode {
 pub struct WellFormedDocument;
 
 impl pr4xis::logic::Axiom for WellFormedDocument {
-    fn description(&self) -> &str {
-        "a well-formed markup document has exactly one root element"
-    }
 
     fn holds(&self) -> bool {
         // This axiom is checked against specific documents, not globally.

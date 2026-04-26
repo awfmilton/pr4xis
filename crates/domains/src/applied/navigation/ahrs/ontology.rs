@@ -93,9 +93,6 @@ impl Quality for ComputationalCost {
 pub struct GravityGivesLevelAttitude;
 
 impl Axiom for GravityGivesLevelAttitude {
-    fn description(&self) -> &str {
-        "accelerometer at rest determines roll/pitch via gravity vector"
-    }
     fn holds(&self) -> bool {
         let g = 9.80665_f64;
         let tilt = 10.0_f64.to_radians();
@@ -120,9 +117,6 @@ pr4xis::register_axiom!(
 pub struct MagnetometerGivesHeading;
 
 impl Axiom for MagnetometerGivesHeading {
-    fn description(&self) -> &str {
-        "magnetometer + level attitude determines yaw (heading)"
-    }
     fn holds(&self) -> bool {
         let b_horizontal = 20.0e-6;
         let bx = b_horizontal;
@@ -143,9 +137,6 @@ pr4xis::register_axiom!(
 pub struct GyroIntegrationDrifts;
 
 impl Axiom for GyroIntegrationDrifts {
-    fn description(&self) -> &str {
-        "gyroscope-only attitude drifts over time (needs external correction)"
-    }
     fn holds(&self) -> bool {
         let gyro_bias_deg_per_hr = 1.0;
         let gyro_bias_rad_per_s = gyro_bias_deg_per_hr * core::f64::consts::PI / (180.0 * 3600.0);

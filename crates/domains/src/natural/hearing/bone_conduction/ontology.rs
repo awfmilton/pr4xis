@@ -192,9 +192,6 @@ impl Quality for RequiresSurgery {
 
 pub struct FourBCMechanisms;
 impl Axiom for FourBCMechanisms {
-    fn description(&self) -> &str {
-        "all four BC mechanisms (osseotympanic, inertial, compressional, distortional) are classified"
-    }
     fn holds(&self) -> bool {
         use BoneCondEntity::*;
         [OsseotympanicBC, InertialBC, CompressionalBC, DistortionalBC]
@@ -206,9 +203,6 @@ pr4xis::register_axiom!(FourBCMechanisms);
 
 pub struct TransducerCausesCochlearResponse;
 impl Axiom for TransducerCausesCochlearResponse {
-    fn description(&self) -> &str {
-        "transducer activation transitively causes cochlear response"
-    }
     fn holds(&self) -> bool {
         use BCCausalEvent::*;
         causation::effects_of::<BCCausalGraph>(&TransducerActivation).contains(&CochlearResponse)
@@ -218,9 +212,6 @@ pr4xis::register_axiom!(TransducerCausesCochlearResponse);
 
 pub struct AllPathwaysConverge;
 impl Axiom for AllPathwaysConverge {
-    fn description(&self) -> &str {
-        "osseotympanic, inertial, and compressional pathways all reach cochlear response"
-    }
     fn holds(&self) -> bool {
         use BCCausalEvent::*;
         causation::effects_of::<BCCausalGraph>(&OsseotympanicStimulation)
@@ -234,9 +225,6 @@ pr4xis::register_axiom!(AllPathwaysConverge);
 
 pub struct InertialCoversSpeechRange;
 impl Axiom for InertialCoversSpeechRange {
-    fn description(&self) -> &str {
-        "inertial BC covers the speech frequency range (100-3000 Hz)"
-    }
     fn holds(&self) -> bool {
         let inertial = DominantFrequencyRange
             .get(&BoneCondEntity::InertialBC)
@@ -248,9 +236,6 @@ pr4xis::register_axiom!(InertialCoversSpeechRange);
 
 pub struct ForeheadResonanceHigherThanMastoid;
 impl Axiom for ForeheadResonanceHigherThanMastoid {
-    fn description(&self) -> &str {
-        "forehead skull resonance frequency is higher than mastoid"
-    }
     fn holds(&self) -> bool {
         use BoneCondEntity::*;
         SkullResonanceFrequency.get(&Forehead).unwrap()
@@ -261,9 +246,6 @@ pr4xis::register_axiom!(ForeheadResonanceHigherThanMastoid);
 
 pub struct MidlineSitesSymmetric;
 impl Axiom for MidlineSitesSymmetric {
-    fn description(&self) -> &str {
-        "midline application sites have zero transcranial attenuation"
-    }
     fn holds(&self) -> bool {
         use BoneCondEntity::*;
         TranscranialAttenuationDB.get(&Forehead) == Some(0.0)

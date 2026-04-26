@@ -216,8 +216,6 @@ fn direct_children_of(parent: DialecticsConcept) -> Vec<DialecticsConcept> {
 pub struct HegelianTriad;
 
 impl Axiom for HegelianTriad {
-    fn description(&self) -> &str {
-        "the direct children of DialecticalMoment are exactly {Thesis, Antithesis, Synthesis} (Hegel 1807)"
     }
     fn holds(&self) -> bool {
         let actual = direct_children_of(DialecticsConcept::DialecticalMoment);
@@ -236,8 +234,6 @@ pr4xis::register_axiom!(HegelianTriad, "Blanché (1966) hexagonal extension.");
 pub struct AristotelianSquareHasFourVertices;
 
 impl Axiom for AristotelianSquareHasFourVertices {
-    fn description(&self) -> &str {
-        "the direct children of SquareOfOpposition are exactly {Contrary, Contradictory, Subaltern, Subcontrary} (Aristotle / Apuleius)"
     }
     fn holds(&self) -> bool {
         let actual = direct_children_of(DialecticsConcept::SquareOfOpposition);
@@ -261,9 +257,6 @@ pr4xis::register_axiom!(
 pub struct SynthesisHasSublation;
 
 impl Axiom for SynthesisHasSublation {
-    fn description(&self) -> &str {
-        "Sublation produces Synthesis (Hegel, Aufhebung is the mechanism)"
-    }
     fn holds(&self) -> bool {
         use DialecticsConcept as D;
         use DialecticsRelationKind as K;
@@ -279,9 +272,6 @@ pr4xis::register_axiom!(SynthesisHasSublation, "Blanché (1966) hexagonal extens
 pub struct ThesisAntithesisOppose;
 
 impl Axiom for ThesisAntithesisOppose {
-    fn description(&self) -> &str {
-        "Thesis opposes Antithesis (the canonical dialectical opposition)"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::opposition::OppositionDef;
         DialecticsOpposition::pairs().iter().any(|(a, b)| {
@@ -300,9 +290,6 @@ pr4xis::register_axiom!(
 pub struct AdornoRefusesSynthesis;
 
 impl Axiom for AdornoRefusesSynthesis {
-    fn description(&self) -> &str {
-        "NegativeDialectics opposes Synthesis (Adorno 1966 refuses Hegelian reconciliation)"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::opposition::OppositionDef;
         DialecticsOpposition::pairs().iter().any(|(a, b)| {
@@ -322,9 +309,6 @@ pr4xis::register_axiom!(
 pub struct DialetheismNeedsParaconsistency;
 
 impl Axiom for DialetheismNeedsParaconsistency {
-    fn description(&self) -> &str {
-        "TrueContradiction requires Paraconsistent logic (Priest 1987)"
-    }
     fn holds(&self) -> bool {
         use DialecticsConcept as D;
         use DialecticsRelationKind as K;

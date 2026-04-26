@@ -794,27 +794,37 @@ pub fn generate(def: OntologyDef) -> TokenStream {
             let description = &a.description;
             let holds = &a.holds;
             let name_str_lit = syn::LitStr::new(&a.name.to_string(), a.name.span());
+            let id_str = format!("{full_name}::{name_ident}");
+            let id_lit = syn::LitStr::new(&id_str, a.name.span());
+
             quote! {
                 #[doc = #description]
                 pub struct #name_ident;
 
                 impl #pr4xis::logic::axiom::Axiom for #name_ident {
-                    fn description(&self) -> &str {
-                        #description
-                    }
-
                     fn holds(&self) -> bool {
                         #holds
                     }
 
                     fn meta(&self) -> #pr4xis::ontology::meta::RelationshipMeta {
-                        #pr4xis::ontology::meta::RelationshipMeta {
-                            name: #pr4xis::ontology::meta::OntologyName::new_static(#name_str_lit),
-                            description: #pr4xis::ontology::meta::Label::new_static(#description),
-                            citation: #pr4xis::ontology::meta::Citation::parse_static(#source),
-                            module_path: #pr4xis::ontology::meta::ModulePath::new_static(module_path!()),
-                        }
+                        #pr4xis::ontology::meta::RelationshipMeta::from_identifier(
+                            #pr4xis::ontology::meta::Identifier::new_static(#id_lit)
+                        )
                     }
+                }
+
+                #[cfg(not(target_arch = "wasm32"))]
+                #[#pr4xis::linkme::distributed_slice(#pr4xis::ontology::registry::LEXICON)]
+                #[linkme(crate = #pr4xis::linkme)]
+                #pr4xis::paste::paste! {
+                    static [<_LEXICON_AXIOM_ #name_ident:snake:upper>]: fn() -> #pr4xis::ontology::meta::LexicalRecord =
+                        || #pr4xis::ontology::meta::LexicalRecord::new_static(
+                        #id_lit,
+                        #name_str_lit,
+                        #description,
+                        #source,
+                        module_path!(),
+                        );
                 }
             }
         })
@@ -890,12 +900,9 @@ pub fn generate(def: OntologyDef) -> TokenStream {
             /// Structured metadata — unified Lemon+PROV-O record.
             /// Same shape as functors/adjunctions/nat-trans/axioms (issue #153).
             pub fn meta() -> #pr4xis::ontology::meta::RelationshipMeta {
-                #pr4xis::ontology::meta::RelationshipMeta {
-                    name: #pr4xis::ontology::meta::OntologyName::new_static(#name_lit),
-                    description: #pr4xis::ontology::meta::Label::new_static(#name_lit),
-                    citation: #pr4xis::ontology::meta::Citation::EMPTY,
-                    module_path: #pr4xis::ontology::meta::ModulePath::new_static(module_path!()),
-                }
+                #pr4xis::ontology::meta::RelationshipMeta::from_identifier(
+                    #pr4xis::ontology::meta::Identifier::new_static(#name_lit)
+                )
             }
 
             #[allow(dead_code, unused_assignments)]
@@ -920,6 +927,17 @@ pub fn generate(def: OntologyDef) -> TokenStream {
             #[#pr4xis::linkme::distributed_slice(#pr4xis::ontology::VOCABULARIES)]
             #[linkme(crate = #pr4xis::linkme)]
             static [<_REGISTER_ #ont_name:snake:upper>]: fn() -> #pr4xis::ontology::Vocabulary = #ont_name::vocabulary;
+
+            #[#pr4xis::linkme::distributed_slice(#pr4xis::ontology::registry::LEXICON)]
+            #[linkme(crate = #pr4xis::linkme)]
+            static [<_LEXICON_ #ont_name:snake:upper>]: fn() -> #pr4xis::ontology::meta::LexicalRecord =
+                || #pr4xis::ontology::meta::LexicalRecord::new_static(
+                    #name_lit,
+                    #name_lit,
+                    #name_lit,
+                    #source_tokens,
+                    module_path!(),
+                );
         }
 
         // Auto-register each declared domain axiom into the AXIOMS slice.

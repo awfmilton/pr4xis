@@ -164,9 +164,6 @@ impl Quality for IsOperation {
 pub struct AdjointTriple;
 
 impl Axiom for AdjointTriple {
-    fn description(&self) -> &str {
-        "ΣF ⊣ ΔF ⊣ ΠF: the migration functors form an adjoint triple (Spivak 2012)"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::opposition::OppositionDef;
         AlgebraOpposition::pairs()
@@ -181,9 +178,6 @@ pr4xis::register_axiom!(AdjointTriple);
 pub struct CoproductProductDual;
 
 impl Axiom for CoproductProductDual {
-    fn description(&self) -> &str {
-        "Coproduct ⊥ Product: union and intersection are dual (Zimmermann 2006)"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::opposition::OppositionDef;
         AlgebraOpposition::pairs()

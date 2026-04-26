@@ -138,7 +138,7 @@ fn all_domain_axioms_hold() {
         assert!(
             axiom.holds(),
             "domain axiom failed: {}",
-            axiom.description()
+            axiom.meta().description
         );
     }
 }

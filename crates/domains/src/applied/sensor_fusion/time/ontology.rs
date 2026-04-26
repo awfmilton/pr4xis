@@ -61,9 +61,6 @@ impl Quality for ErrorBoundedness {
 pub struct InterpolationBounded;
 
 impl Axiom for InterpolationBounded {
-    fn description(&self) -> &str {
-        "linear interpolation error is bounded by O(T^2) where T is measurement period"
-    }
 
     fn holds(&self) -> bool {
         let bounded = ErrorBoundedness;
@@ -81,9 +78,6 @@ pr4xis::register_axiom!(InterpolationBounded);
 pub struct ExtrapolationUnbounded;
 
 impl Axiom for ExtrapolationUnbounded {
-    fn description(&self) -> &str {
-        "extrapolation error grows without bound (no new information)"
-    }
 
     fn holds(&self) -> bool {
         let bounded = ErrorBoundedness;
@@ -96,9 +90,6 @@ pr4xis::register_axiom!(ExtrapolationUnbounded);
 pub struct NearestNeighborBounded;
 
 impl Axiom for NearestNeighborBounded {
-    fn description(&self) -> &str {
-        "nearest-neighbor sync error bounded by T/2 * max_rate"
-    }
 
     fn holds(&self) -> bool {
         let bounded = ErrorBoundedness;

@@ -81,7 +81,7 @@ fn lexicon_reaches_all_concepts() {
 #[test]
 fn all_domain_axioms_hold() {
     for axiom in LemonOntology::domain_axioms() {
-        assert!(axiom.holds(), "axiom failed: {}", axiom.description());
+        assert!(axiom.holds(), "axiom failed: {}", axiom.meta().description);
     }
 }
 

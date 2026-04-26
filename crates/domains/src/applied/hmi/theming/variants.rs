@@ -102,9 +102,6 @@ pub struct UniqueOrders {
 }
 
 impl Axiom for UniqueOrders {
-    fn description(&self) -> &str {
-        "variant orders must be unique within a theme"
-    }
     fn holds(&self) -> bool {
         let mut orders: Vec<u32> = self.variants.variants.iter().map(|v| v.order).collect();
         orders.sort();
@@ -120,9 +117,6 @@ pub struct NavigationRoundtrip {
 }
 
 impl Axiom for NavigationRoundtrip {
-    fn description(&self) -> &str {
-        "darker(lighter(x)) = x when both directions have targets"
-    }
     fn holds(&self) -> bool {
         for v in &self.variants.variants {
             if let Some(lighter) = self.variants.lighter(&v.name)
@@ -149,9 +143,6 @@ pub struct PolarityComplete {
 }
 
 impl Axiom for PolarityComplete {
-    fn description(&self) -> &str {
-        "every variant has a polarity (dark or light)"
-    }
     fn holds(&self) -> bool {
         // All variants have a polarity — by construction (enum), always true.
         // This axiom exists for documentation and future extension.

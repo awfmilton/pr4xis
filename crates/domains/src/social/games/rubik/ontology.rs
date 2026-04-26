@@ -92,9 +92,6 @@ pub struct CentersFixed {
 }
 
 impl Axiom for CentersFixed {
-    fn description(&self) -> &str {
-        "center stickers must match their face color"
-    }
 
     fn holds(&self) -> bool {
         Face::all()
@@ -110,9 +107,6 @@ pub struct NinePerColor {
 }
 
 impl Axiom for NinePerColor {
-    fn description(&self) -> &str {
-        "each color must have exactly 9 stickers"
-    }
 
     fn holds(&self) -> bool {
         self.cube.color_counts().iter().all(|&c| c == 9)

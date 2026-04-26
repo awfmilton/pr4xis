@@ -76,9 +76,6 @@ impl Quality for MeasurementUnit {
 pub struct BiasIsAMeasurement;
 
 impl Axiom for BiasIsAMeasurement {
-    fn description(&self) -> &str {
-        "accelerometer bias is-a specific force measurement (error term)"
-    }
     fn holds(&self) -> bool {
         taxonomy::is_a::<ImuTaxonomy>(&ImuConcept::AccelerometerBias, &ImuConcept::SpecificForce)
     }
@@ -94,9 +91,6 @@ pr4xis::register_axiom!(
 pub struct SpecificForceDefinition;
 
 impl Axiom for SpecificForceDefinition {
-    fn description(&self) -> &str {
-        "specific force = acceleration - gravity: at rest, accelerometer reads -g"
-    }
     fn holds(&self) -> bool {
         let g = crate::formal::math::quantity::constants::standard_gravity().value;
         let specific_force_at_rest = -g;
@@ -112,9 +106,6 @@ pr4xis::register_axiom!(
 pub struct GyroscopeBodyFrame;
 
 impl Axiom for GyroscopeBodyFrame {
-    fn description(&self) -> &str {
-        "gyroscope measures angular rate in body frame (3 axes)"
-    }
     fn holds(&self) -> bool {
         taxonomy::is_a::<ImuTaxonomy>(&ImuConcept::AngularRate, &ImuConcept::Measurement)
     }

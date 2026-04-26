@@ -65,9 +65,6 @@ impl Quality for IsCoreConcept {
 pub struct DenotesIsPropertyChain;
 
 impl Axiom for DenotesIsPropertyChain {
-    fn description(&self) -> &str {
-        "denotes = sense ∘ reference (W3C Ontolex §3.4)"
-    }
     fn holds(&self) -> bool {
         let m = LemonCategory::morphisms();
         let has_sense = m.iter().any(|r| {
@@ -98,9 +95,6 @@ pr4xis::register_axiom!(
 pub struct CanonicalFormIsFunctional;
 
 impl Axiom for CanonicalFormIsFunctional {
-    fn description(&self) -> &str {
-        "canonicalForm is functional: at most one per entry (W3C Ontolex §3.2)"
-    }
     fn holds(&self) -> bool {
         let m = LemonCategory::morphisms();
         m.iter()
@@ -123,9 +117,6 @@ pr4xis::register_axiom!(
 pub struct ReferenceIsFunctional;
 
 impl Axiom for ReferenceIsFunctional {
-    fn description(&self) -> &str {
-        "reference is functional: sense → exactly one ontology entity (W3C Ontolex §3.4)"
-    }
     fn holds(&self) -> bool {
         let m = LemonCategory::morphisms();
         m.iter()

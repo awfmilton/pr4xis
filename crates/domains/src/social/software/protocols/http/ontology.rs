@@ -61,9 +61,6 @@ impl Quality for IsIdempotent {
 pub struct SafeImpliesIdempotent;
 
 impl Axiom for SafeImpliesIdempotent {
-    fn description(&self) -> &str {
-        "all safe methods must be idempotent"
-    }
     fn holds(&self) -> bool {
         Method::all()
             .iter()

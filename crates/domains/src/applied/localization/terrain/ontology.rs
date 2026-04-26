@@ -56,9 +56,6 @@ impl Quality for CurvatureSignature {
 pub struct ElevationBounded;
 
 impl Axiom for ElevationBounded {
-    fn description(&self) -> &str {
-        "DEM elevation values are bounded within a finite range"
-    }
     fn holds(&self) -> bool {
         // Structural axiom: any real DEM has finite elevation values.
         // Earth's range: -11034m (Mariana Trench) to +8849m (Everest).
@@ -71,9 +68,6 @@ pr4xis::register_axiom!(ElevationBounded);
 pub struct PeakCurvatureNegative;
 
 impl Axiom for PeakCurvatureNegative {
-    fn description(&self) -> &str {
-        "peaks have negative principal curvatures (local maxima)"
-    }
     fn holds(&self) -> bool {
         let q = CurvatureSignature;
         if let Some((k1, k2)) = q.get(&TerrainFeature::Peak) {

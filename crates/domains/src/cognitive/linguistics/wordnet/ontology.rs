@@ -87,9 +87,6 @@ impl Quality for WordNetRole {
 pub struct WordNetTaxonomyHasInverses;
 
 impl Axiom for WordNetTaxonomyHasInverses {
-    fn description(&self) -> &str {
-        "Hypernym and Hyponym are inverse relations on synsets (Miller 1995): A Hypernym B ⇔ B Hyponym A"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::taxonomy::TaxonomyDef;
         let rels = WordNetTaxonomy::relations();

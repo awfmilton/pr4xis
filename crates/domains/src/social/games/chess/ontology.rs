@@ -84,9 +84,6 @@ pub struct KingSafety {
 }
 
 impl Axiom for KingSafety {
-    fn description(&self) -> &str {
-        "no legal move leaves the king in check"
-    }
 
     fn holds(&self) -> bool {
         let color = self.board.to_move;
@@ -109,9 +106,6 @@ pub struct OneKingPerSide {
 }
 
 impl Axiom for OneKingPerSide {
-    fn description(&self) -> &str {
-        "each side has exactly one king"
-    }
 
     fn holds(&self) -> bool {
         let wk = self
@@ -136,9 +130,6 @@ pub struct MaxPieces {
 }
 
 impl Axiom for MaxPieces {
-    fn description(&self) -> &str {
-        "at most 32 pieces on the board"
-    }
 
     fn holds(&self) -> bool {
         let total = self.board.pieces(Color::White).len() + self.board.pieces(Color::Black).len();

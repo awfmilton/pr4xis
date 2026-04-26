@@ -98,9 +98,6 @@ impl Ontology for MathOntology {
 pub struct ContainmentChain;
 
 impl Axiom for ContainmentChain {
-    fn description(&self) -> &str {
-        "N < Z < Q < R < C"
-    }
 
     fn holds(&self) -> bool {
         let order = DomainOrder;

@@ -92,9 +92,6 @@ impl Quality for CouplingBandwidth {
 pub struct CoastingDegrades;
 
 impl Axiom for CoastingDegrades {
-    fn description(&self) -> &str {
-        "without GNSS, INS position error grows quadratically (bias -> t^2 error)"
-    }
     fn holds(&self) -> bool {
         let bias_mg = 1.0_f64;
         let bias_mps2 = bias_mg * 1e-3 * 9.80665;
@@ -117,9 +114,6 @@ pr4xis::register_axiom!(
 pub struct GnssUpdateReducesError;
 
 impl Axiom for GnssUpdateReducesError {
-    fn description(&self) -> &str {
-        "GNSS measurement update decreases position uncertainty"
-    }
     fn holds(&self) -> bool {
         let p_prior = 100.0;
         let r = 25.0;
@@ -138,9 +132,6 @@ pr4xis::register_axiom!(
 pub struct TighterCouplingBetter;
 
 impl Axiom for TighterCouplingBetter {
-    fn description(&self) -> &str {
-        "tighter coupling provides better performance in degraded GNSS"
-    }
     fn holds(&self) -> bool {
         taxonomy::is_a::<InsGnssTaxonomy>(
             &InsGnssConcept::TightlyCoupled,

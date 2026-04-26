@@ -248,9 +248,6 @@ pub fn theme_report_fields() -> Vec<DataField> {
 pub struct DefaultIsOptimal;
 
 impl Axiom for DefaultIsOptimal {
-    fn description(&self) -> &str {
-        "default report spec uses optimal encodings for all fields (Cleveland-McGill 1984)"
-    }
     fn holds(&self) -> bool {
         let spec = ReportSpec::from_fields("test", theme_report_fields());
         spec.assignments.iter().all(|a| a.is_optimal())
@@ -262,9 +259,6 @@ pr4xis::register_axiom!(DefaultIsOptimal);
 pub struct DefaultIsValid;
 
 impl Axiom for DefaultIsValid {
-    fn description(&self) -> &str {
-        "default report spec passes all validation checks"
-    }
     fn holds(&self) -> bool {
         let spec = ReportSpec::from_fields("test", theme_report_fields());
         spec.validate().is_empty()
@@ -276,9 +270,6 @@ pr4xis::register_axiom!(DefaultIsValid);
 pub struct OverrideWarns;
 
 impl Axiom for OverrideWarns {
-    fn description(&self) -> &str {
-        "overriding to a suboptimal encoding produces a warning"
-    }
     fn holds(&self) -> bool {
         let mut spec = ReportSpec::from_fields("test", theme_report_fields());
         // Override luminance (ratio) from position (rank 1) to color (rank 6)

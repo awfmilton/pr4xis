@@ -92,9 +92,6 @@ impl<T: ContextDef> Default for Deterministic<T> {
 }
 
 impl<T: ContextDef> crate::logic::Axiom for Deterministic<T> {
-    fn description(&self) -> &str {
-        "context resolution is deterministic: each (entity, signal) has at most one resolution"
-    }
 
     fn holds(&self) -> bool {
         let resolutions = T::resolutions();
@@ -111,12 +108,16 @@ impl<T: ContextDef> crate::logic::Axiom for Deterministic<T> {
         true
     }
 
-    crate::axiom_meta!(
-        "Deterministic[Context]",
-        "context resolution is deterministic: each (entity, signal) has at most one resolution",
-        "Carnap (1947) 'Meaning and Necessity' — intension + context → extension"
-    );
+    crate::axiom_meta!("Deterministic[Context]");
 }
+
+crate::register_lexicon!(
+    Deterministic_Context,
+    "Deterministic[Context]",
+    "Deterministic[Context]",
+    "context resolution is deterministic: each (entity, signal) has at most one resolution",
+    "Carnap (1947) 'Meaning and Necessity' — intension + context → extension"
+);
 
 /// Axiom: every ambiguous entity has at least two distinct resolutions.
 /// (If an entity only has one resolution, it's not truly ambiguous.)
@@ -139,9 +140,6 @@ impl<T: ContextDef> Default for TrueAmbiguity<T> {
 }
 
 impl<T: ContextDef> crate::logic::Axiom for TrueAmbiguity<T> {
-    fn description(&self) -> &str {
-        "every entity in the context map has at least two distinct resolutions"
-    }
 
     fn holds(&self) -> bool {
         let mut resolutions_per_entity: HashMap<T::Concept, Vec<T::Resolution>> = HashMap::new();
@@ -154,9 +152,13 @@ impl<T: ContextDef> crate::logic::Axiom for TrueAmbiguity<T> {
         resolutions_per_entity.values().all(|rs| rs.len() >= 2)
     }
 
-    crate::axiom_meta!(
-        "TrueAmbiguity[Context]",
-        "every entity in the context map has at least two distinct resolutions",
-        "Pustejovsky (1995) 'The Generative Lexicon'"
-    );
+    crate::axiom_meta!("TrueAmbiguity[Context]");
 }
+
+crate::register_lexicon!(
+    TrueAmbiguity_Context,
+    "TrueAmbiguity[Context]",
+    "TrueAmbiguity[Context]",
+    "every entity in the context map has at least two distinct resolutions",
+    "Pustejovsky (1995) 'The Generative Lexicon'"
+);

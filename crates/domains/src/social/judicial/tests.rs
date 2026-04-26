@@ -2612,7 +2612,7 @@ fn test_is_terminal_phase_quality() {
 fn test_only_closed_is_terminal_axiom() {
     let axiom = OnlyClosedIsTerminal;
     assert!(axiom.holds());
-    assert_eq!(axiom.description(), "only Closed is a terminal phase");
+    assert_eq!(axiom.meta().description, "only Closed is a terminal phase");
 }
 
 #[test]
@@ -2620,7 +2620,7 @@ fn test_no_dead_phases_axiom() {
     let axiom = NoDeadPhases;
     assert!(axiom.holds());
     assert_eq!(
-        axiom.description(),
+        axiom.meta().description,
         "every non-terminal phase has transitions"
     );
 }

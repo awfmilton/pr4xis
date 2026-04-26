@@ -408,9 +408,6 @@ impl Quality for PipelineOrder {
 pub struct PositionUnique;
 
 impl Axiom for PositionUnique {
-    fn description(&self) -> &str {
-        "position is the only visual variable that is both associative and quantitative (Bertin 1967)"
-    }
     fn holds(&self) -> bool {
         let props = BertinProperties;
         let both: Vec<_> = VisualVariable::variants()
@@ -431,9 +428,6 @@ pr4xis::register_axiom!(PositionUnique);
 pub struct RankingStrictlyOrdered;
 
 impl Axiom for RankingStrictlyOrdered {
-    fn description(&self) -> &str {
-        "Cleveland-McGill perceptual ranking is strictly ordered (1984)"
-    }
     fn holds(&self) -> bool {
         let rank = AccuracyRank;
         let tasks = PerceptualTask::variants();
@@ -455,9 +449,6 @@ pr4xis::register_axiom!(RankingStrictlyOrdered);
 pub struct PositionMostAccurate;
 
 impl Axiom for PositionMostAccurate {
-    fn description(&self) -> &str {
-        "position on common scale is the most accurate encoding (Cleveland & McGill 1984)"
-    }
     fn holds(&self) -> bool {
         AccuracyRank.get(&PerceptualTask::PositionCommonScale) == Some(1)
     }
@@ -470,9 +461,6 @@ pr4xis::register_axiom!(PositionMostAccurate);
 pub struct ColorLeastAccurate;
 
 impl Axiom for ColorLeastAccurate {
-    fn description(&self) -> &str {
-        "shading/color saturation is the least accurate for quantitative data (Cleveland & McGill 1984)"
-    }
     fn holds(&self) -> bool {
         AccuracyRank.get(&PerceptualTask::ShadingColorSaturation) == Some(6)
     }
@@ -483,9 +471,6 @@ pr4xis::register_axiom!(ColorLeastAccurate);
 pub struct ManthaThreeLevels;
 
 impl Axiom for ManthaThreeLevels {
-    fn description(&self) -> &str {
-        "Shneiderman's mantra has 3 levels: overview, zoom/filter, details-on-demand (1996)"
-    }
     fn holds(&self) -> bool {
         InteractionLevel::variants().len() == 3
     }
@@ -498,9 +483,6 @@ pr4xis::register_axiom!(ManthaThreeLevels);
 pub struct GrammarSevenLayers;
 
 impl Axiom for GrammarSevenLayers {
-    fn description(&self) -> &str {
-        "Grammar of Graphics has 7 layers in strict pipeline order (Wickham 2010)"
-    }
     fn holds(&self) -> bool {
         let order = PipelineOrder;
         let layers = GrammarLayer::variants();
@@ -518,9 +500,6 @@ pr4xis::register_axiom!(GrammarSevenLayers);
 pub struct RatioNeedsQuantitative;
 
 impl Axiom for RatioNeedsQuantitative {
-    fn description(&self) -> &str {
-        "ratio data requires quantitative visual variables (position or size) per Bertin 1967"
-    }
     fn holds(&self) -> bool {
         let suitable = suitable_encodings(DataLevel::Ratio);
         // Must include position, must not include shape
@@ -535,9 +514,6 @@ pr4xis::register_axiom!(RatioNeedsQuantitative);
 pub struct NominalUsesColorAndShape;
 
 impl Axiom for NominalUsesColorAndShape {
-    fn description(&self) -> &str {
-        "nominal data can use color hue (selective) and shape (associative) per Bertin 1967"
-    }
     fn holds(&self) -> bool {
         let suitable = suitable_encodings(DataLevel::Nominal);
         suitable.contains(&VisualVariable::Color) && suitable.contains(&VisualVariable::Shape)

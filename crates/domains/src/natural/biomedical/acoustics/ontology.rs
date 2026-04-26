@@ -251,9 +251,6 @@ impl Quality for FrequencyRange {
 pub struct BoneImpedanceFarExceedsAir;
 
 impl Axiom for BoneImpedanceFarExceedsAir {
-    fn description(&self) -> &str {
-        "bone impedance far exceeds air impedance (~4000x mismatch, Stenfelt 2005)"
-    }
 
     fn holds(&self) -> bool {
         let bone_z = ImpedanceValue.get(&AcousticsEntity::Bone);
@@ -270,9 +267,6 @@ pr4xis::register_axiom!(BoneImpedanceFarExceedsAir);
 pub struct BoneImpedanceExceedsSoftTissue;
 
 impl Axiom for BoneImpedanceExceedsSoftTissue {
-    fn description(&self) -> &str {
-        "bone impedance exceeds soft tissue impedance (7.4M vs 1.6M Pa.s/m)"
-    }
 
     fn holds(&self) -> bool {
         let bone_z = ImpedanceValue.get(&AcousticsEntity::Bone);
@@ -289,9 +283,6 @@ pr4xis::register_axiom!(BoneImpedanceExceedsSoftTissue);
 pub struct BoneConductionHighEfficiency;
 
 impl Axiom for BoneConductionHighEfficiency {
-    fn description(&self) -> &str {
-        "bone conduction has high transmission efficiency (bypasses air-tissue mismatch)"
-    }
 
     fn holds(&self) -> bool {
         TransmissionEfficiency.get(&AcousticsEntity::BoneConduction) == Some(Efficiency::High)
@@ -303,9 +294,6 @@ pr4xis::register_axiom!(BoneConductionHighEfficiency);
 pub struct AirConductionLowEfficiency;
 
 impl Axiom for AirConductionLowEfficiency {
-    fn description(&self) -> &str {
-        "air conduction has low transmission efficiency (suffers from impedance mismatch)"
-    }
 
     fn holds(&self) -> bool {
         TransmissionEfficiency.get(&AcousticsEntity::AirConduction) == Some(Efficiency::Low)
@@ -317,11 +305,6 @@ pr4xis::register_axiom!(AirConductionLowEfficiency);
 pub struct ElectricalSignalCausesDeepPenetration;
 
 impl Axiom for ElectricalSignalCausesDeepPenetration {
-    fn description(&self) -> &str {
-        "electrical signal transitively causes deep tissue penetration \
-         (full chain: signal -> transducer -> oscillation -> wave -> \
-         propagation -> boundary -> transmission -> bone coupling -> penetration)"
-    }
 
     fn holds(&self) -> bool {
         use AcousticsCausalEvent::*;
@@ -335,9 +318,6 @@ pr4xis::register_axiom!(ElectricalSignalCausesDeepPenetration);
 pub struct ImpedanceBoundaryCausesBranch;
 
 impl Axiom for ImpedanceBoundaryCausesBranch {
-    fn description(&self) -> &str {
-        "impedance boundary causes both partial reflection and partial transmission"
-    }
 
     fn holds(&self) -> bool {
         use AcousticsCausalEvent::*;

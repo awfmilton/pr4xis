@@ -267,9 +267,6 @@ impl Quality for IsReversible {
 pub struct CalciumEntryCausesGeneExpression;
 
 impl Axiom for CalciumEntryCausesGeneExpression {
-    fn description(&self) -> &str {
-        "calcium entry transitively causes gene expression change"
-    }
 
     fn holds(&self) -> bool {
         use BiochemistryCausalEvent::*;
@@ -283,9 +280,6 @@ pr4xis::register_axiom!(CalciumEntryCausesGeneExpression);
 pub struct CalciumEntryCausesNOProduction;
 
 impl Axiom for CalciumEntryCausesNOProduction {
-    fn description(&self) -> &str {
-        "calcium entry causes NO production via NOS activation"
-    }
 
     fn holds(&self) -> bool {
         use BiochemistryCausalEvent::*;
@@ -299,9 +293,6 @@ pr4xis::register_axiom!(CalciumEntryCausesNOProduction);
 pub struct CalciumIsSecondMessenger;
 
 impl Axiom for CalciumIsSecondMessenger {
-    fn description(&self) -> &str {
-        "calcium ion is a second messenger"
-    }
 
     fn holds(&self) -> bool {
         IsSecondMessenger.get(&BiochemistryEntity::CalciumIon) == Some(true)
@@ -313,9 +304,6 @@ pr4xis::register_axiom!(CalciumIsSecondMessenger);
 pub struct CaMKIIIsKinase;
 
 impl Axiom for CaMKIIIsKinase {
-    fn description(&self) -> &str {
-        "CaMKII is a kinase"
-    }
 
     fn holds(&self) -> bool {
         IsKinase.get(&BiochemistryEntity::CaMKII) == Some(true)
@@ -327,9 +315,6 @@ pr4xis::register_axiom!(CaMKIIIsKinase);
 pub struct PhosphorylationRequiresATP;
 
 impl Axiom for PhosphorylationRequiresATP {
-    fn description(&self) -> &str {
-        "phosphorylation cascade requires ATP"
-    }
 
     fn holds(&self) -> bool {
         RequiresATP.get(&BiochemistryEntity::PhosphorylationCascade) == Some(true)

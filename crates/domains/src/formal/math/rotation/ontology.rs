@@ -65,9 +65,6 @@ impl Quality for HasSingularity {
 pub struct UnitNormClosure;
 
 impl Axiom for UnitNormClosure {
-    fn description(&self) -> &str {
-        "quaternion multiplication preserves unit norm (SO(3) closure)"
-    }
 
     fn holds(&self) -> bool {
         let rotations = canonical_rotations();
@@ -88,9 +85,6 @@ pr4xis::register_axiom!(UnitNormClosure, "Hamilton (1844); Shoemake (1985).");
 pub struct Associativity;
 
 impl Axiom for Associativity {
-    fn description(&self) -> &str {
-        "rotation composition is associative: (a*b)*c = a*(b*c)"
-    }
 
     fn holds(&self) -> bool {
         let rotations = canonical_rotations();
@@ -114,9 +108,6 @@ pr4xis::register_axiom!(Associativity, "Hamilton (1844); Shoemake (1985).");
 pub struct IdentityElement;
 
 impl Axiom for IdentityElement {
-    fn description(&self) -> &str {
-        "identity quaternion is the neutral element: q*I = I*q = q"
-    }
 
     fn holds(&self) -> bool {
         let id = Quaternion::identity();
@@ -134,8 +125,6 @@ pr4xis::register_axiom!(IdentityElement, "Hamilton (1844); Shoemake (1985).");
 pub struct InverseExists;
 
 impl Axiom for InverseExists {
-    fn description(&self) -> &str {
-        "every rotation has an inverse: q * q^{-1} = identity"
     }
 
     fn holds(&self) -> bool {
@@ -154,9 +143,6 @@ pr4xis::register_axiom!(InverseExists, "Hamilton (1844); Shoemake (1985).");
 pub struct DcmOrthogonality;
 
 impl Axiom for DcmOrthogonality {
-    fn description(&self) -> &str {
-        "quaternion-to-DCM produces proper rotation: R^T R = I, det(R) = +1"
-    }
 
     fn holds(&self) -> bool {
         for q in &canonical_rotations() {
@@ -174,9 +160,6 @@ pr4xis::register_axiom!(DcmOrthogonality, "Hamilton (1844); Shoemake (1985).");
 pub struct QuaternionDcmRoundtrip;
 
 impl Axiom for QuaternionDcmRoundtrip {
-    fn description(&self) -> &str {
-        "quaternion -> DCM -> quaternion roundtrip preserves rotation"
-    }
 
     fn holds(&self) -> bool {
         for q in &canonical_rotations() {

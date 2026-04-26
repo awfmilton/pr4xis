@@ -50,9 +50,6 @@ impl Quality for ConceptDescription {
 pub struct CovarianceIsPSD;
 
 impl Axiom for CovarianceIsPSD {
-    fn description(&self) -> &str {
-        "covariance of a valid estimate is symmetric positive semi-definite"
-    }
     fn holds(&self) -> bool {
         let estimates = canonical_estimates();
         estimates
@@ -66,9 +63,6 @@ pr4xis::register_axiom!(CovarianceIsPSD, "Kalman (1960); Maybeck (1979).");
 pub struct InformationRoundtrip;
 
 impl Axiom for InformationRoundtrip {
-    fn description(&self) -> &str {
-        "state -> information -> state roundtrip preserves estimate"
-    }
     fn holds(&self) -> bool {
         for est in &canonical_estimates() {
             if let Some(info) = InformationEstimate::from_estimate(est) {
@@ -99,9 +93,6 @@ pr4xis::register_axiom!(InformationRoundtrip, "Kalman (1960); Maybeck (1979).");
 pub struct InformationFusionAdditive;
 
 impl Axiom for InformationFusionAdditive {
-    fn description(&self) -> &str {
-        "information fusion: Y_fused = Y1 + Y2 (additive)"
-    }
     fn holds(&self) -> bool {
         let e1 = StateEstimate::new(
             Vector::new(vec![1.0, 0.0]),

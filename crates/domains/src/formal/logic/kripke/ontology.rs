@@ -139,8 +139,6 @@ fn direct_children_of(parent: KripkeConcept) -> Vec<KripkeConcept> {
 pub struct TwoModalOperators;
 
 impl Axiom for TwoModalOperators {
-    fn description(&self) -> &str {
-        "the direct children of ModalOperator are exactly {Necessity, Possibility} (Kripke 1963)"
     }
     fn holds(&self) -> bool {
         let actual = direct_children_of(KripkeConcept::ModalOperator);
@@ -160,8 +158,6 @@ pr4xis::register_axiom!(
 pub struct StandardFrameConditions;
 
 impl Axiom for StandardFrameConditions {
-    fn description(&self) -> &str {
-        "FrameCondition has {Reflexive, Symmetric, Transitive, Euclidean} as direct children (Kripke 1963; Hughes & Cresswell 1996)"
     }
     fn holds(&self) -> bool {
         let actual = direct_children_of(KripkeConcept::FrameCondition);
@@ -185,8 +181,6 @@ pr4xis::register_axiom!(
 pub struct FrameContainsWorldsAndRelation;
 
 impl Axiom for FrameContainsWorldsAndRelation {
-    fn description(&self) -> &str {
-        "KripkeFrame contains {PossibleWorld, AccessibilityRelation} as mereological parts (Kripke 1963: a frame IS the (W, R) pair)"
     }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::mereology::MereologyDef;

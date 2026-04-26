@@ -217,9 +217,6 @@ impl Quality for IsMechanosensitive {
 pub struct TaxonomyIsDAG;
 
 impl Axiom for TaxonomyIsDAG {
-    fn description(&self) -> &str {
-        "biological taxonomy is a directed acyclic graph"
-    }
 
     fn holds(&self) -> bool {
         taxonomy::NoCycles::<BiologicalTaxonomy>::new().holds()
@@ -231,9 +228,6 @@ pr4xis::register_axiom!(TaxonomyIsDAG);
 pub struct TaxonomyIsAntisymmetric;
 
 impl Axiom for TaxonomyIsAntisymmetric {
-    fn description(&self) -> &str {
-        "biological taxonomy is antisymmetric"
-    }
 
     fn holds(&self) -> bool {
         taxonomy::Antisymmetric::<BiologicalTaxonomy>::new().holds()
@@ -245,9 +239,6 @@ pr4xis::register_axiom!(TaxonomyIsAntisymmetric);
 pub struct MereologyIsDAG;
 
 impl Axiom for MereologyIsDAG {
-    fn description(&self) -> &str {
-        "biological mereology is a directed acyclic graph"
-    }
 
     fn holds(&self) -> bool {
         mereology::NoCycles::<BiologicalMereology>::new().holds()
@@ -259,9 +250,6 @@ pr4xis::register_axiom!(MereologyIsDAG);
 pub struct AllCellsAreCell;
 
 impl Axiom for AllCellsAreCell {
-    fn description(&self) -> &str {
-        "all cell types are subsumed by Cell"
-    }
 
     fn holds(&self) -> bool {
         use BiologicalEntity::*;
@@ -286,9 +274,6 @@ pr4xis::register_axiom!(AllCellsAreCell);
 pub struct EsophagusHasSquamousEpithelium;
 
 impl Axiom for EsophagusHasSquamousEpithelium {
-    fn description(&self) -> &str {
-        "esophagus has squamous epithelium as a part"
-    }
 
     fn holds(&self) -> bool {
         use BiologicalEntity::*;
@@ -302,9 +287,6 @@ pr4xis::register_axiom!(EsophagusHasSquamousEpithelium);
 pub struct EpitheliumHasStemCells;
 
 impl Axiom for EpitheliumHasStemCells {
-    fn description(&self) -> &str {
-        "squamous epithelium contains both squamous epithelial and basal stem cells"
-    }
 
     fn holds(&self) -> bool {
         use BiologicalEntity::*;
@@ -318,9 +300,6 @@ pr4xis::register_axiom!(EpitheliumHasStemCells);
 pub struct AllLevelsRepresented;
 
 impl Axiom for AllLevelsRepresented {
-    fn description(&self) -> &str {
-        "all four non-abstract organization levels are represented"
-    }
 
     fn holds(&self) -> bool {
         use OrganizationLevel::*;
@@ -340,9 +319,6 @@ pr4xis::register_axiom!(AllLevelsRepresented);
 pub struct StemCellDifferentiation;
 
 impl Axiom for StemCellDifferentiation {
-    fn description(&self) -> &str {
-        "basal stem cells and squamous epithelial cells coexist in squamous epithelium (differentiation pathway)"
-    }
     fn holds(&self) -> bool {
         use BiologicalEntity::*;
         // Both cell types exist in the same tissue (mereology)
@@ -359,9 +335,6 @@ pr4xis::register_axiom!(StemCellDifferentiation);
 pub struct MechanosensitivityIsMultiscale;
 
 impl Axiom for MechanosensitivityIsMultiscale {
-    fn description(&self) -> &str {
-        "mechanosensitive entities exist at both cellular and tissue levels"
-    }
 
     fn holds(&self) -> bool {
         let mechano = IsMechanosensitive;
@@ -385,9 +358,6 @@ pr4xis::register_axiom!(MechanosensitivityIsMultiscale);
 pub struct BiologicalOppositionSymmetric;
 
 impl Axiom for BiologicalOppositionSymmetric {
-    fn description(&self) -> &str {
-        "biological opposition is symmetric"
-    }
 
     fn holds(&self) -> bool {
         opposition::Symmetric::<BiologicalOpposition>::new().holds()
@@ -399,9 +369,6 @@ pr4xis::register_axiom!(BiologicalOppositionSymmetric);
 pub struct BiologicalOppositionIrreflexive;
 
 impl Axiom for BiologicalOppositionIrreflexive {
-    fn description(&self) -> &str {
-        "biological opposition is irreflexive"
-    }
 
     fn holds(&self) -> bool {
         opposition::Irreflexive::<BiologicalOpposition>::new().holds()
@@ -413,9 +380,6 @@ pr4xis::register_axiom!(BiologicalOppositionIrreflexive);
 pub struct BiologicalCausalAsymmetric;
 
 impl Axiom for BiologicalCausalAsymmetric {
-    fn description(&self) -> &str {
-        "biological causal graph is asymmetric"
-    }
 
     fn holds(&self) -> bool {
         causation::Asymmetric::<BiologicalCausalGraph>::new().holds()
@@ -427,9 +391,6 @@ pr4xis::register_axiom!(BiologicalCausalAsymmetric);
 pub struct BiologicalCausalNoSelfCausation;
 
 impl Axiom for BiologicalCausalNoSelfCausation {
-    fn description(&self) -> &str {
-        "no biological event directly causes itself"
-    }
 
     fn holds(&self) -> bool {
         causation::NoSelfCausation::<BiologicalCausalGraph>::new().holds()
@@ -446,9 +407,6 @@ pr4xis::register_axiom!(BiologicalCausalNoSelfCausation);
 pub struct MacrophageM1CrossDomainEquivalence;
 
 impl Axiom for MacrophageM1CrossDomainEquivalence {
-    fn description(&self) -> &str {
-        "MacrophageM1 is the same entity in immunology and biology (functor maps identity)"
-    }
 
     fn holds(&self) -> bool {
         use crate::natural::biomedical::immunology::biology_functor::ImmunologyToBiology;
@@ -465,9 +423,6 @@ pr4xis::register_axiom!(MacrophageM1CrossDomainEquivalence);
 pub struct MacrophageM2CrossDomainEquivalence;
 
 impl Axiom for MacrophageM2CrossDomainEquivalence {
-    fn description(&self) -> &str {
-        "MacrophageM2 is the same entity in immunology and biology (functor maps identity)"
-    }
 
     fn holds(&self) -> bool {
         use crate::natural::biomedical::immunology::biology_functor::ImmunologyToBiology;
@@ -484,9 +439,6 @@ pr4xis::register_axiom!(MacrophageM2CrossDomainEquivalence);
 pub struct FibroblastCrossDomainEquivalence;
 
 impl Axiom for FibroblastCrossDomainEquivalence {
-    fn description(&self) -> &str {
-        "Fibroblast is the same entity in immunology and biology (functor maps identity)"
-    }
 
     fn holds(&self) -> bool {
         use crate::natural::biomedical::immunology::biology_functor::ImmunologyToBiology;

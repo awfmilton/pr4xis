@@ -245,9 +245,6 @@ impl Quality for FrequencyRange {
 pub struct BiophysicsTaxonomyIsDAG;
 
 impl Axiom for BiophysicsTaxonomyIsDAG {
-    fn description(&self) -> &str {
-        "biophysics taxonomy is a directed acyclic graph"
-    }
 
     fn holds(&self) -> bool {
         taxonomy::NoCycles::<BiophysicsTaxonomy>::new().holds()
@@ -259,9 +256,6 @@ pr4xis::register_axiom!(BiophysicsTaxonomyIsDAG);
 pub struct BiophysicsCausalAsymmetric;
 
 impl Axiom for BiophysicsCausalAsymmetric {
-    fn description(&self) -> &str {
-        "biophysics causal graph is asymmetric"
-    }
 
     fn holds(&self) -> bool {
         causation::Asymmetric::<BiophysicsCauses>::new().holds()
@@ -273,10 +267,6 @@ pr4xis::register_axiom!(BiophysicsCausalAsymmetric);
 pub struct VibrationCausesMechanotransduction;
 
 impl Axiom for VibrationCausesMechanotransduction {
-    fn description(&self) -> &str {
-        "external vibration transitively causes mechanotransducer activation \
-         (full chain: vibration -> wave -> deformation -> strain -> activation)"
-    }
 
     fn holds(&self) -> bool {
         use BiophysicsCausalEvent::*;
@@ -291,10 +281,6 @@ pr4xis::register_axiom!(VibrationCausesMechanotransduction);
 pub struct PiezoelectricFollowsDeformation;
 
 impl Axiom for PiezoelectricFollowsDeformation {
-    fn description(&self) -> &str {
-        "piezoelectric charge generation follows tissue deformation \
-         (Fukada & Yasuda 1957)"
-    }
 
     fn holds(&self) -> bool {
         use BiophysicsCausalEvent::*;
@@ -308,9 +294,6 @@ pr4xis::register_axiom!(PiezoelectricFollowsDeformation);
 pub struct BoneMatrixIsPiezoelectric;
 
 impl Axiom for BoneMatrixIsPiezoelectric {
-    fn description(&self) -> &str {
-        "bone matrix is piezoelectric due to collagen content"
-    }
 
     fn holds(&self) -> bool {
         IsPiezoelectric.get(&BiophysicsEntity::BoneMatrix) == Some(true)
@@ -322,10 +305,6 @@ pr4xis::register_axiom!(BoneMatrixIsPiezoelectric);
 pub struct BoneImpedanceGreaterThanSoftTissue;
 
 impl Axiom for BoneImpedanceGreaterThanSoftTissue {
-    fn description(&self) -> &str {
-        "bone matrix acoustic impedance exceeds soft tissue impedance \
-         (impedance mismatch causes wave reflection)"
-    }
 
     fn holds(&self) -> bool {
         let bone_z = AcousticImpedanceValue.get(&BiophysicsEntity::BoneMatrix);
@@ -342,9 +321,6 @@ pr4xis::register_axiom!(BoneImpedanceGreaterThanSoftTissue);
 pub struct ImpedanceMismatchCausesReflection;
 
 impl Axiom for ImpedanceMismatchCausesReflection {
-    fn description(&self) -> &str {
-        "impedance mismatch causes wave reflection"
-    }
 
     fn holds(&self) -> bool {
         use BiophysicsCausalEvent::*;
@@ -358,9 +334,6 @@ pr4xis::register_axiom!(ImpedanceMismatchCausesReflection);
 pub struct BiophysicsOppositionSymmetric;
 
 impl Axiom for BiophysicsOppositionSymmetric {
-    fn description(&self) -> &str {
-        "biophysics opposition is symmetric"
-    }
 
     fn holds(&self) -> bool {
         opposition::Symmetric::<BiophysicsOpposition>::new().holds()
@@ -372,9 +345,6 @@ pr4xis::register_axiom!(BiophysicsOppositionSymmetric);
 pub struct BiophysicsOppositionIrreflexive;
 
 impl Axiom for BiophysicsOppositionIrreflexive {
-    fn description(&self) -> &str {
-        "biophysics opposition is irreflexive"
-    }
 
     fn holds(&self) -> bool {
         opposition::Irreflexive::<BiophysicsOpposition>::new().holds()
@@ -386,9 +356,6 @@ pr4xis::register_axiom!(BiophysicsOppositionIrreflexive);
 pub struct BiophysicsCausalNoSelfCausation;
 
 impl Axiom for BiophysicsCausalNoSelfCausation {
-    fn description(&self) -> &str {
-        "no biophysics causal event directly causes itself"
-    }
 
     fn holds(&self) -> bool {
         causation::NoSelfCausation::<BiophysicsCauses>::new().holds()

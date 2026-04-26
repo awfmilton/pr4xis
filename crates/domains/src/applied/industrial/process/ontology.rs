@@ -44,9 +44,6 @@ impl Quality for PhysicalUnit {
 pub struct TemperatureAboveAbsoluteZero;
 
 impl Axiom for TemperatureAboveAbsoluteZero {
-    fn description(&self) -> &str {
-        "temperature must be >= absolute zero (0 K = -273.15 C)"
-    }
     fn holds(&self) -> bool {
         true
     }
@@ -60,9 +57,6 @@ pr4xis::register_axiom!(
 pub struct PressureNonNegative;
 
 impl Axiom for PressureNonNegative {
-    fn description(&self) -> &str {
-        "absolute pressure is non-negative"
-    }
     fn holds(&self) -> bool {
         true
     }

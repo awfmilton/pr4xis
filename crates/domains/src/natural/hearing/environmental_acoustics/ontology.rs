@@ -150,9 +150,6 @@ impl Quality for IdealRT60Seconds {
 
 pub struct SpeechRoomShortestRT60;
 impl Axiom for SpeechRoomShortestRT60 {
-    fn description(&self) -> &str {
-        "speech rooms have shortest ideal RT60"
-    }
     fn holds(&self) -> bool {
         use EnvironmentEntity::*;
         let s = IdealRT60Seconds.get(&SpeechRoom).unwrap();
@@ -164,9 +161,6 @@ impl Axiom for SpeechRoomShortestRT60 {
 pr4xis::register_axiom!(SpeechRoomShortestRT60);
 pub struct NIOSHStricterThanOSHA;
 impl Axiom for NIOSHStricterThanOSHA {
-    fn description(&self) -> &str {
-        "NIOSH limit (85 dBA) is stricter than OSHA (90 dBA)"
-    }
     fn holds(&self) -> bool {
         use EnvironmentEntity::*;
         RegulatoryLimitDB.get(&NIOSHLimit).unwrap() < RegulatoryLimitDB.get(&OSHALimit).unwrap()
@@ -175,9 +169,6 @@ impl Axiom for NIOSHStricterThanOSHA {
 pr4xis::register_axiom!(NIOSHStricterThanOSHA);
 pub struct NIOSHUsesEqualEnergy;
 impl Axiom for NIOSHUsesEqualEnergy {
-    fn description(&self) -> &str {
-        "NIOSH uses 3 dB exchange rate (stricter than OSHA 5 dB)"
-    }
     fn holds(&self) -> bool {
         use EnvironmentEntity::*;
         ExchangeRateDB.get(&NIOSHLimit).unwrap() < ExchangeRateDB.get(&OSHALimit).unwrap()
@@ -186,9 +177,6 @@ impl Axiom for NIOSHUsesEqualEnergy {
 pr4xis::register_axiom!(NIOSHUsesEqualEnergy);
 pub struct RT60Subsumption;
 impl Axiom for RT60Subsumption {
-    fn description(&self) -> &str {
-        "RT60 is-a ReverberationTime is-a RoomParameter"
-    }
     fn holds(&self) -> bool {
         use EnvironmentEntity::*;
         taxonomy::is_a::<EnvironmentTaxonomy>(&RT60, &ReverberationTime)
@@ -199,9 +187,6 @@ impl Axiom for RT60Subsumption {
 pr4xis::register_axiom!(RT60Subsumption);
 pub struct NoiseCausesHearingDamage;
 impl Axiom for NoiseCausesHearingDamage {
-    fn description(&self) -> &str {
-        "noise source transitively causes hearing damage risk"
-    }
     fn holds(&self) -> bool {
         use EnvironmentCausalEvent::*;
         causation::effects_of::<EnvironmentCausalGraph>(&NoiseSource).contains(&HearingDamageRisk)

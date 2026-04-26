@@ -156,9 +156,6 @@ impl Quality for RequiresSurgery {
 
 pub struct BTEContainsComponents;
 impl Axiom for BTEContainsComponents {
-    fn description(&self) -> &str {
-        "BTE hearing aid contains microphone, amplifier, and receiver"
-    }
     fn holds(&self) -> bool {
         use DeviceEntity::*;
         let parts = mereology::parts_of::<DeviceMereology>(&BehindTheEar);
@@ -168,9 +165,6 @@ impl Axiom for BTEContainsComponents {
 pr4xis::register_axiom!(BTEContainsComponents);
 pub struct CIHighestGain;
 impl Axiom for CIHighestGain {
-    fn description(&self) -> &str {
-        "cochlear implant provides highest gain"
-    }
     fn holds(&self) -> bool {
         use DeviceEntity::*;
         MaxGainDB.get(&CochlearImplant).unwrap() > MaxGainDB.get(&BehindTheEar).unwrap()
@@ -179,9 +173,6 @@ impl Axiom for CIHighestGain {
 pr4xis::register_axiom!(CIHighestGain);
 pub struct ImplantablesRequireSurgery;
 impl Axiom for ImplantablesRequireSurgery {
-    fn description(&self) -> &str {
-        "all implantable devices require surgery"
-    }
     fn holds(&self) -> bool {
         use DeviceEntity::*;
         [
@@ -197,9 +188,6 @@ impl Axiom for ImplantablesRequireSurgery {
 pr4xis::register_axiom!(ImplantablesRequireSurgery);
 pub struct HearingAidsNoSurgery;
 impl Axiom for HearingAidsNoSurgery {
-    fn description(&self) -> &str {
-        "conventional hearing aids do not require surgery"
-    }
     fn holds(&self) -> bool {
         use DeviceEntity::*;
         [BehindTheEar, InTheEar, CompletelyInCanal, ReceiverInCanal]
@@ -210,9 +198,6 @@ impl Axiom for HearingAidsNoSurgery {
 pr4xis::register_axiom!(HearingAidsNoSurgery);
 pub struct BAHADualClassification;
 impl Axiom for BAHADualClassification {
-    fn description(&self) -> &str {
-        "BAHA is classified as both implantable and BC device"
-    }
     fn holds(&self) -> bool {
         use DeviceEntity::*;
         taxonomy::is_a::<DeviceTaxonomy>(&BoneAnchoredHearingAid, &ImplantableDevice)
@@ -222,9 +207,6 @@ impl Axiom for BAHADualClassification {
 pr4xis::register_axiom!(BAHADualClassification);
 pub struct BTELongestBattery;
 impl Axiom for BTELongestBattery {
-    fn description(&self) -> &str {
-        "BTE has longest battery life among compared devices"
-    }
     fn holds(&self) -> bool {
         use DeviceEntity::*;
         let bte = BatteryLifeDays.get(&BehindTheEar).unwrap();
@@ -236,9 +218,6 @@ impl Axiom for BTELongestBattery {
 pr4xis::register_axiom!(BTELongestBattery);
 pub struct DiagnosisCausesOutcome;
 impl Axiom for DiagnosisCausesOutcome {
-    fn description(&self) -> &str {
-        "hearing loss diagnosis transitively causes outcome improvement"
-    }
     fn holds(&self) -> bool {
         use DeviceCausalEvent::*;
         causation::effects_of::<DeviceCausalGraph>(&HearingLossDiagnosis)

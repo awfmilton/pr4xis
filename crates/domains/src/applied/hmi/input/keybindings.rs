@@ -744,9 +744,6 @@ pub struct NoConflicts {
 }
 
 impl Axiom for NoConflicts {
-    fn description(&self) -> &str {
-        "no duplicate key combos in the same mode"
-    }
     fn holds(&self) -> bool {
         self.bindings.conflicts().is_empty()
     }
@@ -759,9 +756,6 @@ pub struct RemapInjective {
 }
 
 impl Axiom for RemapInjective {
-    fn description(&self) -> &str {
-        "remap is injective (each source maps to one target)"
-    }
     fn holds(&self) -> bool {
         let froms: Vec<&KeyCombo> = self.remaps.remaps.iter().map(|r| &r.from).collect();
         let unique: HashSet<&KeyCombo> = froms.iter().copied().collect();
@@ -777,9 +771,6 @@ pub struct AllModesHaveBindings {
 }
 
 impl Axiom for AllModesHaveBindings {
-    fn description(&self) -> &str {
-        "every mode has at least one keybinding"
-    }
     fn holds(&self) -> bool {
         self.modes
             .iter()
@@ -794,9 +785,6 @@ pub struct MacosRemapComplete {
 }
 
 impl Axiom for MacosRemapComplete {
-    fn description(&self) -> &str {
-        "macOS remap covers essential shortcuts (C, V, X, Z, S, A)"
-    }
     fn holds(&self) -> bool {
         let essential = ['c', 'v', 'x', 'z', 's', 'a'];
         essential.iter().all(|&c| {

@@ -78,9 +78,6 @@ pub enum MolecularEntity {
 pub struct MolecularMereologyNoCycles;
 
 impl Axiom for MolecularMereologyNoCycles {
-    fn description(&self) -> &str {
-        "molecular mereology has no cycles"
-    }
 
     fn holds(&self) -> bool {
         mereology::NoCycles::<MolecularMereology>::new().holds()
@@ -322,9 +319,6 @@ impl Quality for ExpressedInEsophagus {
 pub struct MolecularOppositionSymmetric;
 
 impl Axiom for MolecularOppositionSymmetric {
-    fn description(&self) -> &str {
-        "molecular opposition is symmetric"
-    }
 
     fn holds(&self) -> bool {
         opposition::Symmetric::<MolecularOpposition>::new().holds()
@@ -339,9 +333,6 @@ pr4xis::register_axiom!(
 pub struct MolecularOppositionIrreflexive;
 
 impl Axiom for MolecularOppositionIrreflexive {
-    fn description(&self) -> &str {
-        "molecular opposition is irreflexive"
-    }
 
     fn holds(&self) -> bool {
         opposition::Irreflexive::<MolecularOpposition>::new().holds()
@@ -360,9 +351,6 @@ pr4xis::register_axiom!(
 pub struct MolecularTaxonomyIsDAG;
 
 impl Axiom for MolecularTaxonomyIsDAG {
-    fn description(&self) -> &str {
-        "molecular taxonomy is a directed acyclic graph"
-    }
 
     fn holds(&self) -> bool {
         taxonomy::NoCycles::<MolecularTaxonomy>::new().holds()
@@ -377,9 +365,6 @@ pr4xis::register_axiom!(
 pub struct Piezo1IsMechanosensitiveChannel;
 
 impl Axiom for Piezo1IsMechanosensitiveChannel {
-    fn description(&self) -> &str {
-        "Piezo1 is-a Mechanosensitive is-a IonChannel"
-    }
 
     fn holds(&self) -> bool {
         use MolecularEntity::*;
@@ -397,9 +382,6 @@ pr4xis::register_axiom!(
 pub struct TRPV4InEsophagus;
 
 impl Axiom for TRPV4InEsophagus {
-    fn description(&self) -> &str {
-        "TRPV4 is mechanosensitive and expressed in the esophagus"
-    }
 
     fn holds(&self) -> bool {
         use MolecularEntity::*;
@@ -416,9 +398,6 @@ pr4xis::register_axiom!(
 pub struct MechanosensitiveChannelsPassCalcium;
 
 impl Axiom for MechanosensitiveChannelsPassCalcium {
-    fn description(&self) -> &str {
-        "all mechanosensitive channels conduct calcium"
-    }
 
     fn holds(&self) -> bool {
         use MolecularEntity::*;
@@ -436,9 +415,6 @@ pr4xis::register_axiom!(
 pub struct CausalGraphIsAsymmetric;
 
 impl Axiom for CausalGraphIsAsymmetric {
-    fn description(&self) -> &str {
-        "causal graph is asymmetric"
-    }
 
     fn holds(&self) -> bool {
         causation::Asymmetric::<MechanotransductionCausalGraph>::new().holds()
@@ -453,9 +429,6 @@ pr4xis::register_axiom!(
 pub struct CausalGraphNoSelfCause;
 
 impl Axiom for CausalGraphNoSelfCause {
-    fn description(&self) -> &str {
-        "no event directly causes itself"
-    }
 
     fn holds(&self) -> bool {
         causation::NoSelfCausation::<MechanotransductionCausalGraph>::new().holds()
@@ -470,9 +443,6 @@ pr4xis::register_axiom!(
 pub struct MechanicalStressCausesMorphology;
 
 impl Axiom for MechanicalStressCausesMorphology {
-    fn description(&self) -> &str {
-        "mechanical stress transitively causes morphological change"
-    }
 
     fn holds(&self) -> bool {
         use CausalEvent::*;
@@ -489,9 +459,6 @@ pr4xis::register_axiom!(
 pub struct AcidCausesVmemShift;
 
 impl Axiom for AcidCausesVmemShift {
-    fn description(&self) -> &str {
-        "acid exposure causes Vmem shift via Kv inhibition"
-    }
 
     fn holds(&self) -> bool {
         use CausalEvent::*;
@@ -508,9 +475,6 @@ pr4xis::register_axiom!(
 pub struct GlyRCausesHyperpolarization;
 
 impl Axiom for GlyRCausesHyperpolarization {
-    fn description(&self) -> &str {
-        "GlyR activation causes Vmem shift via chloride influx"
-    }
 
     fn holds(&self) -> bool {
         use CausalEvent::*;
@@ -527,9 +491,6 @@ pr4xis::register_axiom!(
 pub struct NernstPotentialsConsistent;
 
 impl Axiom for NernstPotentialsConsistent {
-    fn description(&self) -> &str {
-        "Nernst equilibrium potentials have correct signs"
-    }
 
     fn holds(&self) -> bool {
         use MolecularEntity::*;
@@ -670,9 +631,6 @@ impl ContextDef for MolecularFunctionalContext {
 pub struct MolecularContextDeterministic;
 
 impl Axiom for MolecularContextDeterministic {
-    fn description(&self) -> &str {
-        "molecular context resolution is deterministic: same molecule + same context = same role"
-    }
     fn holds(&self) -> bool {
         context::Deterministic::<MolecularFunctionalContext>::default().holds()
     }
@@ -687,9 +645,6 @@ pr4xis::register_axiom!(
 pub struct MolecularContextTrueAmbiguity;
 
 impl Axiom for MolecularContextTrueAmbiguity {
-    fn description(&self) -> &str {
-        "every molecule in the context map has at least two distinct functional roles"
-    }
     fn holds(&self) -> bool {
         context::TrueAmbiguity::<MolecularFunctionalContext>::default().holds()
     }
@@ -706,9 +661,6 @@ pr4xis::register_axiom!(
 pub struct KvDualRole;
 
 impl Axiom for KvDualRole {
-    fn description(&self) -> &str {
-        "Kv has dual role: passive Vmem setter (constitutive) vs therapeutic target (adjunction discovery)"
-    }
     fn holds(&self) -> bool {
         use FunctionalContext::*;
         use FunctionalRole::*;
@@ -729,9 +681,6 @@ pr4xis::register_axiom!(
 pub struct Piezo1DualRole;
 
 impl Axiom for Piezo1DualRole {
-    fn description(&self) -> &str {
-        "Piezo1 is a mechanical sensor (constitutive) and therapeutic target (vibration therapy)"
-    }
     fn holds(&self) -> bool {
         use FunctionalContext::*;
         use FunctionalRole::*;

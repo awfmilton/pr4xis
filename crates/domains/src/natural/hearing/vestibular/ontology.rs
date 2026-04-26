@@ -154,9 +154,6 @@ impl Quality for CanalSensitivity {
 
 pub struct ThreeCanals;
 impl Axiom for ThreeCanals {
-    fn description(&self) -> &str {
-        "three semicircular canals are classified"
-    }
     fn holds(&self) -> bool {
         use VestibularEntity::*;
         [LateralCanal, AnteriorCanal, PosteriorCanal]
@@ -167,9 +164,6 @@ impl Axiom for ThreeCanals {
 pr4xis::register_axiom!(ThreeCanals);
 pub struct TwoOtolithOrgans;
 impl Axiom for TwoOtolithOrgans {
-    fn description(&self) -> &str {
-        "utricle and saccule are otolith organs"
-    }
     fn holds(&self) -> bool {
         use VestibularEntity::*;
         taxonomy::is_a::<VestibularTaxonomy>(&Utricle, &OtolithOrgan)
@@ -179,9 +173,6 @@ impl Axiom for TwoOtolithOrgans {
 pr4xis::register_axiom!(TwoOtolithOrgans);
 pub struct RotationCausesVOR;
 impl Axiom for RotationCausesVOR {
-    fn description(&self) -> &str {
-        "head rotation transitively causes eye movement compensation"
-    }
     fn holds(&self) -> bool {
         use VestibularCausalEvent::*;
         causation::effects_of::<VestibularCausalGraph>(&HeadRotation)
@@ -191,9 +182,6 @@ impl Axiom for RotationCausesVOR {
 pr4xis::register_axiom!(RotationCausesVOR);
 pub struct CanalsContainHairCells;
 impl Axiom for CanalsContainHairCells {
-    fn description(&self) -> &str {
-        "semicircular canals transitively contain hair cells"
-    }
     fn holds(&self) -> bool {
         use VestibularEntity::*;
         let parts = mereology::parts_of::<VestibularMereology>(&LateralCanal);
@@ -203,9 +191,6 @@ impl Axiom for CanalsContainHairCells {
 pr4xis::register_axiom!(CanalsContainHairCells);
 pub struct ThreeDistinctCanalPlanes;
 impl Axiom for ThreeDistinctCanalPlanes {
-    fn description(&self) -> &str {
-        "each semicircular canal is sensitive to a distinct plane"
-    }
     fn holds(&self) -> bool {
         use VestibularEntity::*;
         let lat = CanalSensitivity.get(&LateralCanal).unwrap();
@@ -217,9 +202,6 @@ impl Axiom for ThreeDistinctCanalPlanes {
 pr4xis::register_axiom!(ThreeDistinctCanalPlanes);
 pub struct VORGainIsUnity;
 impl Axiom for VORGainIsUnity {
-    fn description(&self) -> &str {
-        "ideal VOR gain is 1.0"
-    }
     fn holds(&self) -> bool {
         VORGain.get(&VestibularEntity::VestibuloOcularReflex) == Some(1.0)
     }

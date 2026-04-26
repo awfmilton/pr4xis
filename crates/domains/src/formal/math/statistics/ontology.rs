@@ -60,9 +60,6 @@ impl Quality for ConceptDescription {
 pub struct MSEDecomposition;
 
 impl Axiom for MSEDecomposition {
-    fn description(&self) -> &str {
-        "MSE decomposition: MSE = bias^2 + variance"
-    }
 
     fn holds(&self) -> bool {
         let test_cases = [
@@ -97,9 +94,6 @@ pr4xis::register_axiom!(MSEDecomposition, "Fisher (1925), Neyman & Pearson (1933
 pub struct ConfidenceMonotonicity;
 
 impl Axiom for ConfidenceMonotonicity {
-    fn description(&self) -> &str {
-        "wider confidence interval implies higher confidence level"
-    }
 
     fn holds(&self) -> bool {
         let estimate = 5.0;
@@ -121,9 +115,6 @@ pr4xis::register_axiom!(
 pub struct TypeITypeIITradeoff;
 
 impl Axiom for TypeITypeIITradeoff {
-    fn description(&self) -> &str {
-        "Type I / Type II error tradeoff: lower significance level means wider acceptance region"
-    }
 
     fn holds(&self) -> bool {
         let z_10 = confidence::Z_90;

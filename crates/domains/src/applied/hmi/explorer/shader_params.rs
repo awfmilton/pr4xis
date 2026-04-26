@@ -72,9 +72,6 @@ pub fn clamp_param(param: &ShaderParamDef, value: f64) -> f64 {
 pub struct DefaultsInRange;
 
 impl Axiom for DefaultsInRange {
-    fn description(&self) -> &str {
-        "all shader parameter defaults are within their intervals"
-    }
     fn holds(&self) -> bool {
         all_params().iter().all(|p| p.interval.contains(p.default))
     }
@@ -85,9 +82,6 @@ pr4xis::register_axiom!(DefaultsInRange);
 pub struct IntensityBalanced;
 
 impl Axiom for IntensityBalanced {
-    fn description(&self) -> &str {
-        "intensity default is 0.5 (balanced blend, not full monochrome)"
-    }
     fn holds(&self) -> bool {
         (intensity().default - 0.5).abs() < 1e-10
     }
@@ -98,9 +92,6 @@ pr4xis::register_axiom!(IntensityBalanced);
 pub struct BrightnessNeutral;
 
 impl Axiom for BrightnessNeutral {
-    fn description(&self) -> &str {
-        "brightness default is 1.0 (neutral, no dimming or boosting)"
-    }
     fn holds(&self) -> bool {
         (brightness().default - 1.0).abs() < 1e-10
     }
@@ -111,9 +102,6 @@ pr4xis::register_axiom!(BrightnessNeutral);
 pub struct SaturationNeutral;
 
 impl Axiom for SaturationNeutral {
-    fn description(&self) -> &str {
-        "saturation default is 1.0 (neutral, no desaturation or boosting)"
-    }
     fn holds(&self) -> bool {
         (saturation().default - 1.0).abs() < 1e-10
     }

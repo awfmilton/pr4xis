@@ -183,9 +183,6 @@ impl Quality for RequiresCooperation {
 
 pub struct DiagnosticTestContainsConductionTests;
 impl Axiom for DiagnosticTestContainsConductionTests {
-    fn description(&self) -> &str {
-        "diagnostic test transitively contains air and bone conduction tests"
-    }
     fn holds(&self) -> bool {
         use AudiologyEntity::*;
         let parts = mereology::parts_of::<AudiologyMereology>(&DiagnosticTest);
@@ -196,9 +193,6 @@ pr4xis::register_axiom!(DiagnosticTestContainsConductionTests);
 
 pub struct ABRWavesOrdered;
 impl Axiom for ABRWavesOrdered {
-    fn description(&self) -> &str {
-        "ABR wave latencies are ordered (I < III < V)"
-    }
     fn holds(&self) -> bool {
         use AudiologyEntity::*;
         let l = ABRLatencyMs;
@@ -210,9 +204,6 @@ pr4xis::register_axiom!(ABRWavesOrdered);
 
 pub struct ThreeTympanogramTypes;
 impl Axiom for ThreeTympanogramTypes {
-    fn description(&self) -> &str {
-        "three tympanogram types (A, B, C) are classified"
-    }
     fn holds(&self) -> bool {
         use AudiologyEntity::*;
         [TympanogramTypeA, TympanogramTypeB, TympanogramTypeC]
@@ -224,9 +215,6 @@ pr4xis::register_axiom!(ThreeTympanogramTypes);
 
 pub struct ABRLongerThanTympanometry;
 impl Axiom for ABRLongerThanTympanometry {
-    fn description(&self) -> &str {
-        "ABR takes longer than tympanometry"
-    }
     fn holds(&self) -> bool {
         use AudiologyEntity::*;
         TestDurationMinutes.get(&AuditoryBrainstemResponse).unwrap()
@@ -237,9 +225,6 @@ pr4xis::register_axiom!(ABRLongerThanTympanometry);
 
 pub struct ABRIsObjective;
 impl Axiom for ABRIsObjective {
-    fn description(&self) -> &str {
-        "ABR does not require patient cooperation"
-    }
     fn holds(&self) -> bool {
         RequiresCooperation.get(&AudiologyEntity::AuditoryBrainstemResponse) == Some(false)
     }
@@ -248,9 +233,6 @@ pr4xis::register_axiom!(ABRIsObjective);
 
 pub struct FullClinicalPathway;
 impl Axiom for FullClinicalPathway {
-    fn description(&self) -> &str {
-        "patient presentation transitively leads to outcome verification"
-    }
     fn holds(&self) -> bool {
         use AudiologyCausalEvent::*;
         causation::effects_of::<AudiologyCausalGraph>(&PatientPresents).contains(&OutcomeVerified)
@@ -260,9 +242,6 @@ pr4xis::register_axiom!(FullClinicalPathway);
 
 pub struct QuickSINSubsumption;
 impl Axiom for QuickSINSubsumption {
-    fn description(&self) -> &str {
-        "QuickSIN is-a speech-in-noise test is-a speech test"
-    }
     fn holds(&self) -> bool {
         use AudiologyEntity::*;
         taxonomy::is_a::<AudiologyTaxonomy>(&QuickSIN, &SpeechInNoiseTest)

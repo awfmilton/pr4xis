@@ -25,9 +25,6 @@ impl<C: Category> Default for NoDeadStates<C> {
 }
 
 impl<C: Category> Axiom for NoDeadStates<C> {
-    fn description(&self) -> &str {
-        "every object has at least one outgoing morphism"
-    }
 
     fn holds(&self) -> bool {
         C::Object::variants()
@@ -35,12 +32,16 @@ impl<C: Category> Axiom for NoDeadStates<C> {
             .all(|obj| !C::morphisms_from(obj).is_empty())
     }
 
-    crate::axiom_meta!(
-        "NoDeadStates",
-        "every object has at least one outgoing morphism",
-        "Mac Lane (1971) 'Categories for the Working Mathematician' Ch. I"
-    );
+    crate::axiom_meta!("NoDeadStates");
 }
+
+crate::register_lexicon!(
+    NoDeadStates,
+    "NoDeadStates",
+    "NoDeadStates",
+    "every object has at least one outgoing morphism",
+    "Mac Lane (1971) 'Categories for the Working Mathematician' Ch. I"
+);
 
 /// Every object is reachable from every other object.
 pub struct FullyConnected<C: Category> {
@@ -62,9 +63,6 @@ impl<C: Category> Default for FullyConnected<C> {
 }
 
 impl<C: Category> Axiom for FullyConnected<C> {
-    fn description(&self) -> &str {
-        "every object is reachable from every other object"
-    }
 
     fn holds(&self) -> bool {
         use alloc::collections::VecDeque;
@@ -99,9 +97,13 @@ impl<C: Category> Axiom for FullyConnected<C> {
         true
     }
 
-    crate::axiom_meta!(
-        "FullyConnected",
-        "every object is reachable from every other object",
-        "Graph connectivity invariant on a category"
-    );
+    crate::axiom_meta!("FullyConnected");
 }
+
+crate::register_lexicon!(
+    FullyConnected,
+    "FullyConnected",
+    "FullyConnected",
+    "every object is reachable from every other object",
+    "Graph connectivity invariant on a category"
+);

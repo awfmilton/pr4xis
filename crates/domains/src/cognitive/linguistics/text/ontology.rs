@@ -90,9 +90,6 @@ impl Quality for IsStructural {
 pub struct WordIsFullyConnected;
 
 impl Axiom for WordIsFullyConnected {
-    fn description(&self) -> &str {
-        "Word has LexiconReference, GrammaticalType, MeaningReference, Annotation"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::mereology::MereologyDef;
         let parts = TextMereology::relations();
@@ -119,9 +116,6 @@ pr4xis::register_axiom!(
 pub struct TwoLevelContainment;
 
 impl Axiom for TwoLevelContainment {
-    fn description(&self) -> &str {
-        "Context contains Sentences, Sentences contain Words (NIF structure)"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::mereology::MereologyDef;
         let parts = TextMereology::relations();

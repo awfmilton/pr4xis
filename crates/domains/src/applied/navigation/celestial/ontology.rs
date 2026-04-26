@@ -63,9 +63,6 @@ impl Quality for AngularAccuracy {
 pub struct TwoSightsFix;
 
 impl Axiom for TwoSightsFix {
-    fn description(&self) -> &str {
-        "two celestial observations determine a position (intersection of circles of position)"
-    }
     fn holds(&self) -> bool {
         let unknowns = 2;
         let observations_per_sight = 1;
@@ -84,9 +81,6 @@ pr4xis::register_axiom!(
 pub struct StarTrackerMostAccurate;
 
 impl Axiom for StarTrackerMostAccurate {
-    fn description(&self) -> &str {
-        "star trackers provide arcsecond-level accuracy (most accurate celestial sensor)"
-    }
     fn holds(&self) -> bool {
         let star_tracker_arcsec = 5.0;
         let sun_sensor_arcsec = 180.0;
@@ -105,9 +99,6 @@ pr4xis::register_axiom!(
 pub struct AtmosphericRefraction;
 
 impl Axiom for AtmosphericRefraction {
-    fn description(&self) -> &str {
-        "near-horizon observations are corrupted by atmospheric refraction"
-    }
     fn holds(&self) -> bool {
         let refraction_at_horizon = approximate_refraction_arcmin(0.5);
         let refraction_at_45deg = approximate_refraction_arcmin(45.0);

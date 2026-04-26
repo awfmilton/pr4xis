@@ -322,8 +322,6 @@ impl Quality for DependabilityCategoryOf {
 pub struct ThreeThreats;
 
 impl Axiom for ThreeThreats {
-    fn description(&self) -> &str {
-        "the direct children of Threat are exactly {Fault, Error, Failure} (Avizienis et al. 2004 §2.2)"
     }
     fn holds(&self) -> bool {
         let actual = direct_children_of(DependabilityConcept::Threat);
@@ -355,9 +353,6 @@ fn direct_children_of(parent: DependabilityConcept) -> Vec<DependabilityConcept>
 pub struct FaultErrorFailureChain;
 
 impl Axiom for FaultErrorFailureChain {
-    fn description(&self) -> &str {
-        "Fault activates into Error, Error propagates into Failure (Avizienis et al. 2004 §2.2)"
-    }
     fn holds(&self) -> bool {
         let m = DependabilityCategory::morphisms();
         let activates = m
@@ -388,9 +383,6 @@ pr4xis::register_axiom!(
 pub struct FailureRecursionDocumented;
 
 impl Axiom for FailureRecursionDocumented {
-    fn description(&self) -> &str {
-        "Failure and Fault are both Threats AND no direct Failure→Fault causal edge exists (Avizienis §2.4 inter-layer recursion preserved without breaking causation asymmetry)"
-    }
     fn holds(&self) -> bool {
         // Precondition: both concepts exist as Threats.
         use pr4xis::ontology::reasoning::causation::CausalDef;
@@ -424,8 +416,6 @@ pr4xis::register_axiom!(
 pub struct SixCoreAttributes;
 
 impl Axiom for SixCoreAttributes {
-    fn description(&self) -> &str {
-        "the direct children of Attribute are exactly {Availability, Reliability, Safety, Confidentiality, Integrity, Maintainability} (Avizienis et al. 2004 §4)"
     }
     fn holds(&self) -> bool {
         let actual = direct_children_of(DependabilityConcept::Attribute);
@@ -450,8 +440,6 @@ pr4xis::register_axiom!(
 pub struct FourMeans;
 
 impl Axiom for FourMeans {
-    fn description(&self) -> &str {
-        "the direct children of Means are exactly {FaultPrevention, FaultTolerance, FaultRemoval, FaultForecasting} (Avizienis et al. 2004 §5)"
     }
     fn holds(&self) -> bool {
         let actual = direct_children_of(DependabilityConcept::Means);
@@ -478,8 +466,6 @@ pr4xis::register_axiom!(
 pub struct CristianFaultModelsExist;
 
 impl Axiom for CristianFaultModelsExist {
-    fn description(&self) -> &str {
-        "Cristian (1991) operational fault models {Crash, Omission, Timing, Byzantine} are all classified as OperationalFault"
     }
     fn holds(&self) -> bool {
         let actual = direct_children_of(DependabilityConcept::OperationalFault);

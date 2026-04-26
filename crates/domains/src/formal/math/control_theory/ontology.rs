@@ -70,9 +70,6 @@ impl Quality for ConceptDescription {
 pub struct NegativeFeedbackStabilizes;
 
 impl Axiom for NegativeFeedbackStabilizes {
-    fn description(&self) -> &str {
-        "negative feedback reduces gain and stabilizes: |G/(1+GH)| < |G| for GH > 0"
-    }
 
     fn holds(&self) -> bool {
         // For positive plant and feedback gains, closed-loop gain < open-loop gain
@@ -107,9 +104,6 @@ pr4xis::register_axiom!(NegativeFeedbackStabilizes);
 pub struct ErrorConvergesToZero;
 
 impl Axiom for ErrorConvergesToZero {
-    fn description(&self) -> &str {
-        "stable system with integral action: steady-state error converges to zero"
-    }
 
     fn holds(&self) -> bool {
         // Simulate a PI controller tracking a step reference
@@ -138,9 +132,6 @@ pr4xis::register_axiom!(ErrorConvergesToZero);
 pub struct BIBOStabilityDefinition;
 
 impl Axiom for BIBOStabilityDefinition {
-    fn description(&self) -> &str {
-        "BIBO stability: system is stable iff all poles have negative real parts"
-    }
 
     fn holds(&self) -> bool {
         // Stable systems: all poles have Re < 0

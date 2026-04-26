@@ -276,8 +276,6 @@ fn direct_children_of(parent: ResilienceConcept) -> Vec<ResilienceConcept> {
 pub struct CircuitBreakerThreeStates;
 
 impl Axiom for CircuitBreakerThreeStates {
-    fn description(&self) -> &str {
-        "the direct children of CircuitBreaker are exactly {Closed, Open, HalfOpen} (Nygard 2007)"
     }
     fn holds(&self) -> bool {
         let actual = direct_children_of(ResilienceConcept::CircuitBreaker);
@@ -300,8 +298,6 @@ pr4xis::register_axiom!(
 pub struct BrookerJitterStrategiesExist;
 
 impl Axiom for BrookerJitterStrategiesExist {
-    fn description(&self) -> &str {
-        "the three Brooker (2015) jitter strategies {Full, Equal, Decorrelated} are all classified as JitterStrategy"
     }
     fn holds(&self) -> bool {
         let actual = direct_children_of(ResilienceConcept::JitterStrategy);
@@ -323,8 +319,6 @@ pr4xis::register_axiom!(
 pub struct OtpSupervisionStrategies;
 
 impl Axiom for OtpSupervisionStrategies {
-    fn description(&self) -> &str {
-        "the direct children of SupervisionStrategy are exactly {OneForOne, OneForAll, RestForOne} (Armstrong 2003 OTP)"
     }
     fn holds(&self) -> bool {
         let actual = direct_children_of(ResilienceConcept::SupervisionStrategy);
@@ -346,8 +340,6 @@ pr4xis::register_axiom!(
 pub struct CircuitBreakerTransitionsExist;
 
 impl Axiom for CircuitBreakerTransitionsExist {
-    fn description(&self) -> &str {
-        "circuit breaker transitions {Closed→Open, Open→HalfOpen, HalfOpen→Closed, HalfOpen→Open} all exist (Nygard 2007)"
     }
     fn holds(&self) -> bool {
         use ResilienceConcept as R;
@@ -384,8 +376,6 @@ pr4xis::register_axiom!(
 pub struct RocPatternsClassified;
 
 impl Axiom for RocPatternsClassified {
-    fn description(&self) -> &str {
-        "Patterson et al. (2002) ROC patterns {Undo, Microreboot, Quarantine} are all classified as RecoveryPattern"
     }
     fn holds(&self) -> bool {
         let actual = direct_children_of(ResilienceConcept::RecoveryPattern);

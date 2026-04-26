@@ -52,9 +52,6 @@ impl Quality for OccupancyProbability {
 pub struct ProbabilityBounded;
 
 impl Axiom for ProbabilityBounded {
-    fn description(&self) -> &str {
-        "occupancy probabilities must be in [0, 1]"
-    }
     fn holds(&self) -> bool {
         let q = OccupancyProbability;
         CellState::variants().iter().all(|s| {
@@ -72,9 +69,6 @@ pr4xis::register_axiom!(ProbabilityBounded);
 pub struct LogOddsUpdateDeterministic;
 
 impl Axiom for LogOddsUpdateDeterministic {
-    fn description(&self) -> &str {
-        "log-odds Bayesian update is a deterministic function"
-    }
     fn holds(&self) -> bool {
         // Verify determinism: same prior + same observation => same posterior
         let prior = 0.5_f64;

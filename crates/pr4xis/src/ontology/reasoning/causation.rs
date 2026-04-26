@@ -120,9 +120,6 @@ impl<T: CausalDef> Default for Asymmetric<T> {
 }
 
 impl<T: CausalDef> crate::logic::Axiom for Asymmetric<T> {
-    fn description(&self) -> &str {
-        "causation is asymmetric: if A causes B then B does not cause A"
-    }
 
     fn holds(&self) -> bool {
         let direct = T::relations();
@@ -134,12 +131,16 @@ impl<T: CausalDef> crate::logic::Axiom for Asymmetric<T> {
         true
     }
 
-    crate::axiom_meta!(
-        "Asymmetric[Causation]",
-        "causation is asymmetric: if A causes B then B does not cause A",
-        "Lewis (1973) 'Causation'; Reichenbach (1956) 'The Direction of Time'"
-    );
+    crate::axiom_meta!("Asymmetric[Causation]");
 }
+
+crate::register_lexicon!(
+    Asymmetric_Causation,
+    "Asymmetric[Causation]",
+    "Asymmetric[Causation]",
+    "causation is asymmetric: if A causes B then B does not cause A",
+    "Lewis (1973) 'Causation'; Reichenbach (1956) 'The Direction of Time'"
+);
 
 /// Axiom: no self-causation — no entity directly causes itself.
 pub struct NoSelfCausation<T: CausalDef> {
@@ -161,20 +162,21 @@ impl<T: CausalDef> Default for NoSelfCausation<T> {
 }
 
 impl<T: CausalDef> crate::logic::Axiom for NoSelfCausation<T> {
-    fn description(&self) -> &str {
-        "no entity directly causes itself"
-    }
 
     fn holds(&self) -> bool {
         T::relations().iter().all(|(cause, effect)| cause != effect)
     }
 
-    crate::axiom_meta!(
-        "NoSelfCausation[Causation]",
-        "no entity directly causes itself",
-        "Lewis (1973) 'Causation' — Humean causation"
-    );
+    crate::axiom_meta!("NoSelfCausation[Causation]");
 }
+
+crate::register_lexicon!(
+    NoSelfCausation_Causation,
+    "NoSelfCausation[Causation]",
+    "NoSelfCausation[Causation]",
+    "no entity directly causes itself",
+    "Lewis (1973) 'Causation' — Humean causation"
+);
 
 // ---- Algebraic structure integrations ----
 

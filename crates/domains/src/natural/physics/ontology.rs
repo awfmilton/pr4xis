@@ -100,9 +100,6 @@ impl Quality for LawBranch {
 pub struct MaxwellDerivesC;
 
 impl Axiom for MaxwellDerivesC {
-    fn description(&self) -> &str {
-        "Maxwell's 4 equations together derive c = 1/sqrt(mu0 eps0)"
-    }
     fn holds(&self) -> bool {
         let c = super::maxwell::speed_of_light();
         (c - 2.998e8).abs() < 1e6
@@ -114,9 +111,6 @@ pr4xis::register_axiom!(MaxwellDerivesC, "Newton (1687); Maxwell (1865).");
 pub struct AllBranchesRepresented;
 
 impl Axiom for AllBranchesRepresented {
-    fn description(&self) -> &str {
-        "every branch of physics has at least one law"
-    }
     fn holds(&self) -> bool {
         let branch = LawBranch;
         let branches: hashbrown::HashSet<Branch> = PhysicsConcept::variants()

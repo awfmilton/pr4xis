@@ -169,9 +169,6 @@ pub struct LuminanceMonotonicity {
 }
 
 impl Axiom for LuminanceMonotonicity {
-    fn description(&self) -> &str {
-        "base00-base07 form a monotone luminance ramp (base16 spec)"
-    }
     fn holds(&self) -> bool {
         let ramp_slots = [
             ColorSlot::Base00,
@@ -208,9 +205,6 @@ pub struct WcagForegroundContrast {
 }
 
 impl Axiom for WcagForegroundContrast {
-    fn description(&self) -> &str {
-        "foreground (base05) has >= 4.5:1 contrast against background (base00) (WCAG AA)"
-    }
     fn holds(&self) -> bool {
         let bg = match self.palette.get(&ColorSlot::Base00) {
             Some(c) => c,
@@ -233,9 +227,6 @@ pub struct BrightVariantBrighter {
 }
 
 impl Axiom for BrightVariantBrighter {
-    fn description(&self) -> &str {
-        "bright accent variants have higher luminance than their base (base24 spec)"
-    }
     fn holds(&self) -> bool {
         let pairs = [
             (ColorSlot::Base12, ColorSlot::Base08),

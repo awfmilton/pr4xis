@@ -51,9 +51,6 @@ impl Quality for StageDescription {
 pub struct ProjectionPreservesOrdering;
 
 impl Axiom for ProjectionPreservesOrdering {
-    fn description(&self) -> &str {
-        "projection preserves depth ordering of LiDAR points"
-    }
     fn holds(&self) -> bool {
         true
     }
@@ -67,9 +64,6 @@ pr4xis::register_axiom!(
 pub struct PipelineIsSequential;
 
 impl Axiom for PipelineIsSequential {
-    fn description(&self) -> &str {
-        "fusion pipeline stages must execute in order"
-    }
     fn holds(&self) -> bool {
         let morphisms = LidarCameraCategory::morphisms();
         !morphisms.iter().any(|m| {

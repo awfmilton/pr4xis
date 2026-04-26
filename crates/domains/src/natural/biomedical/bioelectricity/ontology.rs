@@ -208,9 +208,6 @@ impl Quality for RequiresGapJunctions {
 pub struct BioelectricOppositionSymmetric;
 
 impl Axiom for BioelectricOppositionSymmetric {
-    fn description(&self) -> &str {
-        "bioelectric opposition is symmetric"
-    }
 
     fn holds(&self) -> bool {
         opposition::Symmetric::<BioelectricOpposition>::new().holds()
@@ -222,9 +219,6 @@ pr4xis::register_axiom!(BioelectricOppositionSymmetric);
 pub struct BioelectricOppositionIrreflexive;
 
 impl Axiom for BioelectricOppositionIrreflexive {
-    fn description(&self) -> &str {
-        "bioelectric opposition is irreflexive"
-    }
 
     fn holds(&self) -> bool {
         opposition::Irreflexive::<BioelectricOpposition>::new().holds()
@@ -237,9 +231,6 @@ pr4xis::register_axiom!(BioelectricOppositionIrreflexive);
 pub struct BioelectricCodeAxiom;
 
 impl Axiom for BioelectricCodeAxiom {
-    fn description(&self) -> &str {
-        "bioelectric code: healthy Vmem is polarized, cancer is depolarized"
-    }
 
     fn holds(&self) -> bool {
         let healthy_vmem = -50.0_f64;
@@ -254,9 +245,6 @@ pr4xis::register_axiom!(BioelectricCodeAxiom);
 pub struct GapJunctionCommunicationAxiom;
 
 impl Axiom for GapJunctionCommunicationAxiom {
-    fn description(&self) -> &str {
-        "tissue signals require gap junctions, single-cell signals do not"
-    }
 
     fn holds(&self) -> bool {
         use BioelectricConcept::*;
@@ -273,9 +261,6 @@ pr4xis::register_axiom!(GapJunctionCommunicationAxiom);
 pub struct RepolarizationRepairAxiom;
 
 impl Axiom for RepolarizationRepairAxiom {
-    fn description(&self) -> &str {
-        "both ion channel modulation and PPI are interventions"
-    }
 
     fn holds(&self) -> bool {
         use BioelectricConcept::*;
@@ -289,9 +274,6 @@ pr4xis::register_axiom!(RepolarizationRepairAxiom);
 pub struct TwoMechanismRepairAxiom;
 
 impl Axiom for TwoMechanismRepairAxiom {
-    fn description(&self) -> &str {
-        "PPI does not require gap junctions, bioelectric cocktail does"
-    }
 
     fn holds(&self) -> bool {
         use BioelectricConcept::*;
@@ -305,9 +287,6 @@ pr4xis::register_axiom!(TwoMechanismRepairAxiom);
 pub struct TAMEHierarchyAxiom;
 
 impl Axiom for TAMEHierarchyAxiom {
-    fn description(&self) -> &str {
-        "TAME hierarchy has no cycles and exactly 5 levels"
-    }
 
     fn holds(&self) -> bool {
         use pr4xis::category::Concept;
@@ -320,9 +299,6 @@ pr4xis::register_axiom!(TAMEHierarchyAxiom);
 pub struct CognitiveLightconeAxiom;
 
 impl Axiom for CognitiveLightconeAxiom {
-    fn description(&self) -> &str {
-        "cognitive lightcone requires gap junctions and operates at organ level"
-    }
 
     fn holds(&self) -> bool {
         use BioelectricConcept::*;
@@ -336,9 +312,6 @@ pr4xis::register_axiom!(CognitiveLightconeAxiom);
 pub struct MechanicalStimulationIsHardwareAccessible;
 
 impl Axiom for MechanicalStimulationIsHardwareAccessible {
-    fn description(&self) -> &str {
-        "exactly one hardware-accessible intervention: MechanicalStimulation"
-    }
 
     fn holds(&self) -> bool {
         use pr4xis::category::Concept;
@@ -361,9 +334,6 @@ pr4xis::register_axiom!(MechanicalStimulationIsHardwareAccessible);
 pub struct AllTAMELevelsRepresented;
 
 impl Axiom for AllTAMELevelsRepresented {
-    fn description(&self) -> &str {
-        "all 5 TAME competency levels are represented in operating levels"
-    }
 
     fn holds(&self) -> bool {
         use pr4xis::category::Concept;
@@ -381,9 +351,6 @@ pr4xis::register_axiom!(AllTAMELevelsRepresented);
 pub struct TargetMorphologyCrossDomainEquivalence;
 
 impl Axiom for TargetMorphologyCrossDomainEquivalence {
-    fn description(&self) -> &str {
-        "TargetMorphology is the same entity in bioelectricity and regeneration (functor maps identity)"
-    }
 
     fn holds(&self) -> bool {
         use crate::natural::biomedical::bioelectricity::regeneration_functor::BioelectricToRegeneration;

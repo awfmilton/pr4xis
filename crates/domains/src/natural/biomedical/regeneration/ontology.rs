@@ -370,9 +370,6 @@ impl Quality for PrimaryModelOrganism {
 pub struct InjuryCausesRestoration;
 
 impl Axiom for InjuryCausesRestoration {
-    fn description(&self) -> &str {
-        "injury transitively causes morphological restoration"
-    }
 
     fn holds(&self) -> bool {
         use RegenerationEvent::*;
@@ -389,9 +386,6 @@ pr4xis::register_axiom!(InjuryCausesRestoration);
 pub struct BioelectricCausesPattern;
 
 impl Axiom for BioelectricCausesPattern {
-    fn description(&self) -> &str {
-        "bioelectric signal causes pattern specification (Levin's core insight)"
-    }
 
     fn holds(&self) -> bool {
         use RegenerationEvent::*;
@@ -409,9 +403,6 @@ pr4xis::register_axiom!(BioelectricCausesPattern);
 pub struct GapJunctionCausesCollectiveDecision;
 
 impl Axiom for GapJunctionCausesCollectiveDecision {
-    fn description(&self) -> &str {
-        "gap junction communication causes collective decision"
-    }
 
     fn holds(&self) -> bool {
         use RegenerationEvent::*;
@@ -428,9 +419,6 @@ pr4xis::register_axiom!(GapJunctionCausesCollectiveDecision);
 pub struct PatternMemoryIsNotRegenerationType;
 
 impl Axiom for PatternMemoryIsNotRegenerationType {
-    fn description(&self) -> &str {
-        "PatternMemory is a PatternConcept, not a RegenerationType"
-    }
 
     fn holds(&self) -> bool {
         use RegenerationEntity::*;
@@ -448,9 +436,6 @@ pr4xis::register_axiom!(PatternMemoryIsNotRegenerationType);
 pub struct BistabilityIsPatterning;
 
 impl Axiom for BistabilityIsPatterning {
-    fn description(&self) -> &str {
-        "bistability is a pattern concept and is reversible (Levin 2015)"
-    }
 
     fn holds(&self) -> bool {
         use RegenerationEntity::*;
@@ -467,9 +452,6 @@ pr4xis::register_axiom!(BistabilityIsPatterning);
 pub struct EpimorphicRequiresBlastemaAndNerve;
 
 impl Axiom for EpimorphicRequiresBlastemaAndNerve {
-    fn description(&self) -> &str {
-        "epimorphic regeneration requires both blastema and nerve supply"
-    }
 
     fn holds(&self) -> bool {
         use RegenerationEntity::*;
@@ -486,9 +468,6 @@ pr4xis::register_axiom!(EpimorphicRequiresBlastemaAndNerve);
 pub struct EpithelialRestitutionNoBioelectric;
 
 impl Axiom for EpithelialRestitutionNoBioelectric {
-    fn description(&self) -> &str {
-        "epithelial restitution does not require bioelectric signal"
-    }
 
     fn holds(&self) -> bool {
         use RegenerationEntity::*;
@@ -501,9 +480,6 @@ pr4xis::register_axiom!(EpithelialRestitutionNoBioelectric);
 pub struct AllBodyAxesRepresented;
 
 impl Axiom for AllBodyAxesRepresented {
-    fn description(&self) -> &str {
-        "all three body axes (AP, DV, LR) are represented"
-    }
 
     fn holds(&self) -> bool {
         use RegenerationEntity::*;

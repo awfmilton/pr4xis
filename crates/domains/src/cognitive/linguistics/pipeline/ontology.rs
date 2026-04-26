@@ -129,9 +129,6 @@ impl Quality for IsPipelineStage {
 pub struct SharedLexicon;
 
 impl Axiom for SharedLexicon {
-    fn description(&self) -> &str {
-        "Parse and Generate share the LexiconHomomorphism (de Groote 2001: same grammar)"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::mereology::MereologyDef;
         let parts = PipelineMereology::relations();
@@ -154,9 +151,6 @@ pr4xis::register_axiom!(
 pub struct ParseGenerateAdjoint;
 
 impl Axiom for ParseGenerateAdjoint {
-    fn description(&self) -> &str {
-        "Parse ⊣ Generate: left and right adjoints are opposed"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::opposition::OppositionDef;
         PipelineOpposition::pairs()
@@ -174,9 +168,6 @@ pr4xis::register_axiom!(
 pub struct SurfaceMeaningOpposed;
 
 impl Axiom for SurfaceMeaningOpposed {
-    fn description(&self) -> &str {
-        "SurfaceForm and SemanticRepresentation are opposed endpoints"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::opposition::OppositionDef;
         PipelineOpposition::pairs().iter().any(|(a, b)| {

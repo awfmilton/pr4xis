@@ -64,9 +64,6 @@ impl Quality for DimensionSymbol {
 pub struct DimensionCommutativity;
 
 impl Axiom for DimensionCommutativity {
-    fn description(&self) -> &str {
-        "dimension multiplication is commutative: [A]·[B] = [B]·[A]"
-    }
     fn holds(&self) -> bool {
         let dims = canonical_dimensions();
         for a in &dims {
@@ -85,9 +82,6 @@ pr4xis::register_axiom!(DimensionCommutativity, "BIPM SI Brochure (2019), Table 
 pub struct DimensionAssociativity;
 
 impl Axiom for DimensionAssociativity {
-    fn description(&self) -> &str {
-        "dimension multiplication is associative: ([A]·[B])·[C] = [A]·([B]·[C])"
-    }
     fn holds(&self) -> bool {
         let dims = canonical_dimensions();
         for a in &dims {
@@ -108,9 +102,6 @@ pr4xis::register_axiom!(DimensionAssociativity, "BIPM SI Brochure (2019), Table 
 pub struct DimensionIdentity;
 
 impl Axiom for DimensionIdentity {
-    fn description(&self) -> &str {
-        "dimensionless is the identity: [A]·1 = [A]"
-    }
     fn holds(&self) -> bool {
         let one = Dimension::DIMENSIONLESS;
         for d in &canonical_dimensions() {
@@ -127,8 +118,6 @@ pr4xis::register_axiom!(DimensionIdentity, "BIPM SI Brochure (2019), Table 1.");
 pub struct DimensionInverse;
 
 impl Axiom for DimensionInverse {
-    fn description(&self) -> &str {
-        "every dimension has an inverse: [A]·[A]^{-1} = dimensionless"
     }
     fn holds(&self) -> bool {
         for d in &canonical_dimensions() {
@@ -145,9 +134,6 @@ pr4xis::register_axiom!(DimensionInverse, "BIPM SI Brochure (2019), Table 1.");
 pub struct AdditionRequiresSameDimension;
 
 impl Axiom for AdditionRequiresSameDimension {
-    fn description(&self) -> &str {
-        "addition requires same dimension: meters + seconds = error"
-    }
     fn holds(&self) -> bool {
         let length = Quantity::new(5.0, Dimension::LENGTH);
         let time = Quantity::new(3.0, Dimension::TIME);
@@ -180,8 +166,6 @@ pr4xis::register_axiom!(
 pub struct DerivedDimensionConsistency;
 
 impl Axiom for DerivedDimensionConsistency {
-    fn description(&self) -> &str {
-        "velocity = length / time: [v] = L·T^{-1}"
     }
     fn holds(&self) -> bool {
         let l = Quantity::new(10.0, Dimension::LENGTH);
@@ -200,9 +184,6 @@ pr4xis::register_axiom!(
 pub struct UnitConversionRoundtrip;
 
 impl Axiom for UnitConversionRoundtrip {
-    fn description(&self) -> &str {
-        "unit conversion is invertible: km -> m -> km roundtrip"
-    }
     fn holds(&self) -> bool {
         let km_val = 5.0;
         let m_val = unit::KILOMETER.to_si(km_val);
@@ -216,9 +197,6 @@ pr4xis::register_axiom!(UnitConversionRoundtrip, "BIPM SI Brochure (2019), Table
 pub struct IncompatibleUnitConversionFails;
 
 impl Axiom for IncompatibleUnitConversionFails {
-    fn description(&self) -> &str {
-        "incompatible unit conversion returns None: meters ≠ seconds"
-    }
     fn holds(&self) -> bool {
         unit::METER.convert(5.0, &unit::SECOND).is_none()
     }

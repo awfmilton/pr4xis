@@ -93,9 +93,6 @@ impl Quality for IsStructuralElement {
 pub struct NucleusSatelliteAsymmetric;
 
 impl Axiom for NucleusSatelliteAsymmetric {
-    fn description(&self) -> &str {
-        "Nucleus→Satellite relations exist but Satellite→Nucleus do not (RST asymmetry)"
-    }
     fn holds(&self) -> bool {
         let m = DiscourseCategory::morphisms();
         let has_nuc_sat = m.iter().any(|r| {
@@ -121,9 +118,6 @@ pr4xis::register_axiom!(
 pub struct MultinuclearExists;
 
 impl Axiom for MultinuclearExists {
-    fn description(&self) -> &str {
-        "Multinuclear relations: Sequence, Contrast, Parallel connect Nucleus→Nucleus (RST)"
-    }
     fn holds(&self) -> bool {
         let m = DiscourseCategory::morphisms();
         m.iter().any(|r| {

@@ -38,6 +38,105 @@ pub struct RelationshipMeta {
     pub module_path: ModulePath,
 }
 
+impl RelationshipMeta {
+    /// Resolve an identifier against the global Lemon lexicon.
+    ///
+    /// If the identifier is not found in the registry (e.g. on wasm32
+    /// where linkme is unsupported, or if registration is missing),
+    /// returns an honest placeholder.
+    pub fn from_identifier(id: Identifier) -> Self {
+        #[cfg(not(target_arch = "wasm32"))]
+        if let Some(meta) = crate::ontology::registry::lookup_lexicon(&id) {
+            return meta;
+        }
+
+        Self {
+            name: OntologyName::new(id.as_str().to_string()),
+            description: Label::new(id.as_str().to_string()),
+            citation: Citation::EMPTY,
+            module_path: ModulePath::new_static("unknown"),
+        }
+    }
+}
+
+/// A typed identifier for an entry in the Lemon lexicon.
+///
+/// Used by axioms, functors, and other structural entities to look up
+/// their metadata (name, description, citation) without inlining
+/// string literals at every call site.
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct Identifier(Cow<'static, str>);
+
+impl Identifier {
+    pub const fn new_static(s: &'static str) -> Self {
+        Self(Cow::Borrowed(s))
+    }
+
+    pub fn new(s: impl Into<Cow<'static, str>>) -> Self {
+        Self(s.into())
+    }
+
+    pub fn as_str(&self) -> &str {
+        &self.0
+    }
+}
+
+impl From<&'static str> for Identifier {
+    fn from(s: &'static str) -> Self {
+        Self::new_static(s)
+    }
+}
+
+impl From<String> for Identifier {
+    fn from(s: String) -> Self {
+        Self(Cow::Owned(s))
+    }
+}
+
+impl fmt::Display for Identifier {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        self.0.fmt(f)
+    }
+}
+
+/// A record in the Lemon lexicon — gathers name, label, description, and
+/// citation for a structural entity identifier.
+#[derive(Debug, Clone)]
+pub struct LexicalRecord {
+    pub id: Identifier,
+    pub name: OntologyName,
+    pub description: Label,
+    pub citation: Citation,
+    pub module_path: ModulePath,
+}
+
+impl LexicalRecord {
+    pub const fn new_static(
+        id: &'static str,
+        name: &'static str,
+        description: &'static str,
+        citation: &'static str,
+        module_path: &'static str,
+    ) -> Self {
+        Self {
+            id: Identifier::new_static(id),
+            name: OntologyName::new_static(name),
+            description: Label::new_static(description),
+            citation: Citation::parse_static(citation),
+            module_path: ModulePath::new_static(module_path),
+        }
+    }
+
+    pub fn to_meta(&self) -> RelationshipMeta {
+        RelationshipMeta {
+            name: self.name.clone(),
+            description: self.description.clone(),
+            citation: self.citation.clone(),
+            module_path: self.module_path.clone(),
+        }
+    }
+}
+
 /// BCP 47 language tag — typed identifier for a language.
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct LanguageCode(Cow<'static, str>);
@@ -537,7 +636,7 @@ impl fmt::Display for Grade {
 /// Multiple entries are supported via `;` separator.
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct Citation {
-    entries: Vec<CitationEntry>,
+    entries: Option<Vec<CitationEntry>>,
     raw: Cow<'static, str>,
 }
 
@@ -549,16 +648,15 @@ pub struct CitationEntry {
 
 impl Citation {
     pub const EMPTY: Self = Self {
-        entries: Vec::new(),
+        entries: None,
         raw: Cow::Borrowed(""),
     };
 
     /// Parse a citation string from a static source.
     /// Format: "Author (Year)" or "Author; Author (Year); Author et al. (Year)"
-    pub fn parse_static(s: &'static str) -> Self {
-        let entries = parse_entries(s);
+    pub const fn parse_static(s: &'static str) -> Self {
         Self {
-            entries,
+            entries: None,
             raw: Cow::Borrowed(s),
         }
     }
@@ -568,13 +666,16 @@ impl Citation {
         let s = s.into();
         let entries = parse_entries(&s);
         Self {
-            entries,
+            entries: Some(entries),
             raw: Cow::Owned(s),
         }
     }
 
-    pub fn entries(&self) -> &[CitationEntry] {
-        &self.entries
+    pub fn entries(&mut self) -> &[CitationEntry] {
+        if self.entries.is_none() && !self.raw.is_empty() {
+            self.entries = Some(parse_entries(&self.raw));
+        }
+        self.entries.as_deref().unwrap_or(&[])
     }
 
     pub fn as_str(&self) -> &str {

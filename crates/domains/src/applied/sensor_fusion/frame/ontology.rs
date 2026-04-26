@@ -90,9 +90,6 @@ impl Quality for FrameConvention {
 pub struct TransformsComposeAssociatively;
 
 impl Axiom for TransformsComposeAssociatively {
-    fn description(&self) -> &str {
-        "frame transforms compose associatively: (f . g) . h = f . (g . h)"
-    }
 
     fn holds(&self) -> bool {
         use ReferenceFrame::*;
@@ -128,9 +125,6 @@ pr4xis::register_axiom!(TransformsComposeAssociatively);
 pub struct IdentityExists;
 
 impl Axiom for IdentityExists {
-    fn description(&self) -> &str {
-        "identity transform exists for every frame and is neutral under composition"
-    }
 
     fn holds(&self) -> bool {
         for frame in ReferenceFrame::variants() {
@@ -168,9 +162,6 @@ pr4xis::register_axiom!(IdentityExists);
 pub struct TransformsInvertible;
 
 impl Axiom for TransformsInvertible {
-    fn description(&self) -> &str {
-        "every frame transform is invertible: T(A,B) implies T(B,A) exists"
-    }
 
     fn holds(&self) -> bool {
         let morphisms = FrameCategory::morphisms();
@@ -189,9 +180,6 @@ pr4xis::register_axiom!(TransformsInvertible);
 pub struct AllFramesRightHanded;
 
 impl Axiom for AllFramesRightHanded {
-    fn description(&self) -> &str {
-        "all reference frames use right-handed coordinate conventions"
-    }
 
     fn holds(&self) -> bool {
         let convention = FrameConvention;

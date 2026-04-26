@@ -843,24 +843,31 @@ macro_rules! register_natural_transformation {
 /// ```
 #[macro_export]
 macro_rules! relationship_meta {
-    ($name:literal, $description:literal, $citation:literal) => {
+    ($id:literal) => {
         fn meta() -> $crate::ontology::meta::RelationshipMeta {
-            $crate::ontology::meta::RelationshipMeta {
-                name: $crate::ontology::meta::OntologyName::new_static($name),
-                description: $crate::ontology::meta::Label::new_static($description),
-                citation: $crate::ontology::meta::Citation::parse_static($citation),
-                module_path: $crate::ontology::meta::ModulePath::new_static(module_path!()),
-            }
+            $crate::ontology::meta::RelationshipMeta::from_identifier(
+                $crate::ontology::meta::Identifier::new_static($id),
+            )
         }
     };
-    ($name:literal, $citation:literal) => {
-        fn meta() -> $crate::ontology::meta::RelationshipMeta {
-            $crate::ontology::meta::RelationshipMeta {
-                name: $crate::ontology::meta::OntologyName::new_static($name),
-                description: $crate::ontology::meta::Label::new_static($name),
-                citation: $crate::ontology::meta::Citation::parse_static($citation),
-                module_path: $crate::ontology::meta::ModulePath::new_static(module_path!()),
-            }
+}
+
+/// Register lexical metadata for a structural entity.
+#[macro_export]
+macro_rules! register_lexicon {
+    ($id:ident, $id_lit:literal, $name:literal, $description:literal, $citation:literal) => {
+        #[cfg(not(target_arch = "wasm32"))]
+        $crate::paste::paste! {
+            #[$crate::linkme::distributed_slice($crate::ontology::registry::LEXICON)]
+            #[linkme(crate = $crate::linkme)]
+            static [<_LEXICON_ENTRY_ $id:snake:upper>]: fn() -> $crate::ontology::meta::LexicalRecord =
+                || $crate::ontology::meta::LexicalRecord::new_static(
+                    $id_lit,
+                    $name,
+                    $description,
+                    $citation,
+                    module_path!(),
+                );
         }
     };
 }

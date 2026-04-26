@@ -267,9 +267,6 @@ impl RdfVocabulary {
 pub struct LiteralsCannotBeSubjects;
 
 impl pr4xis::logic::Axiom for LiteralsCannotBeSubjects {
-    fn description(&self) -> &str {
-        "RDF literals cannot appear in subject position (W3C RDF 1.1 §3)"
-    }
 
     fn holds(&self) -> bool {
         !RdfNodeKind::PlainLiteral.can_be_subject() && !RdfNodeKind::TypedLiteral.can_be_subject()
@@ -281,9 +278,6 @@ pr4xis::register_axiom!(LiteralsCannotBeSubjects);
 pub struct PredicatesMustBeProperties;
 
 impl pr4xis::logic::Axiom for PredicatesMustBeProperties {
-    fn description(&self) -> &str {
-        "RDF predicates must be IRI references (rdf:Property), not blank nodes or literals (W3C RDF 1.1 §3)"
-    }
 
     fn holds(&self) -> bool {
         // Properties are IRIs, and only IRI-identified things can be predicates

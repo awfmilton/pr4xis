@@ -48,9 +48,6 @@ impl Quality for ElementUnit {
 pub struct EccentricityBounded;
 
 impl Axiom for EccentricityBounded {
-    fn description(&self) -> &str {
-        "eccentricity is in [0, 1) for elliptical (bound) orbits"
-    }
     fn holds(&self) -> bool {
         true
     }
@@ -64,9 +61,6 @@ pr4xis::register_axiom!(
 pub struct SemiMajorAxisPositive;
 
 impl Axiom for SemiMajorAxisPositive {
-    fn description(&self) -> &str {
-        "semi-major axis is positive for bound orbits"
-    }
     fn holds(&self) -> bool {
         true
     }

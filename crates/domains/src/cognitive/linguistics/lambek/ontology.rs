@@ -76,9 +76,6 @@ impl Quality for LambekRole {
 pub struct LambekHasBothAdjoints;
 
 impl Axiom for LambekHasBothAdjoints {
-    fn description(&self) -> &str {
-        "LambekType has both LeftAdjoint and RightAdjoint as sub-kinds (Lambek 1999: pregroup = non-commutative adjoint calculus)"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::taxonomy::TaxonomyDef;
         let rels = LambekTaxonomy::relations();

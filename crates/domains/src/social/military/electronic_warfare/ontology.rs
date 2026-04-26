@@ -44,9 +44,6 @@ impl Quality for ObservableGeometry {
 pub struct AoaBounded;
 
 impl Axiom for AoaBounded {
-    fn description(&self) -> &str {
-        "angle of arrival measurements are in [-pi, pi]"
-    }
     fn holds(&self) -> bool {
         true
     }
@@ -60,9 +57,6 @@ pr4xis::register_axiom!(
 pub struct TdoaRequiresSensorPair;
 
 impl Axiom for TdoaRequiresSensorPair {
-    fn description(&self) -> &str {
-        "TDOA geolocation requires at least one sensor pair (2 sensors)"
-    }
     fn holds(&self) -> bool {
         true
     }

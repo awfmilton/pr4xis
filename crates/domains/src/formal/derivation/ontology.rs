@@ -213,9 +213,6 @@ impl Quality for RequiresAllPremises {
 pub struct PremiseCausesKnowledge;
 
 impl Axiom for PremiseCausesKnowledge {
-    fn description(&self) -> &str {
-        "premise establishment transitively causes knowledge extension (full pipeline)"
-    }
     fn holds(&self) -> bool {
         use DerivationStep::*;
         let effects = causation::effects_of::<DerivationCausalGraph>(&PremiseEstablishment);
@@ -228,9 +225,6 @@ pr4xis::register_axiom!(PremiseCausesKnowledge);
 pub struct DeductionMonotonicAbductionNot;
 
 impl Axiom for DeductionMonotonicAbductionNot {
-    fn description(&self) -> &str {
-        "deduction is monotonic but abduction is not (Gentzen vs Peirce)"
-    }
     fn holds(&self) -> bool {
         use DerivationEntity::*;
         IsMonotonic.get(&Deduction) == Some(true) && IsMonotonic.get(&Abduction) == Some(false)
@@ -242,9 +236,6 @@ pr4xis::register_axiom!(DeductionMonotonicAbductionNot);
 pub struct DeductionPreservesTruthInductionNot;
 
 impl Axiom for DeductionPreservesTruthInductionNot {
-    fn description(&self) -> &str {
-        "deduction preserves truth but induction does not (deductive vs ampliative)"
-    }
     fn holds(&self) -> bool {
         use DerivationEntity::*;
         PreservesTruth.get(&Deduction) == Some(true)
@@ -257,9 +248,6 @@ pr4xis::register_axiom!(DeductionPreservesTruthInductionNot);
 pub struct DeductionRequiresAllAbductionNot;
 
 impl Axiom for DeductionRequiresAllAbductionNot {
-    fn description(&self) -> &str {
-        "deduction requires all premises but abduction works with incomplete evidence"
-    }
     fn holds(&self) -> bool {
         use DerivationEntity::*;
         RequiresAllPremises.get(&Deduction) == Some(true)

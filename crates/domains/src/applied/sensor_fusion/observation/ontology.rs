@@ -54,9 +54,6 @@ impl Quality for StageDescription {
 pub struct InnovationZeroAtPrediction;
 
 impl Axiom for InnovationZeroAtPrediction {
-    fn description(&self) -> &str {
-        "innovation is zero when measurement equals prediction"
-    }
     fn holds(&self) -> bool {
         let h = LinearObservationModel::identity(2);
         let x = Vector::new(vec![1.0, 2.0]);
@@ -76,9 +73,6 @@ pr4xis::register_axiom!(
 pub struct GateAcceptsMean;
 
 impl Axiom for GateAcceptsMean {
-    fn description(&self) -> &str {
-        "validation gate accepts measurement at the predicted value"
-    }
     fn holds(&self) -> bool {
         let h = LinearObservationModel::identity(2);
         let x = Vector::new(vec![5.0, 10.0]);

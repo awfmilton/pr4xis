@@ -78,9 +78,6 @@ impl Quality for JdlLevel {
 pub struct EntityIdentificationFirst;
 
 impl Axiom for EntityIdentificationFirst {
-    fn description(&self) -> &str {
-        "situation assessment requires entity identification first (JDL Level 1 before Level 2)"
-    }
     fn holds(&self) -> bool {
         let morphisms = SituationCategory::morphisms();
         // Verify Entity -> Relationship exists
@@ -100,9 +97,6 @@ pr4xis::register_axiom!(EntityIdentificationFirst);
 pub struct IntentRequiresRelationship;
 
 impl Axiom for IntentRequiresRelationship {
-    fn description(&self) -> &str {
-        "intent inference requires relationship assessment"
-    }
     fn holds(&self) -> bool {
         let morphisms = SituationCategory::morphisms();
         morphisms

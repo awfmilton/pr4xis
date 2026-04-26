@@ -118,9 +118,6 @@ impl Quality for ConceptRole {
 pub struct BdiProducesIntention;
 
 impl Axiom for BdiProducesIntention {
-    fn description(&self) -> &str {
-        "Belief and Desire both produce Intention (Bratman 1987 BDI)"
-    }
     fn holds(&self) -> bool {
         let m = PlanningCategory::morphisms();
         let belief_produces = m.iter().any(|r| {
@@ -146,9 +143,6 @@ pr4xis::register_axiom!(
 pub struct EffectUpdatesCommonGround;
 
 impl Axiom for EffectUpdatesCommonGround {
-    fn description(&self) -> &str {
-        "Effect updates CommonGround via CommonGroundUpdate (Stalnaker 2002)"
-    }
     fn holds(&self) -> bool {
         let m = PlanningCategory::morphisms();
         m.iter().any(|r| {
@@ -168,9 +162,6 @@ pr4xis::register_axiom!(
 pub struct GoalsSpecialize;
 
 impl Axiom for GoalsSpecialize {
-    fn description(&self) -> &str {
-        "Informative, Phatic, Directive, Expressive specialize CommunicativeGoal (Jakobson 1960)"
-    }
     fn holds(&self) -> bool {
         let m = PlanningCategory::morphisms();
         let goals = [

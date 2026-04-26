@@ -40,7 +40,7 @@ fn catalog_reaches_all() {
 #[test]
 fn all_domain_axioms_hold() {
     for axiom in OmvOntology::domain_axioms() {
-        assert!(axiom.holds(), "axiom failed: {}", axiom.description());
+        assert!(axiom.holds(), "axiom failed: {}", axiom.meta().description);
     }
 }
 

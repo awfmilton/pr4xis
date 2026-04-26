@@ -392,9 +392,6 @@ fn find_elements_recursive<'a>(
 pub struct SingleRootElement;
 
 impl pr4xis::logic::Axiom for SingleRootElement {
-    fn description(&self) -> &str {
-        "an XML document must have exactly one root element (W3C XML 1.0 §2.1)"
-    }
 
     fn holds(&self) -> bool {
         true // structural — enforced by XmlDocument having exactly one root field
@@ -406,9 +403,6 @@ pr4xis::register_axiom!(SingleRootElement);
 pub struct ProperNesting;
 
 impl pr4xis::logic::Axiom for ProperNesting {
-    fn description(&self) -> &str {
-        "XML elements must be properly nested — no overlapping tags (W3C XML 1.0 §2.4)"
-    }
 
     fn holds(&self) -> bool {
         true // structural — enforced by the tree representation (can't overlap in a tree)

@@ -14,7 +14,7 @@ use alloc::{boxed::Box, format, string::String, string::ToString, vec, vec::Vec}
 // build a registry via domain-specific fallback instead.
 
 use crate::ontology::Vocabulary;
-use crate::ontology::meta::RelationshipMeta;
+use crate::ontology::meta::{Identifier, LexicalRecord, RelationshipMeta};
 
 /// All registered ontology vocabularies (native only).
 ///
@@ -47,6 +47,25 @@ pub static ADJUNCTIONS: [fn() -> RelationshipMeta];
 #[cfg(not(target_arch = "wasm32"))]
 #[linkme::distributed_slice]
 pub static NATURAL_TRANSFORMATIONS: [fn() -> RelationshipMeta];
+
+/// The central Lemon lexicon — gathered from every structural entity
+/// (ontologies, axioms, functors, etc.) in the workspace.
+#[cfg(not(target_arch = "wasm32"))]
+#[linkme::distributed_slice]
+pub static LEXICON: [fn() -> LexicalRecord];
+
+/// Resolve an identifier against the global Lemon lexicon (native only).
+#[cfg(not(target_arch = "wasm32"))]
+pub fn lookup_lexicon(id: &Identifier) -> Option<RelationshipMeta> {
+    LEXICON.iter().find_map(|f| {
+        let record = f();
+        if &record.id == id {
+            Some(record.to_meta())
+        } else {
+            None
+        }
+    })
+}
 
 /// Describe the entire knowledge base — all registered ontologies.
 ///

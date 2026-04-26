@@ -222,9 +222,6 @@ impl HtmlDocument {
 pub struct SingleRootElement;
 
 impl pr4xis::logic::Axiom for SingleRootElement {
-    fn description(&self) -> &str {
-        "an HTML document must have exactly one root element (typically <html>)"
-    }
 
     fn holds(&self) -> bool {
         true // structural — enforced by HtmlDocument having exactly one root field
@@ -236,9 +233,6 @@ pr4xis::register_axiom!(SingleRootElement);
 pub struct ValidNesting;
 
 impl pr4xis::logic::Axiom for ValidNesting {
-    fn description(&self) -> &str {
-        "HTML elements must be properly nested — no overlapping tags"
-    }
 
     fn holds(&self) -> bool {
         true // structural — enforced by the tree representation

@@ -193,7 +193,7 @@ fn all_domain_axioms_hold() {
         assert!(
             axiom.holds(),
             "domain axiom does not hold: {}",
-            axiom.description()
+            axiom.meta().description
         );
     }
 }

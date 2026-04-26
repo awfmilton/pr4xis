@@ -161,9 +161,6 @@ impl Quality for TypicalVOT {
 
 pub struct FormantsAreOrdered;
 impl Axiom for FormantsAreOrdered {
-    fn description(&self) -> &str {
-        "formants are frequency-ordered (F1 < F2 < F3 < F4)"
-    }
     fn holds(&self) -> bool {
         use SpeechEntity::*;
         let f = TypicalFrequency;
@@ -175,9 +172,6 @@ impl Axiom for FormantsAreOrdered {
 pr4xis::register_axiom!(FormantsAreOrdered);
 pub struct FormantsClassified;
 impl Axiom for FormantsClassified {
-    fn description(&self) -> &str {
-        "F1-F4 are all formants, which are acoustic parameters"
-    }
     fn holds(&self) -> bool {
         use SpeechEntity::*;
         [F1, F2, F3, F4].iter().all(|f| {
@@ -189,9 +183,6 @@ impl Axiom for FormantsClassified {
 pr4xis::register_axiom!(FormantsClassified);
 pub struct FiveConsonantManners;
 impl Axiom for FiveConsonantManners {
-    fn description(&self) -> &str {
-        "plosive, fricative, nasal, approximant, affricate are consonants"
-    }
     fn holds(&self) -> bool {
         use SpeechEntity::*;
         [Plosive, Fricative, Nasal, Approximant, Affricate]
@@ -202,9 +193,6 @@ impl Axiom for FiveConsonantManners {
 pr4xis::register_axiom!(FiveConsonantManners);
 pub struct VoicedOpposesVoiceless;
 impl Axiom for VoicedOpposesVoiceless {
-    fn description(&self) -> &str {
-        "voiced and voiceless are opposed"
-    }
     fn holds(&self) -> bool {
         opposition::are_opposed::<SpeechOpposition>(&SpeechEntity::Voiced, &SpeechEntity::Voiceless)
     }
@@ -212,9 +200,6 @@ impl Axiom for VoicedOpposesVoiceless {
 pr4xis::register_axiom!(VoicedOpposesVoiceless);
 pub struct SyllableContainsVowelsAndConsonants;
 impl Axiom for SyllableContainsVowelsAndConsonants {
-    fn description(&self) -> &str {
-        "syllable transitively contains vowels and consonants"
-    }
     fn holds(&self) -> bool {
         use SpeechEntity::*;
         let parts = mereology::parts_of::<SpeechMereology>(&Syllable);
@@ -224,9 +209,6 @@ impl Axiom for SyllableContainsVowelsAndConsonants {
 pr4xis::register_axiom!(SyllableContainsVowelsAndConsonants);
 pub struct IntentCausesPerception;
 impl Axiom for IntentCausesPerception {
-    fn description(&self) -> &str {
-        "communicative intent transitively causes listener perception"
-    }
     fn holds(&self) -> bool {
         use SpeechCausalEvent::*;
         causation::effects_of::<SpeechCausalGraph>(&CommunicativeIntent)

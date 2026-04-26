@@ -210,9 +210,6 @@ impl Quality for RequiresExpertValidation {
 pub struct EvidenceCausesAction;
 
 impl Axiom for EvidenceCausesAction {
-    fn description(&self) -> &str {
-        "evidence gathering transitively causes action proposal (full pipeline)"
-    }
     fn holds(&self) -> bool {
         use RecommendationStep::*;
         let effects = causation::effects_of::<RecommendationCausalGraph>(&EvidenceGathering);
@@ -225,9 +222,6 @@ pr4xis::register_axiom!(EvidenceCausesAction);
 pub struct AcceptAndRejectAreOutcomes;
 
 impl Axiom for AcceptAndRejectAreOutcomes {
-    fn description(&self) -> &str {
-        "accept and reject are both classified as decision outcomes"
-    }
     fn holds(&self) -> bool {
         use RecommendationEntity::*;
         taxonomy::is_a::<RecommendationTaxonomy>(&Accept, &DecisionOutcome)
@@ -240,9 +234,6 @@ pr4xis::register_axiom!(AcceptAndRejectAreOutcomes);
 pub struct PrescriptionsNeedExperts;
 
 impl Axiom for PrescriptionsNeedExperts {
-    fn description(&self) -> &str {
-        "prescriptions require expert validation but suggestions do not"
-    }
     fn holds(&self) -> bool {
         use RecommendationEntity::*;
         RequiresExpertValidation.get(&Prescription) == Some(true)
@@ -255,9 +246,6 @@ pr4xis::register_axiom!(PrescriptionsNeedExperts);
 pub struct RejectReversibleAcceptNot;
 
 impl Axiom for RejectReversibleAcceptNot {
-    fn description(&self) -> &str {
-        "rejection is reversible but acceptance is not (asymmetric commitment)"
-    }
     fn holds(&self) -> bool {
         use RecommendationEntity::*;
         IsReversible.get(&Reject) == Some(true) && IsReversible.get(&Accept) == Some(false)

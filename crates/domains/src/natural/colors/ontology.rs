@@ -89,9 +89,6 @@ impl Quality for IsPrimary {
 
 pub struct ComplementsAddToWhite;
 impl Axiom for ComplementsAddToWhite {
-    fn description(&self) -> &str {
-        "complement pairs add to white"
-    }
     fn holds(&self) -> bool {
         [
             (PrimaryColor::Red, PrimaryColor::Cyan),

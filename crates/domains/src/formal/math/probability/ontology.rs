@@ -71,9 +71,6 @@ impl Quality for ConceptDescription {
 pub struct NonNegativity;
 
 impl Axiom for NonNegativity {
-    fn description(&self) -> &str {
-        "Kolmogorov axiom 1: P(E) >= 0 (non-negativity)"
-    }
 
     fn holds(&self) -> bool {
         for dist in &canonical_distributions() {
@@ -90,9 +87,6 @@ pr4xis::register_axiom!(NonNegativity);
 pub struct Normalization;
 
 impl Axiom for Normalization {
-    fn description(&self) -> &str {
-        "Kolmogorov axiom 2: P(Ω) = 1 (normalization)"
-    }
 
     fn holds(&self) -> bool {
         for dist in &canonical_distributions() {
@@ -110,9 +104,6 @@ pr4xis::register_axiom!(Normalization);
 pub struct EmptySetZero;
 
 impl Axiom for EmptySetZero {
-    fn description(&self) -> &str {
-        "P(empty set) = 0 (consequence of axioms)"
-    }
 
     fn holds(&self) -> bool {
         for dist in &canonical_distributions() {
@@ -130,9 +121,6 @@ pr4xis::register_axiom!(EmptySetZero);
 pub struct ComplementRule;
 
 impl Axiom for ComplementRule {
-    fn description(&self) -> &str {
-        "P(A^c) = 1 - P(A) (complement rule)"
-    }
 
     fn holds(&self) -> bool {
         for dist in &canonical_distributions() {
@@ -156,9 +144,6 @@ pr4xis::register_axiom!(ComplementRule);
 pub struct ProbabilityBounds;
 
 impl Axiom for ProbabilityBounds {
-    fn description(&self) -> &str {
-        "0 <= P(E) <= 1 (probability bounds)"
-    }
 
     fn holds(&self) -> bool {
         for dist in &canonical_distributions() {
@@ -179,9 +164,6 @@ pr4xis::register_axiom!(ProbabilityBounds);
 pub struct BayesTheorem;
 
 impl Axiom for BayesTheorem {
-    fn description(&self) -> &str {
-        "Bayes' theorem: P(A|B)*P(B) = P(B|A)*P(A)"
-    }
 
     fn holds(&self) -> bool {
         let priors = [0.3, 0.7];
@@ -210,9 +192,6 @@ pr4xis::register_axiom!(BayesTheorem);
 pub struct GaussianFusionReducesVariance;
 
 impl Axiom for GaussianFusionReducesVariance {
-    fn description(&self) -> &str {
-        "fusing two Gaussian estimates reduces variance (information gain)"
-    }
 
     fn holds(&self) -> bool {
         let cases = [
@@ -235,9 +214,6 @@ pr4xis::register_axiom!(GaussianFusionReducesVariance);
 pub struct KlDivergenceNonNegative;
 
 impl Axiom for KlDivergenceNonNegative {
-    fn description(&self) -> &str {
-        "KL divergence >= 0 (Gibbs' inequality)"
-    }
 
     fn holds(&self) -> bool {
         let dists = canonical_distributions();
@@ -261,9 +237,6 @@ pr4xis::register_axiom!(KlDivergenceNonNegative);
 pub struct KlDivergenceZeroIffEqual;
 
 impl Axiom for KlDivergenceZeroIffEqual {
-    fn description(&self) -> &str {
-        "D_KL(p||p) = 0 (KL divergence zero for identical distributions)"
-    }
 
     fn holds(&self) -> bool {
         for p in &canonical_distributions() {
@@ -281,9 +254,6 @@ pr4xis::register_axiom!(KlDivergenceZeroIffEqual);
 pub struct MahalanobisNonNegative;
 
 impl Axiom for MahalanobisNonNegative {
-    fn description(&self) -> &str {
-        "Mahalanobis distance >= 0"
-    }
 
     fn holds(&self) -> bool {
         let mean = Vector::new(vec![0.0, 0.0]);
@@ -309,9 +279,6 @@ pr4xis::register_axiom!(MahalanobisNonNegative);
 pub struct MahalanobisReducesToEuclidean;
 
 impl Axiom for MahalanobisReducesToEuclidean {
-    fn description(&self) -> &str {
-        "Mahalanobis with S=I equals Euclidean distance squared"
-    }
 
     fn holds(&self) -> bool {
         let mean = Vector::new(vec![1.0, 2.0, 3.0]);
@@ -338,9 +305,6 @@ pr4xis::register_axiom!(MahalanobisReducesToEuclidean);
 pub struct EntropyNonNegative;
 
 impl Axiom for EntropyNonNegative {
-    fn description(&self) -> &str {
-        "Shannon entropy >= 0 for discrete distributions"
-    }
 
     fn holds(&self) -> bool {
         for dist in &canonical_distributions() {
@@ -358,9 +322,6 @@ pr4xis::register_axiom!(EntropyNonNegative);
 pub struct UniformMaximizesEntropy;
 
 impl Axiom for UniformMaximizesEntropy {
-    fn description(&self) -> &str {
-        "uniform distribution maximizes Shannon entropy"
-    }
 
     fn holds(&self) -> bool {
         let n = 4;

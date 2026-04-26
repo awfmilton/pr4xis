@@ -43,9 +43,6 @@ impl Quality for PositioningAccuracy {
 pub struct SoundSpeedPositive;
 
 impl Axiom for SoundSpeedPositive {
-    fn description(&self) -> &str {
-        "sound speed in water is strictly positive (typically 1400-1600 m/s)"
-    }
     fn holds(&self) -> bool {
         true
     }
@@ -59,9 +56,6 @@ pr4xis::register_axiom!(
 pub struct RangeNonNegative;
 
 impl Axiom for RangeNonNegative {
-    fn description(&self) -> &str {
-        "acoustic range measurements are non-negative"
-    }
     fn holds(&self) -> bool {
         true
     }

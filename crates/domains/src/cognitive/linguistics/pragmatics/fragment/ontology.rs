@@ -89,9 +89,6 @@ impl Quality for IsFragmentType {
 pub struct AllFragmentsClassified;
 
 impl Axiom for AllFragmentsClassified {
-    fn description(&self) -> &str {
-        "every fragment type is-a Fragment (Fernandez & Ginzburg 2002)"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::taxonomy::TaxonomyDef;
         let rels = FragmentTaxonomy::relations();

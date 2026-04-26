@@ -234,9 +234,6 @@ impl Quality for AffectsOsmolarity {
 pub struct HematologyTaxonomyIsDAG;
 
 impl Axiom for HematologyTaxonomyIsDAG {
-    fn description(&self) -> &str {
-        "hematology taxonomy is a directed acyclic graph"
-    }
 
     fn holds(&self) -> bool {
         taxonomy::NoCycles::<HematologyTaxonomy>::new().holds()
@@ -248,9 +245,6 @@ pr4xis::register_axiom!(HematologyTaxonomyIsDAG);
 pub struct HematologyTaxonomyAntisymmetric;
 
 impl Axiom for HematologyTaxonomyAntisymmetric {
-    fn description(&self) -> &str {
-        "hematology taxonomy is antisymmetric"
-    }
 
     fn holds(&self) -> bool {
         taxonomy::Antisymmetric::<HematologyTaxonomy>::new().holds()
@@ -262,9 +256,6 @@ pr4xis::register_axiom!(HematologyTaxonomyAntisymmetric);
 pub struct HematologyMereologyIsDAG;
 
 impl Axiom for HematologyMereologyIsDAG {
-    fn description(&self) -> &str {
-        "hematology mereology is a directed acyclic graph"
-    }
 
     fn holds(&self) -> bool {
         mereology::NoCycles::<HematologyMereology>::new().holds()
@@ -276,9 +267,6 @@ pr4xis::register_axiom!(HematologyMereologyIsDAG);
 pub struct HematologyCausalAsymmetric;
 
 impl Axiom for HematologyCausalAsymmetric {
-    fn description(&self) -> &str {
-        "hematology causal graph is asymmetric"
-    }
 
     fn holds(&self) -> bool {
         causation::Asymmetric::<HematologyCauses>::new().holds()
@@ -290,9 +278,6 @@ pr4xis::register_axiom!(HematologyCausalAsymmetric);
 pub struct HematologyCausalNoSelfCausation;
 
 impl Axiom for HematologyCausalNoSelfCausation {
-    fn description(&self) -> &str {
-        "no hematology event directly causes itself"
-    }
 
     fn holds(&self) -> bool {
         causation::NoSelfCausation::<HematologyCauses>::new().holds()
@@ -304,9 +289,6 @@ pr4xis::register_axiom!(HematologyCausalNoSelfCausation);
 pub struct WholeBloodContainsPlasma;
 
 impl Axiom for WholeBloodContainsPlasma {
-    fn description(&self) -> &str {
-        "whole blood contains blood plasma"
-    }
 
     fn holds(&self) -> bool {
         use HematologyEntity::*;
@@ -320,9 +302,6 @@ pr4xis::register_axiom!(WholeBloodContainsPlasma);
 pub struct PlasmaContainsAllElectrolytes;
 
 impl Axiom for PlasmaContainsAllElectrolytes {
-    fn description(&self) -> &str {
-        "blood plasma contains all plasma electrolytes"
-    }
 
     fn holds(&self) -> bool {
         use HematologyEntity::*;
@@ -340,9 +319,6 @@ pr4xis::register_axiom!(PlasmaContainsAllElectrolytes);
 pub struct SodiumIsDominantCation;
 
 impl Axiom for SodiumIsDominantCation {
-    fn description(&self) -> &str {
-        "sodium is the dominant plasma cation (140 mmol/L >> 4.5 mmol/L potassium)"
-    }
 
     fn holds(&self) -> bool {
         use HematologyEntity::*;
@@ -357,9 +333,6 @@ pr4xis::register_axiom!(SodiumIsDominantCation);
 pub struct BloodPHRegulated;
 
 impl Axiom for BloodPHRegulated {
-    fn description(&self) -> &str {
-        "blood pH is tightly regulated between 7.35 and 7.45"
-    }
 
     fn holds(&self) -> bool {
         // The normal blood pH range is a scientific fact axiom.
@@ -375,9 +348,6 @@ pr4xis::register_axiom!(BloodPHRegulated);
 pub struct HemorrhageCausesElectrolyteImbalance;
 
 impl Axiom for HemorrhageCausesElectrolyteImbalance {
-    fn description(&self) -> &str {
-        "hemorrhage transitively causes electrolyte imbalance"
-    }
 
     fn holds(&self) -> bool {
         use HematologyCausalEvent::*;
@@ -391,9 +361,6 @@ pr4xis::register_axiom!(HemorrhageCausesElectrolyteImbalance);
 pub struct HematologyOppositionSymmetric;
 
 impl Axiom for HematologyOppositionSymmetric {
-    fn description(&self) -> &str {
-        "hematology opposition is symmetric"
-    }
 
     fn holds(&self) -> bool {
         opposition::Symmetric::<HematologyOpposition>::new().holds()
@@ -405,9 +372,6 @@ pr4xis::register_axiom!(HematologyOppositionSymmetric);
 pub struct HematologyOppositionIrreflexive;
 
 impl Axiom for HematologyOppositionIrreflexive {
-    fn description(&self) -> &str {
-        "hematology opposition is irreflexive"
-    }
 
     fn holds(&self) -> bool {
         opposition::Irreflexive::<HematologyOpposition>::new().holds()

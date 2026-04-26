@@ -329,9 +329,6 @@ impl Quality for IsModulableByVibration {
 pub struct InjuryCausesRepair;
 
 impl Axiom for InjuryCausesRepair {
-    fn description(&self) -> &str {
-        "tissue injury transitively causes repair completion (normal healing path)"
-    }
 
     fn holds(&self) -> bool {
         use ImmunologyEvent::*;
@@ -345,9 +342,6 @@ pr4xis::register_axiom!(InjuryCausesRepair);
 pub struct ChronicStimulusCausesFibrosis;
 
 impl Axiom for ChronicStimulusCausesFibrosis {
-    fn description(&self) -> &str {
-        "chronic stimulus causes fibrosis progression (pathological path)"
-    }
 
     fn holds(&self) -> bool {
         use ImmunologyEvent::*;
@@ -361,9 +355,6 @@ pr4xis::register_axiom!(ChronicStimulusCausesFibrosis);
 pub struct VibrationCausesM1ToM2;
 
 impl Axiom for VibrationCausesM1ToM2 {
-    fn description(&self) -> &str {
-        "mechanical stimulation causes M1-to-M2 transition (Weinheimer-Haus 2014)"
-    }
 
     fn holds(&self) -> bool {
         use ImmunologyEvent::*;
@@ -378,9 +369,6 @@ pr4xis::register_axiom!(VibrationCausesM1ToM2);
 pub struct M1M2MutuallyExclusive;
 
 impl Axiom for M1M2MutuallyExclusive {
-    fn description(&self) -> &str {
-        "M1 is pro-inflammatory (not pro-repair), M2 is pro-repair (not pro-inflammatory)"
-    }
 
     fn holds(&self) -> bool {
         use ImmunologyEntity::*;
@@ -398,9 +386,6 @@ pr4xis::register_axiom!(M1M2MutuallyExclusive);
 pub struct CytokineBranchesDisjoint;
 
 impl Axiom for CytokineBranchesDisjoint {
-    fn description(&self) -> &str {
-        "pro-inflammatory and anti-inflammatory cytokines are disjoint taxonomy branches"
-    }
 
     fn holds(&self) -> bool {
         use ImmunologyEntity::*;
@@ -422,9 +407,6 @@ pr4xis::register_axiom!(CytokineBranchesDisjoint);
 pub struct M1ToM2LeadsToRepair;
 
 impl Axiom for M1ToM2LeadsToRepair {
-    fn description(&self) -> &str {
-        "M1-to-M2 transition eventually leads to repair completion"
-    }
 
     fn holds(&self) -> bool {
         use ImmunologyEvent::*;
@@ -438,9 +420,6 @@ pr4xis::register_axiom!(M1ToM2LeadsToRepair);
 pub struct AllImmuneCellsClassified;
 
 impl Axiom for AllImmuneCellsClassified {
-    fn description(&self) -> &str {
-        "all concrete immune cells are classified under ImmuneCell; Fibroblast is StromalCell"
-    }
 
     fn holds(&self) -> bool {
         use ImmunologyEntity::*;
@@ -468,9 +447,6 @@ pr4xis::register_axiom!(AllImmuneCellsClassified);
 pub struct InflammationTimeScales;
 
 impl Axiom for InflammationTimeScales {
-    fn description(&self) -> &str {
-        "acute inflammation is Hours, chronic inflammation is Weeks"
-    }
 
     fn holds(&self) -> bool {
         use ImmunologyEntity::*;

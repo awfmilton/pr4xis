@@ -136,9 +136,6 @@ pub struct PiecewiseContinuity {
 }
 
 impl Axiom for PiecewiseContinuity {
-    fn description(&self) -> &str {
-        "piecewise function is continuous at threshold"
-    }
     fn holds(&self) -> bool {
         self.function.is_continuous(self.epsilon)
     }
@@ -151,9 +148,6 @@ pub struct ConvexWeights {
 }
 
 impl Axiom for ConvexWeights {
-    fn description(&self) -> &str {
-        "weights form a convex combination (sum to 1)"
-    }
     fn holds(&self) -> bool {
         self.combination.is_convex() && self.combination.is_non_negative()
     }
@@ -166,9 +160,6 @@ pub struct RatioBounded {
 }
 
 impl Axiom for RatioBounded {
-    fn description(&self) -> &str {
-        "offset ratio is >= 1.0"
-    }
     fn holds(&self) -> bool {
         // For any a, b in [0, 1]: ratio(a, b) >= 1.0
         // Test with extremes

@@ -50,9 +50,6 @@ impl Quality for ComponentDimension {
 pub struct VelocityDerivesFromPosition;
 
 impl Axiom for VelocityDerivesFromPosition {
-    fn description(&self) -> &str {
-        "velocity is the time derivative of position"
-    }
     fn holds(&self) -> bool {
         true
     }

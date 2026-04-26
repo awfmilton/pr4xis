@@ -164,9 +164,6 @@ impl Quality for IsOHCSpecific {
 
 pub struct BundleContainsTipLinkProteins;
 impl Axiom for BundleContainsTipLinkProteins {
-    fn description(&self) -> &str {
-        "stereocilia bundle transitively contains cadherin-23 and protocadherin-15"
-    }
     fn holds(&self) -> bool {
         use TransductionEntity::*;
         let parts = mereology::parts_of::<TransductionMereology>(&StereociliaBundle);
@@ -176,9 +173,6 @@ impl Axiom for BundleContainsTipLinkProteins {
 pr4xis::register_axiom!(BundleContainsTipLinkProteins);
 pub struct TMCsAreMETComponents;
 impl Axiom for TMCsAreMETComponents {
-    fn description(&self) -> &str {
-        "TMC1 and TMC2 are components of the MET channel"
-    }
     fn holds(&self) -> bool {
         use TransductionEntity::*;
         taxonomy::is_a::<TransductionTaxonomy>(&TMC1, &METComponent)
@@ -188,9 +182,6 @@ impl Axiom for TMCsAreMETComponents {
 pr4xis::register_axiom!(TMCsAreMETComponents);
 pub struct TipLinkProteins;
 impl Axiom for TipLinkProteins {
-    fn description(&self) -> &str {
-        "cadherin-23 and protocadherin-15 are tip link proteins"
-    }
     fn holds(&self) -> bool {
         use TransductionEntity::*;
         taxonomy::is_a::<TransductionTaxonomy>(&Cadherin23, &TipLinkProtein)
@@ -200,9 +191,6 @@ impl Axiom for TipLinkProteins {
 pr4xis::register_axiom!(TipLinkProteins);
 pub struct BMMotionCausesNerveActivation;
 impl Axiom for BMMotionCausesNerveActivation {
-    fn description(&self) -> &str {
-        "basilar membrane motion transitively causes nerve activation"
-    }
     fn holds(&self) -> bool {
         use TransductionCausalEvent::*;
         causation::effects_of::<TransductionCausalGraph>(&BasilarMembraneMotion)
@@ -212,9 +200,6 @@ impl Axiom for BMMotionCausesNerveActivation {
 pr4xis::register_axiom!(BMMotionCausesNerveActivation);
 pub struct DepolarizationCausesElectromotility;
 impl Axiom for DepolarizationCausesElectromotility {
-    fn description(&self) -> &str {
-        "cell depolarization causes prestin conformational change in OHC"
-    }
     fn holds(&self) -> bool {
         use TransductionCausalEvent::*;
         causation::effects_of::<TransductionCausalGraph>(&CellDepolarization)
@@ -224,9 +209,6 @@ impl Axiom for DepolarizationCausesElectromotility {
 pr4xis::register_axiom!(DepolarizationCausesElectromotility);
 pub struct EndocochlearPotentialIsPositive;
 impl Axiom for EndocochlearPotentialIsPositive {
-    fn description(&self) -> &str {
-        "endocochlear potential is positive (+80 mV)"
-    }
     fn holds(&self) -> bool {
         RestingPotential
             .get(&TransductionEntity::EndocochlearPotential)
@@ -237,9 +219,6 @@ impl Axiom for EndocochlearPotentialIsPositive {
 pr4xis::register_axiom!(EndocochlearPotentialIsPositive);
 pub struct PrestiIsOHCSpecific;
 impl Axiom for PrestiIsOHCSpecific {
-    fn description(&self) -> &str {
-        "prestin is specific to outer hair cells"
-    }
     fn holds(&self) -> bool {
         IsOHCSpecific.get(&TransductionEntity::Prestin) == Some(true)
     }

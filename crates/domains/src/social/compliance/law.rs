@@ -15,9 +15,6 @@ use crate::social::compliance::escalation::*;
 pub struct DistinctionPrinciple;
 
 impl Axiom for DistinctionPrinciple {
-    fn description(&self) -> &str {
-        "LOAC distinction: engagement requires MilitaryObjective classification (Protocol I, Art. 48)"
-    }
 
     fn holds(&self) -> bool {
         // A protected entity cannot reach Engage
@@ -45,9 +42,6 @@ pr4xis::register_axiom!(DistinctionPrinciple);
 pub struct CivilianPresumption;
 
 impl Axiom for CivilianPresumption {
-    fn description(&self) -> &str {
-        "LOAC presumption: unknown persons are assumed civilian (Protocol I, Art. 50(1))"
-    }
 
     fn holds(&self) -> bool {
         let unknown_person = ClassifiedEntity {
@@ -70,9 +64,6 @@ pr4xis::register_axiom!(CivilianPresumption);
 pub struct HumanInTheLoop;
 
 impl Axiom for HumanInTheLoop {
-    fn description(&self) -> &str {
-        "persons require human PositiveId for engagement (DoD Directive 3000.09)"
-    }
 
     fn holds(&self) -> bool {
         // Even a hostile-classified person with High (but not PositiveId) confidence cannot be engaged
@@ -101,9 +92,6 @@ pr4xis::register_axiom!(HumanInTheLoop);
 pub struct SequentialEscalation;
 
 impl Axiom for SequentialEscalation {
-    fn description(&self) -> &str {
-        "escalation must be sequential — no skipping levels (Protocol I, Art. 57)"
-    }
 
     fn holds(&self) -> bool {
         let target = ClassifiedEntity {
@@ -131,9 +119,6 @@ pr4xis::register_axiom!(SequentialEscalation);
 pub struct AdvanceWarning;
 
 impl Axiom for AdvanceWarning {
-    fn description(&self) -> &str {
-        "advance warning before engagement when feasible (Protocol I, Art. 57(2)(c))"
-    }
 
     fn holds(&self) -> bool {
         let target = ClassifiedEntity {
@@ -161,9 +146,6 @@ pr4xis::register_axiom!(AdvanceWarning);
 pub struct AbortAlwaysAvailable;
 
 impl Axiom for AbortAlwaysAvailable {
-    fn description(&self) -> &str {
-        "abort is always available from any escalation level"
-    }
 
     fn holds(&self) -> bool {
         let entity = ClassifiedEntity::unknown();

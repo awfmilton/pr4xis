@@ -164,9 +164,6 @@ impl Quality for OAEsPresent {
 
 pub struct NoiseCausesDifficulty;
 impl Axiom for NoiseCausesDifficulty {
-    fn description(&self) -> &str {
-        "noise exposure transitively causes communication difficulty"
-    }
     fn holds(&self) -> bool {
         use PathologyCausalEvent::*;
         causation::effects_of::<PathologyCausalGraph>(&NoiseExposure)
@@ -176,9 +173,6 @@ impl Axiom for NoiseCausesDifficulty {
 pr4xis::register_axiom!(NoiseCausesDifficulty);
 pub struct FiveHearingLossTypes;
 impl Axiom for FiveHearingLossTypes {
-    fn description(&self) -> &str {
-        "five hearing loss types are classified"
-    }
     fn holds(&self) -> bool {
         use PathologyEntity::*;
         [
@@ -195,9 +189,6 @@ impl Axiom for FiveHearingLossTypes {
 pr4xis::register_axiom!(FiveHearingLossTypes);
 pub struct PresbycusisMostPrevalent;
 impl Axiom for PresbycusisMostPrevalent {
-    fn description(&self) -> &str {
-        "presbycusis has highest prevalence among modeled conditions"
-    }
     fn holds(&self) -> bool {
         use PathologyEntity::*;
         let p = PrevalencePercent.get(&Presbycusis).unwrap();
@@ -209,9 +200,6 @@ impl Axiom for PresbycusisMostPrevalent {
 pr4xis::register_axiom!(PresbycusisMostPrevalent);
 pub struct NeuropathyHasOAEs;
 impl Axiom for NeuropathyHasOAEs {
-    fn description(&self) -> &str {
-        "auditory neuropathy has present OAEs (OHCs intact)"
-    }
     fn holds(&self) -> bool {
         OAEsPresent.get(&PathologyEntity::AuditoryNeuropathy) == Some(true)
             && OAEsPresent.get(&PathologyEntity::SensorineuralHearingLoss) == Some(false)

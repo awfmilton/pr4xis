@@ -93,9 +93,6 @@ impl Quality for MontagueRole {
 pub struct MontagueHasAtomicDomains;
 
 impl Axiom for MontagueHasAtomicDomains {
-    fn description(&self) -> &str {
-        "Montague semantics has two atomic domains: EntityDomain (e) and PropositionDomain (t) — all other domains are functions built from them (Montague 1970)"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::taxonomy::TaxonomyDef;
         let rels = MontagueTaxonomy::relations();

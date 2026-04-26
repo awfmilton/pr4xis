@@ -75,9 +75,6 @@ impl Quality for EventScale {
 pub struct CausalAsymmetric;
 
 impl Axiom for CausalAsymmetric {
-    fn description(&self) -> &str {
-        "bioelectric signal causal graph is asymmetric"
-    }
     fn holds(&self) -> bool {
         causation::Asymmetric::<BioelectricEventCausation>::new().holds()
     }
@@ -88,9 +85,6 @@ pr4xis::register_axiom!(CausalAsymmetric, "Levin (2014); Levin (2019).");
 pub struct NoSelfCausation;
 
 impl Axiom for NoSelfCausation {
-    fn description(&self) -> &str {
-        "no bioelectric event directly causes itself"
-    }
     fn holds(&self) -> bool {
         causation::NoSelfCausation::<BioelectricEventCausation>::new().holds()
     }

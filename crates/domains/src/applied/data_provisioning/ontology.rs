@@ -193,9 +193,6 @@ impl Quality for TriggersUpdate {
 pub struct EveryDataSourceHasIdentity;
 
 impl Axiom for EveryDataSourceHasIdentity {
-    fn description(&self) -> &str {
-        "every RegistryEntry resolves to a non-empty CompositeIdentity"
-    }
 
     fn holds(&self) -> bool {
         crate::applied::data_provisioning::registry::DATA_SOURCES
@@ -213,9 +210,6 @@ pr4xis::register_axiom!(EveryDataSourceHasIdentity);
 pub struct RegistryUniquenessByName;
 
 impl Axiom for RegistryUniquenessByName {
-    fn description(&self) -> &str {
-        "every RegistryEntry has a unique name"
-    }
 
     fn holds(&self) -> bool {
         let mut names = HashSet::new();
@@ -235,9 +229,6 @@ pr4xis::register_axiom!(RegistryUniquenessByName);
 pub struct DecoderTotalityPerContentType;
 
 impl Axiom for DecoderTotalityPerContentType {
-    fn description(&self) -> &str {
-        "every ContentType in use has a defined decoder"
-    }
 
     fn holds(&self) -> bool {
         for entry in crate::applied::data_provisioning::registry::DATA_SOURCES {
@@ -256,9 +247,6 @@ pr4xis::register_axiom!(DecoderTotalityPerContentType);
 pub struct IdentityClaimsUseLeaves;
 
 impl Axiom for IdentityClaimsUseLeaves {
-    fn description(&self) -> &str {
-        "every IdentityClaim uses a leaf IdentityConcept, not a family or root"
-    }
 
     fn holds(&self) -> bool {
         use crate::formal::meta::artifact_identity::ontology::is_leaf;

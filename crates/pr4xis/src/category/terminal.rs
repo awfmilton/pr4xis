@@ -51,12 +51,16 @@ where
         <T::Category>::identity(&T::target())
     }
 
-    crate::relationship_meta!(
-        "TerminalFunctor",
-        "constant functor collapsing source to a single target aspect",
-        "Mac Lane (1971) Ch. II §1"
-    );
+    crate::relationship_meta!("TerminalFunctor");
 }
+
+crate::register_lexicon!(
+    TerminalFunctor,
+    "TerminalFunctor",
+    "TerminalFunctor",
+    "constant functor collapsing source to a single target aspect",
+    "Mac Lane (1971) Ch. II §1"
+);
 
 #[cfg(test)]
 mod tests {

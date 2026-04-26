@@ -280,9 +280,6 @@ impl Quality for StagingLevel {
 pub struct EveryProgramKindIsAProgram;
 
 impl Axiom for EveryProgramKindIsAProgram {
-    fn description(&self) -> &str {
-        "every program-like concept is-a Program in the taxonomy"
-    }
     fn holds(&self) -> bool {
         use StageConcept::*;
         let program_kinds = [
@@ -310,9 +307,6 @@ pr4xis::register_axiom!(EveryProgramKindIsAProgram);
 pub struct FutamuraChainIsComplete;
 
 impl Axiom for FutamuraChainIsComplete {
-    fn description(&self) -> &str {
-        "the three Futamura projections form a connected causal chain"
-    }
     fn holds(&self) -> bool {
         use FutamuraStep::*;
         let reach = causation::effects_of::<FutamuraCausalGraph>(&WriteInterpreter);
@@ -332,9 +326,6 @@ pr4xis::register_axiom!(FutamuraChainIsComplete);
 pub struct CompilationFollowsSpecialization;
 
 impl Axiom for CompilationFollowsSpecialization {
-    fn description(&self) -> &str {
-        "producing an object program is caused by specializing the interpreter (Futamura Eq. 2)"
-    }
     fn holds(&self) -> bool {
         use FutamuraStep::*;
         let causes = causation::causes_of::<FutamuraCausalGraph>(&ProduceObjectProgram);
@@ -354,9 +345,6 @@ pr4xis::register_axiom!(CompilationFollowsSpecialization);
 pub struct EachProjectionRaisesStagingByOne;
 
 impl Axiom for EachProjectionRaisesStagingByOne {
-    fn description(&self) -> &str {
-        "each Futamura projection raises the staging level by exactly 1"
-    }
     fn holds(&self) -> bool {
         let q = StagingLevel;
         // interpreter → object program via first projection: 0 → 1
@@ -389,9 +377,6 @@ pr4xis::register_axiom!(EachProjectionRaisesStagingByOne);
 pub struct StaticDynamicPartitionsInputs;
 
 impl Axiom for StaticDynamicPartitionsInputs {
-    fn description(&self) -> &str {
-        "static and dynamic inputs form the only two temporality classes"
-    }
     fn holds(&self) -> bool {
         let q = TemporalityTag;
         // StaticInput is Static, DynamicInput is Dynamic, nothing in between

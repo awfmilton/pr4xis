@@ -98,9 +98,6 @@ impl Quality for UpdateRate {
 pub struct DriftIsUnbounded;
 
 impl Axiom for DriftIsUnbounded {
-    fn description(&self) -> &str {
-        "odometry error grows without bound (no absolute reference)"
-    }
     fn holds(&self) -> bool {
         let drift_rate = 0.02;
         let d1 = 100.0;
@@ -121,9 +118,6 @@ pr4xis::register_axiom!(
 pub struct RelativeMotionOnly;
 
 impl Axiom for RelativeMotionOnly {
-    fn description(&self) -> &str {
-        "odometry measures change in position, not absolute position"
-    }
     fn holds(&self) -> bool {
         let start_a: [f64; 2] = [0.0, 0.0];
         let start_b: [f64; 2] = [100.0, 200.0];
@@ -148,9 +142,6 @@ pr4xis::register_axiom!(
 pub struct SlipCorruptsWheelOdometry;
 
 impl Axiom for SlipCorruptsWheelOdometry {
-    fn description(&self) -> &str {
-        "wheel slip causes wheel encoder error"
-    }
     fn holds(&self) -> bool {
         let encoder_distance = 100.0_f64;
         let slip_ratio = 0.1_f64;

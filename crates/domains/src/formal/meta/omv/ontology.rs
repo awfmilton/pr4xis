@@ -138,9 +138,6 @@ impl Quality for FormalityLevelOf {
 pub struct ArtefactHasFormalityLevel;
 
 impl Axiom for ArtefactHasFormalityLevel {
-    fn description(&self) -> &str {
-        "every SemanticArtefact has a FormalityLevel (OMV core; Hartmann 2005)"
-    }
     fn holds(&self) -> bool {
         let m = OmvCategory::morphisms();
         m.iter().any(|r| {
@@ -157,9 +154,6 @@ pr4xis::register_axiom!(ArtefactHasFormalityLevel);
 pub struct ArtefactHasAnalytics;
 
 impl Axiom for ArtefactHasAnalytics {
-    fn description(&self) -> &str {
-        "every SemanticArtefact has Analytics (MOD 2.0; VoID statistics)"
-    }
     fn holds(&self) -> bool {
         let m = OmvCategory::morphisms();
         m.iter().any(|r| {
@@ -176,9 +170,6 @@ pr4xis::register_axiom!(ArtefactHasAnalytics);
 pub struct CatalogReachesAll;
 
 impl Axiom for CatalogReachesAll {
-    fn description(&self) -> &str {
-        "Catalog reaches all concepts transitively (DCAT completeness)"
-    }
     fn holds(&self) -> bool {
         use pr4xis::category::entity::Concept;
         let m = OmvCategory::morphisms();

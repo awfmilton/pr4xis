@@ -42,9 +42,6 @@ impl Quality for SensorMeasurand {
 pub struct StrainBoundedElastic;
 
 impl Axiom for StrainBoundedElastic {
-    fn description(&self) -> &str {
-        "strain is bounded within elastic deformation limits"
-    }
     fn holds(&self) -> bool {
         true
     }
@@ -58,9 +55,6 @@ pr4xis::register_axiom!(
 pub struct CrackMonotonicity;
 
 impl Axiom for CrackMonotonicity {
-    fn description(&self) -> &str {
-        "crack length is non-negative and does not decrease (fatigue cracks only grow)"
-    }
     fn holds(&self) -> bool {
         true
     }

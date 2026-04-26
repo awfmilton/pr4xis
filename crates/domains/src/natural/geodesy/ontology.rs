@@ -105,9 +105,6 @@ impl Endofunctor for NedToEnuFunctor {
 pub struct GeodeticEcefRoundtrip;
 
 impl Axiom for GeodeticEcefRoundtrip {
-    fn description(&self) -> &str {
-        "geodetic -> ECEF -> geodetic roundtrip is identity (Bowring 1976)"
-    }
 
     fn holds(&self) -> bool {
         let e = ellipsoid::wgs84();
@@ -131,9 +128,6 @@ pr4xis::register_axiom!(GeodeticEcefRoundtrip);
 pub struct NedEnuRoundtrip;
 
 impl Axiom for NedEnuRoundtrip {
-    fn description(&self) -> &str {
-        "NED -> ENU -> NED roundtrip is identity (involution)"
-    }
 
     fn holds(&self) -> bool {
         let test_neds = [
@@ -172,9 +166,6 @@ pr4xis::register_axiom!(NedEnuRoundtrip);
 pub struct NedEnuIsometry;
 
 impl Axiom for NedEnuIsometry {
-    fn description(&self) -> &str {
-        "NED -> ENU conversion preserves Euclidean distance (isometry)"
-    }
 
     fn holds(&self) -> bool {
         let a = Ned {
@@ -207,9 +198,6 @@ pr4xis::register_axiom!(NedEnuIsometry);
 pub struct GreatCircleSymmetry;
 
 impl Axiom for GreatCircleSymmetry {
-    fn description(&self) -> &str {
-        "great circle distance is symmetric: d(a,b) = d(b,a)"
-    }
 
     fn holds(&self) -> bool {
         let e = ellipsoid::wgs84();
@@ -232,9 +220,6 @@ pr4xis::register_axiom!(GreatCircleSymmetry);
 pub struct GreatCircleSelfZero;
 
 impl Axiom for GreatCircleSelfZero {
-    fn description(&self) -> &str {
-        "great circle distance to self is zero"
-    }
 
     fn holds(&self) -> bool {
         let e = ellipsoid::wgs84();
@@ -252,9 +237,6 @@ pr4xis::register_axiom!(GreatCircleSelfZero);
 pub struct GreatCircleTriangleInequality;
 
 impl Axiom for GreatCircleTriangleInequality {
-    fn description(&self) -> &str {
-        "great circle distance satisfies triangle inequality"
-    }
 
     fn holds(&self) -> bool {
         let e = ellipsoid::wgs84();
@@ -281,9 +263,6 @@ pr4xis::register_axiom!(GreatCircleTriangleInequality);
 pub struct Wgs84Consistency;
 
 impl Axiom for Wgs84Consistency {
-    fn description(&self) -> &str {
-        "WGS84: b = a(1-f) and e² = 2f - f² (NIMA TR8350.2)"
-    }
 
     fn holds(&self) -> bool {
         let e = ellipsoid::wgs84();
@@ -306,8 +285,6 @@ pr4xis::register_axiom!(Wgs84Consistency);
 pub struct NedEnuFunctorIdentity;
 
 impl Axiom for NedEnuFunctorIdentity {
-    fn description(&self) -> &str {
-        "NED→ENU functor preserves identity: F(id_A) = id_{F(A)}"
     }
 
     fn holds(&self) -> bool {

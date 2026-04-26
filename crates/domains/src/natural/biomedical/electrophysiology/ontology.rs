@@ -267,9 +267,6 @@ impl Quality for RequiresContactWithCell {
 pub struct ElectrophysiologyOppositionSymmetric;
 
 impl Axiom for ElectrophysiologyOppositionSymmetric {
-    fn description(&self) -> &str {
-        "electrophysiology opposition is symmetric"
-    }
 
     fn holds(&self) -> bool {
         opposition::Symmetric::<ElectrophysiologyOpposition>::new().holds()
@@ -281,9 +278,6 @@ pr4xis::register_axiom!(ElectrophysiologyOppositionSymmetric);
 pub struct ElectrophysiologyOppositionIrreflexive;
 
 impl Axiom for ElectrophysiologyOppositionIrreflexive {
-    fn description(&self) -> &str {
-        "electrophysiology opposition is irreflexive"
-    }
 
     fn holds(&self) -> bool {
         opposition::Irreflexive::<ElectrophysiologyOpposition>::new().holds()
@@ -299,9 +293,6 @@ pr4xis::register_axiom!(ElectrophysiologyOppositionIrreflexive);
 pub struct TaxonomyIsDAG;
 
 impl Axiom for TaxonomyIsDAG {
-    fn description(&self) -> &str {
-        "electrophysiology taxonomy is a directed acyclic graph"
-    }
 
     fn holds(&self) -> bool {
         taxonomy::NoCycles::<ElectrophysiologyTaxonomy>::new().holds()
@@ -313,9 +304,6 @@ pr4xis::register_axiom!(TaxonomyIsDAG);
 pub struct CategoryLawsHold;
 
 impl Axiom for CategoryLawsHold {
-    fn description(&self) -> &str {
-        "electrophysiology category satisfies identity, associativity, and closure"
-    }
 
     fn holds(&self) -> bool {
         use pr4xis::category::validate::check_category_laws;
@@ -328,9 +316,6 @@ pr4xis::register_axiom!(CategoryLawsHold);
 pub struct NonInvasiveMethodExists;
 
 impl Axiom for NonInvasiveMethodExists {
-    fn description(&self) -> &str {
-        "at least one non-invasive measurement technique exists"
-    }
 
     fn holds(&self) -> bool {
         let q = IsInvasive;
@@ -345,9 +330,6 @@ pr4xis::register_axiom!(NonInvasiveMethodExists);
 pub struct MultiscaleMethods;
 
 impl Axiom for MultiscaleMethods {
-    fn description(&self) -> &str {
-        "both single-cell and tissue-level spatial resolution methods exist"
-    }
 
     fn holds(&self) -> bool {
         let q = SpatialResolution;
@@ -365,9 +347,6 @@ pr4xis::register_axiom!(MultiscaleMethods);
 pub struct VmemInVivoMethodExists;
 
 impl Axiom for VmemInVivoMethodExists {
-    fn description(&self) -> &str {
-        "at least one method measures Vmem in vivo (voltage-sensitive dye — Levin's primary tool)"
-    }
 
     fn holds(&self) -> bool {
         let vmem = MeasuresVmem;
@@ -383,9 +362,6 @@ pr4xis::register_axiom!(VmemInVivoMethodExists);
 pub struct PatchClampGoldStandard;
 
 impl Axiom for PatchClampGoldStandard {
-    fn description(&self) -> &str {
-        "patch clamp is invasive with single-cell resolution (gold standard)"
-    }
 
     fn holds(&self) -> bool {
         use ElectrophysiologyEntity::*;
@@ -399,9 +375,6 @@ pr4xis::register_axiom!(PatchClampGoldStandard);
 pub struct BioimpedanceNonInvasive;
 
 impl Axiom for BioimpedanceNonInvasive {
-    fn description(&self) -> &str {
-        "bioimpedance is non-invasive (surface electrodes, deep tissue proxy)"
-    }
 
     fn holds(&self) -> bool {
         use ElectrophysiologyEntity::*;
@@ -414,9 +387,6 @@ pr4xis::register_axiom!(BioimpedanceNonInvasive);
 pub struct OpticalMethodsNoContact;
 
 impl Axiom for OpticalMethodsNoContact {
-    fn description(&self) -> &str {
-        "optical methods do not require direct cell contact"
-    }
 
     fn holds(&self) -> bool {
         use ElectrophysiologyEntity::*;
@@ -432,9 +402,6 @@ pr4xis::register_axiom!(OpticalMethodsNoContact);
 pub struct VmemAndNonVmemTechniques;
 
 impl Axiom for VmemAndNonVmemTechniques {
-    fn description(&self) -> &str {
-        "both Vmem-measuring and non-Vmem-measuring techniques exist"
-    }
 
     fn holds(&self) -> bool {
         let q = MeasuresVmem;

@@ -215,9 +215,6 @@ impl Quality for Complexity {
 pub struct DataCollectionCausesKnowledgeUpdate;
 
 impl Axiom for DataCollectionCausesKnowledgeUpdate {
-    fn description(&self) -> &str {
-        "data collection transitively causes knowledge update (full pipeline)"
-    }
     fn holds(&self) -> bool {
         use AnalysisStep::*;
         let effects = causation::effects_of::<AnalysisCausalGraph>(&DataCollection);
@@ -230,9 +227,6 @@ pr4xis::register_axiom!(DataCollectionCausesKnowledgeUpdate);
 pub struct GaloisConnectionIsComponent;
 
 impl Axiom for GaloisConnectionIsComponent {
-    fn description(&self) -> &str {
-        "Galois connection is classified as an analysis component"
-    }
     fn holds(&self) -> bool {
         use AnalyticalEntity::*;
         taxonomy::is_a::<AnalyticalTaxonomy>(&GaloisConnection, &AnalysisComponent)
@@ -244,9 +238,6 @@ pr4xis::register_axiom!(GaloisConnectionIsComponent);
 pub struct PatternAndAnomalyAreOutputs;
 
 impl Axiom for PatternAndAnomalyAreOutputs {
-    fn description(&self) -> &str {
-        "pattern and anomaly are both classified as analysis outputs"
-    }
     fn holds(&self) -> bool {
         use AnalyticalEntity::*;
         taxonomy::is_a::<AnalyticalTaxonomy>(&Pattern, &AnalysisOutput)
@@ -259,9 +250,6 @@ pr4xis::register_axiom!(PatternAndAnomalyAreOutputs);
 pub struct SomeMethodsAutomatableSomeNot;
 
 impl Axiom for SomeMethodsAutomatableSomeNot {
-    fn description(&self) -> &str {
-        "some analysis methods are automatable and some require human judgment"
-    }
     fn holds(&self) -> bool {
         use AnalyticalEntity::*;
         let methods = [

@@ -156,9 +156,6 @@ impl Quality for IsTonotopic {
 
 pub struct InputCausesBinding;
 impl Axiom for InputCausesBinding {
-    fn description(&self) -> &str {
-        "auditory nerve input transitively causes perceptual binding"
-    }
     fn holds(&self) -> bool {
         use NeuralCausalEvent::*;
         causation::effects_of::<NeuralCausalGraph>(&AuditoryNerveInput).contains(&PerceptualBinding)
@@ -168,9 +165,6 @@ pr4xis::register_axiom!(InputCausesBinding);
 
 pub struct SixCodingStrategies;
 impl Axiom for SixCodingStrategies {
-    fn description(&self) -> &str {
-        "six coding strategies are classified"
-    }
     fn holds(&self) -> bool {
         use NeuralEntity::*;
         [
@@ -189,9 +183,6 @@ pr4xis::register_axiom!(SixCodingStrategies);
 
 pub struct SOCDelayLongerThanCN;
 impl Axiom for SOCDelayLongerThanCN {
-    fn description(&self) -> &str {
-        "SOC synaptic delay > CN synaptic delay"
-    }
     fn holds(&self) -> bool {
         use NeuralEntity::*;
         SynapticDelay.get(&SuperiorOliveProcessing).unwrap()
@@ -202,9 +193,6 @@ pr4xis::register_axiom!(SOCDelayLongerThanCN);
 
 pub struct AllStagesAreTonotopic;
 impl Axiom for AllStagesAreTonotopic {
-    fn description(&self) -> &str {
-        "all major processing stages are tonotopic"
-    }
     fn holds(&self) -> bool {
         use NeuralEntity::*;
         [

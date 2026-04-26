@@ -328,9 +328,6 @@ impl Quality for IsTerminalPhase {
 pub struct OnlyClosedIsTerminal;
 
 impl Axiom for OnlyClosedIsTerminal {
-    fn description(&self) -> &str {
-        "only Closed is a terminal phase"
-    }
     fn holds(&self) -> bool {
         PhaseTag::variants()
             .iter()
@@ -343,9 +340,6 @@ pr4xis::register_axiom!(OnlyClosedIsTerminal);
 pub struct NoDeadPhases;
 
 impl Axiom for NoDeadPhases {
-    fn description(&self) -> &str {
-        "every non-terminal phase has transitions"
-    }
     fn holds(&self) -> bool {
         PhaseTag::variants()
             .iter()

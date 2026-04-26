@@ -147,9 +147,6 @@ impl<T: TaxonomyDef> Default for NoCycles<T> {
 }
 
 impl<T: TaxonomyDef> crate::logic::Axiom for NoCycles<T> {
-    fn description(&self) -> &str {
-        "taxonomy has no cycles (is a DAG)"
-    }
 
     fn holds(&self) -> bool {
         let adj = graph::adjacency_map(&T::relations());
@@ -158,12 +155,16 @@ impl<T: TaxonomyDef> crate::logic::Axiom for NoCycles<T> {
             .all(|entity| !graph::has_cycle(entity, &adj))
     }
 
-    crate::axiom_meta!(
-        "NoCycles[Taxonomy]",
-        "taxonomy has no cycles (is a DAG)",
-        "Guarino (2009) 'The Ontological Level'; Gruber (1993) 'A Translation Approach to Portable Ontology Specifications' — taxonomies are directed acyclic graphs"
-    );
+    crate::axiom_meta!("NoCycles[Taxonomy]");
 }
+
+crate::register_lexicon!(
+    NoCycles_Taxonomy,
+    "NoCycles[Taxonomy]",
+    "NoCycles[Taxonomy]",
+    "taxonomy has no cycles (is a DAG)",
+    "Guarino (2009) 'The Ontological Level'; Gruber (1993) 'A Translation Approach to Portable Ontology Specifications' — taxonomies are directed acyclic graphs"
+);
 
 /// Axiom: antisymmetry — if A is-a B (and A != B), then B is NOT a A.
 pub struct Antisymmetric<T: TaxonomyDef> {
@@ -185,9 +186,6 @@ impl<T: TaxonomyDef> Default for Antisymmetric<T> {
 }
 
 impl<T: TaxonomyDef> crate::logic::Axiom for Antisymmetric<T> {
-    fn description(&self) -> &str {
-        "taxonomy is antisymmetric: if A is-a B then B is not a A"
-    }
 
     fn holds(&self) -> bool {
         let direct = T::relations();
@@ -199,12 +197,16 @@ impl<T: TaxonomyDef> crate::logic::Axiom for Antisymmetric<T> {
         true
     }
 
-    crate::axiom_meta!(
-        "Antisymmetric[Taxonomy]",
-        "taxonomy is antisymmetric: if A is-a B then B is not a A",
-        "Guarino (2009); Mac Lane (1971) — subsumption is a partial order (antisymmetric)"
-    );
+    crate::axiom_meta!("Antisymmetric[Taxonomy]");
 }
+
+crate::register_lexicon!(
+    Antisymmetric_Taxonomy,
+    "Antisymmetric[Taxonomy]",
+    "Antisymmetric[Taxonomy]",
+    "taxonomy is antisymmetric: if A is-a B then B is not a A",
+    "Guarino (2009); Mac Lane (1971) — subsumption is a partial order (antisymmetric)"
+);
 
 // ---- Algebraic structure integrations ----
 

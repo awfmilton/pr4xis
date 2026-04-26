@@ -359,9 +359,6 @@ impl Quality for VerifiabilityOffline {
 pub struct EverySchemeHasAnExtractor;
 
 impl Axiom for EverySchemeHasAnExtractor {
-    fn description(&self) -> &str {
-        "every leaf IdentityConcept has a defined extractor function"
-    }
 
     fn holds(&self) -> bool {
         use crate::formal::meta::artifact_identity::schemes;
@@ -382,9 +379,6 @@ pr4xis::register_axiom!(EverySchemeHasAnExtractor);
 pub struct ExtractorIsDeterministic;
 
 impl Axiom for ExtractorIsDeterministic {
-    fn description(&self) -> &str {
-        "every extractor is a pure function of its input bytes"
-    }
 
     fn holds(&self) -> bool {
         // This axiom is property-based; it cannot be exhaustively checked
@@ -408,9 +402,6 @@ pr4xis::register_axiom!(ExtractorIsDeterministic);
 pub struct VerificationFailClosed;
 
 impl Axiom for VerificationFailClosed {
-    fn description(&self) -> &str {
-        "verification failures (Unverifiable or Mismatch) reject the artifact — never fail open"
-    }
 
     fn holds(&self) -> bool {
         // Structural statement. The enforcement is in data_provisioning::fetch
@@ -428,9 +419,6 @@ pr4xis::register_axiom!(VerificationFailClosed);
 pub struct CompositeRequiresAll;
 
 impl Axiom for CompositeRequiresAll {
-    fn description(&self) -> &str {
-        "CompositeIdentity verifies only when every claim verifies"
-    }
 
     fn holds(&self) -> bool {
         // Structural. The composite verifier in data_provisioning walks the
@@ -457,9 +445,6 @@ pr4xis::register_axiom!(CompositeRequiresAll);
 pub struct ContentHashIsInjective;
 
 impl Axiom for ContentHashIsInjective {
-    fn description(&self) -> &str {
-        "content hash schemes are injective under collision-resistant algorithms (strict Dolstra)"
-    }
 
     fn holds(&self) -> bool {
         // Structural. The cryptographic assumption (SHA-256 is collision-
@@ -490,9 +475,6 @@ pr4xis::register_axiom!(ContentHashIsInjective);
 pub struct ContentHashIsOffline;
 
 impl Axiom for ContentHashIsOffline {
-    fn description(&self) -> &str {
-        "content hash schemes are always verifiable offline"
-    }
 
     fn holds(&self) -> bool {
         let q = VerifiabilityOffline;
@@ -517,9 +499,6 @@ pr4xis::register_axiom!(ContentHashIsOffline);
 pub struct PersistentIdentifierRequiresResolver;
 
 impl Axiom for PersistentIdentifierRequiresResolver {
-    fn description(&self) -> &str {
-        "persistent identifier schemes require network access to a resolver"
-    }
 
     fn holds(&self) -> bool {
         let q = VerifiabilityOffline;
@@ -536,9 +515,6 @@ pr4xis::register_axiom!(PersistentIdentifierRequiresResolver);
 pub struct SelfDescribingIsWeakestTrust;
 
 impl Axiom for SelfDescribingIsWeakestTrust {
-    fn description(&self) -> &str {
-        "self-describing metadata schemes are the weakest trust tier (Declarative)"
-    }
 
     fn holds(&self) -> bool {
         let q = TrustTierOf;

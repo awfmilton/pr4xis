@@ -190,9 +190,6 @@ pub struct ThemeChangeNaturality {
 }
 
 impl Axiom for ThemeChangeNaturality {
-    fn description(&self) -> &str {
-        "theme change is a natural transformation (surfaces are independent)"
-    }
     fn holds(&self) -> bool {
         // The naturality condition holds if each functor's apply()
         // depends ONLY on the palette, not on other functors' outputs

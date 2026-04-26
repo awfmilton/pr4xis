@@ -132,9 +132,6 @@ impl Quality for IsKosFramework {
 pub struct AllActsClassified;
 
 impl Axiom for AllActsClassified {
-    fn description(&self) -> &str {
-        "every grounding act is-a GroundingAct (Traum 1994 taxonomy)"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::taxonomy::TaxonomyDef;
         let rels = GroundingTaxonomy::relations();
@@ -161,9 +158,6 @@ pr4xis::register_axiom!(
 pub struct PresentationHasConsequence;
 
 impl Axiom for PresentationHasConsequence {
-    fn description(&self) -> &str {
-        "Presentation causes Acceptance or Repair (Clark & Schaefer 1989)"
-    }
     fn holds(&self) -> bool {
         use pr4xis::ontology::reasoning::causation::CausalDef;
         let rels = GroundingCausation::relations();

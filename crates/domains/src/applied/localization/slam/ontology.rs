@@ -53,9 +53,6 @@ impl Quality for ComponentRole {
 pub struct ConstraintReducesUncertainty;
 
 impl Axiom for ConstraintReducesUncertainty {
-    fn description(&self) -> &str {
-        "adding a constraint to the SLAM graph reduces or maintains uncertainty"
-    }
     fn holds(&self) -> bool {
         true
     }
@@ -69,9 +66,6 @@ pr4xis::register_axiom!(
 pub struct LoopClosureConnectsPoses;
 
 impl Axiom for LoopClosureConnectsPoses {
-    fn description(&self) -> &str {
-        "loop closures connect pose nodes to other pose nodes"
-    }
     fn holds(&self) -> bool {
         let morphisms = SlamCategory::morphisms();
         let lc_to_pose = morphisms

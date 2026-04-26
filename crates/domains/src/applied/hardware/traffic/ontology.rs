@@ -45,9 +45,6 @@ impl Quality for ConflictsWithNorth {
 pub struct OrthogonalConflicts;
 
 impl Axiom for OrthogonalConflicts {
-    fn description(&self) -> &str {
-        "north-south and east-west are orthogonal conflict pairs"
-    }
     fn holds(&self) -> bool {
         // NS don't conflict with each other, EW don't conflict with each other
         // NS conflicts with EW

@@ -240,9 +240,6 @@ impl Quality for PathwayIsHardwareAccessible {
 pub struct MorphospaceOppositionSymmetric;
 
 impl Axiom for MorphospaceOppositionSymmetric {
-    fn description(&self) -> &str {
-        "morphospace opposition is symmetric"
-    }
 
     fn holds(&self) -> bool {
         opposition::Symmetric::<MorphospaceOpposition>::new().holds()
@@ -254,9 +251,6 @@ pr4xis::register_axiom!(MorphospaceOppositionSymmetric);
 pub struct MorphospaceOppositionIrreflexive;
 
 impl Axiom for MorphospaceOppositionIrreflexive {
-    fn description(&self) -> &str {
-        "morphospace opposition is irreflexive"
-    }
 
     fn holds(&self) -> bool {
         opposition::Irreflexive::<MorphospaceOpposition>::new().holds()
@@ -272,9 +266,6 @@ pr4xis::register_axiom!(MorphospaceOppositionIrreflexive);
 pub struct MorphospaceTaxonomyIsDAG;
 
 impl Axiom for MorphospaceTaxonomyIsDAG {
-    fn description(&self) -> &str {
-        "morphospace taxonomy is a directed acyclic graph"
-    }
 
     fn holds(&self) -> bool {
         taxonomy::NoCycles::<MorphospaceTaxonomy>::new().holds()
@@ -286,9 +277,6 @@ pr4xis::register_axiom!(MorphospaceTaxonomyIsDAG);
 pub struct AllAttractorsHaveVmemRanges;
 
 impl Axiom for AllAttractorsHaveVmemRanges {
-    fn description(&self) -> &str {
-        "all attractor states have Vmem ranges"
-    }
 
     fn holds(&self) -> bool {
         use MorphospaceEntity::*;
@@ -304,9 +292,6 @@ pr4xis::register_axiom!(AllAttractorsHaveVmemRanges);
 pub struct HealthyIsMostPolarized;
 
 impl Axiom for HealthyIsMostPolarized {
-    fn description(&self) -> &str {
-        "healthy attractor has the most polarized Vmem"
-    }
 
     fn holds(&self) -> bool {
         use MorphospaceEntity::*;
@@ -324,9 +309,6 @@ pr4xis::register_axiom!(HealthyIsMostPolarized);
 pub struct SeverityIncreasesWithDepolarization;
 
 impl Axiom for SeverityIncreasesWithDepolarization {
-    fn description(&self) -> &str {
-        "disease severity increases with depolarization"
-    }
 
     fn holds(&self) -> bool {
         use MorphospaceEntity::*;
@@ -353,9 +335,6 @@ pr4xis::register_axiom!(SeverityIncreasesWithDepolarization);
 pub struct DiseaseProgressionIsAsymmetric;
 
 impl Axiom for DiseaseProgressionIsAsymmetric {
-    fn description(&self) -> &str {
-        "disease progression is asymmetric"
-    }
 
     fn holds(&self) -> bool {
         causation::Asymmetric::<DiseaseProgressionCauses>::new().holds()
@@ -367,9 +346,6 @@ pr4xis::register_axiom!(DiseaseProgressionIsAsymmetric);
 pub struct AcidCausesDysplasia;
 
 impl Axiom for AcidCausesDysplasia {
-    fn description(&self) -> &str {
-        "acid damage transitively causes dysplastic transition"
-    }
 
     fn holds(&self) -> bool {
         use MorphospaceEvent::*;
@@ -383,9 +359,6 @@ pr4xis::register_axiom!(AcidCausesDysplasia);
 pub struct MechanicalStimulationCausesRepair;
 
 impl Axiom for MechanicalStimulationCausesRepair {
-    fn description(&self) -> &str {
-        "mechanotransduction activation causes autonomous repair"
-    }
 
     fn holds(&self) -> bool {
         use MorphospaceEvent::*;
@@ -400,9 +373,6 @@ pr4xis::register_axiom!(MechanicalStimulationCausesRepair);
 pub struct AcidRemovalCausesRepair;
 
 impl Axiom for AcidRemovalCausesRepair {
-    fn description(&self) -> &str {
-        "acid removal causes autonomous repair"
-    }
 
     fn holds(&self) -> bool {
         use MorphospaceEvent::*;
@@ -417,9 +387,6 @@ pr4xis::register_axiom!(AcidRemovalCausesRepair);
 pub struct TwoMechanismGJRequirement;
 
 impl Axiom for TwoMechanismGJRequirement {
-    fn description(&self) -> &str {
-        "bioelectric repair requires GJ, mechanical stimulation does not"
-    }
 
     fn holds(&self) -> bool {
         use MorphospaceEntity::*;
@@ -433,9 +400,6 @@ pr4xis::register_axiom!(TwoMechanismGJRequirement);
 pub struct OnlyMechanicalIsHardwareAccessible;
 
 impl Axiom for OnlyMechanicalIsHardwareAccessible {
-    fn description(&self) -> &str {
-        "only mechanical stimulation is hardware-accessible"
-    }
 
     fn holds(&self) -> bool {
         let hw = PathwayIsHardwareAccessible;
@@ -459,9 +423,6 @@ pr4xis::register_axiom!(OnlyMechanicalIsHardwareAccessible);
 pub struct FiveAttractorStates;
 
 impl Axiom for FiveAttractorStates {
-    fn description(&self) -> &str {
-        "there are exactly 5 attractor states"
-    }
 
     fn holds(&self) -> bool {
         let descendants =

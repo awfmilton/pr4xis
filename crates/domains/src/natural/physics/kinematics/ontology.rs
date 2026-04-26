@@ -88,9 +88,6 @@ impl Quality for SiUnit {
 pub struct VelocityIsDerivativeOfPosition;
 
 impl Axiom for VelocityIsDerivativeOfPosition {
-    fn description(&self) -> &str {
-        "velocity = dx/dt: position change / time yields velocity"
-    }
 
     fn holds(&self) -> bool {
         // For constant velocity, displacement should equal v*dt exactly
@@ -108,9 +105,6 @@ pr4xis::register_axiom!(VelocityIsDerivativeOfPosition);
 pub struct AccelerationIsDerivativeOfVelocity;
 
 impl Axiom for AccelerationIsDerivativeOfVelocity {
-    fn description(&self) -> &str {
-        "acceleration = dv/dt: velocity change / time yields acceleration"
-    }
 
     fn holds(&self) -> bool {
         let v1 = Velocity::new(0.0, 0.0, 0.0);
@@ -126,9 +120,6 @@ pr4xis::register_axiom!(AccelerationIsDerivativeOfVelocity);
 pub struct ConstantVelocityPropagation;
 
 impl Axiom for ConstantVelocityPropagation {
-    fn description(&self) -> &str {
-        "constant velocity: x(t+dt) = x(t) + v*dt"
-    }
 
     fn holds(&self) -> bool {
         let state = KinematicState {
@@ -149,9 +140,6 @@ pr4xis::register_axiom!(ConstantVelocityPropagation);
 pub struct ConstantAccelerationPropagation;
 
 impl Axiom for ConstantAccelerationPropagation {
-    fn description(&self) -> &str {
-        "constant acceleration: x(t+dt) = x(t) + v*dt + 0.5*a*dt²"
-    }
 
     fn holds(&self) -> bool {
         // Free fall: x0=0, v0=0, a=-g, after 1s: x = -0.5*g*1² = -4.903325
@@ -173,9 +161,6 @@ pr4xis::register_axiom!(ConstantAccelerationPropagation);
 pub struct VelocityUpdateUnderAcceleration;
 
 impl Axiom for VelocityUpdateUnderAcceleration {
-    fn description(&self) -> &str {
-        "v(t+dt) = v(t) + a*dt under constant acceleration"
-    }
 
     fn holds(&self) -> bool {
         let state = KinematicState {
@@ -195,9 +180,6 @@ pr4xis::register_axiom!(VelocityUpdateUnderAcceleration);
 pub struct StaticModelInvariance;
 
 impl Axiom for StaticModelInvariance {
-    fn description(&self) -> &str {
-        "static model: position unchanged after propagation"
-    }
 
     fn holds(&self) -> bool {
         let state = KinematicState {
@@ -215,9 +197,6 @@ pr4xis::register_axiom!(StaticModelInvariance);
 pub struct SpeedNonNegative;
 
 impl Axiom for SpeedNonNegative {
-    fn description(&self) -> &str {
-        "speed is non-negative: |v| >= 0"
-    }
 
     fn holds(&self) -> bool {
         let test_velocities = [
@@ -235,9 +214,6 @@ pr4xis::register_axiom!(SpeedNonNegative);
 pub struct VelocityAdditionCommutative;
 
 impl Axiom for VelocityAdditionCommutative {
-    fn description(&self) -> &str {
-        "Galilean velocity addition is commutative: v1 + v2 = v2 + v1"
-    }
 
     fn holds(&self) -> bool {
         let v1 = Velocity::new(1.0, 2.0, 3.0);

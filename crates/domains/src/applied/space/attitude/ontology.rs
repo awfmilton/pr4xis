@@ -46,9 +46,6 @@ impl Quality for SensorAccuracy {
 pub struct QuaternionUnitNorm;
 
 impl Axiom for QuaternionUnitNorm {
-    fn description(&self) -> &str {
-        "attitude quaternion must have unit norm (|q| = 1)"
-    }
     fn holds(&self) -> bool {
         true
     }
@@ -62,9 +59,6 @@ pr4xis::register_axiom!(
 pub struct StarTrackerMostAccurate;
 
 impl Axiom for StarTrackerMostAccurate {
-    fn description(&self) -> &str {
-        "star tracker has the highest accuracy among attitude sensors"
-    }
     fn holds(&self) -> bool {
         let q = SensorAccuracy;
         let star_acc = q.get(&AttitudeConcept::StarTracker).unwrap();

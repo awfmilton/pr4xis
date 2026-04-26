@@ -150,9 +150,6 @@ impl Quality for ITDThreshold {
 
 pub struct FourPerceptualDimensions;
 impl Axiom for FourPerceptualDimensions {
-    fn description(&self) -> &str {
-        "loudness, pitch, timbre, and duration are all perceptual dimensions"
-    }
     fn holds(&self) -> bool {
         use PsychoacousticEntity::*;
         [Loudness, Pitch, Timbre, Duration]
@@ -163,9 +160,6 @@ impl Axiom for FourPerceptualDimensions {
 pr4xis::register_axiom!(FourPerceptualDimensions);
 pub struct FourMaskingTypes;
 impl Axiom for FourMaskingTypes {
-    fn description(&self) -> &str {
-        "simultaneous, forward, backward, and informational masking are all classified"
-    }
     fn holds(&self) -> bool {
         use PsychoacousticEntity::*;
         [
@@ -181,9 +175,6 @@ impl Axiom for FourMaskingTypes {
 pr4xis::register_axiom!(FourMaskingTypes);
 pub struct ThreeSpatialCues;
 impl Axiom for ThreeSpatialCues {
-    fn description(&self) -> &str {
-        "ITD, ILD, and HRTF are all spatial cues"
-    }
     fn holds(&self) -> bool {
         use PsychoacousticEntity::*;
         [
@@ -198,9 +189,6 @@ impl Axiom for ThreeSpatialCues {
 pr4xis::register_axiom!(ThreeSpatialCues);
 pub struct ITDOpposesILD;
 impl Axiom for ITDOpposesILD {
-    fn description(&self) -> &str {
-        "ITD and ILD are opposed spatial cues (duplex theory)"
-    }
     fn holds(&self) -> bool {
         use PsychoacousticEntity::*;
         opposition::are_opposed::<PsychoacousticOpposition>(
@@ -212,9 +200,6 @@ impl Axiom for ITDOpposesILD {
 pr4xis::register_axiom!(ITDOpposesILD);
 pub struct StimulusCausesExperience;
 impl Axiom for StimulusCausesExperience {
-    fn description(&self) -> &str {
-        "acoustic stimulus transitively causes aware experience"
-    }
     fn holds(&self) -> bool {
         use PsychoacousticCausalEvent::*;
         causation::effects_of::<PsychoacousticCausalGraph>(&AcousticStimulus)

@@ -116,9 +116,6 @@ pub fn is_dark(color: &Rgb) -> bool {
 pub struct SrgbContinuity;
 
 impl Axiom for SrgbContinuity {
-    fn description(&self) -> &str {
-        "sRGB EOTF is continuous at threshold 0.04045 (IEC 61966-2-1)"
-    }
     fn holds(&self) -> bool {
         srgb_linearize().is_continuous(1e-6)
     }
@@ -131,9 +128,6 @@ pr4xis::register_axiom!(SrgbContinuity);
 pub struct LumaConvex;
 
 impl Axiom for LumaConvex {
-    fn description(&self) -> &str {
-        "BT.709 luma coefficients sum to 1.0 (ITU-R BT.709-6)"
-    }
     fn holds(&self) -> bool {
         let lc = bt709_luminance();
         lc.is_convex() && lc.is_non_negative()
@@ -147,9 +141,6 @@ pr4xis::register_axiom!(LumaConvex);
 pub struct LuminanceBounded;
 
 impl Axiom for LuminanceBounded {
-    fn description(&self) -> &str {
-        "luminance in [0, 1] for valid sRGB colors"
-    }
     fn holds(&self) -> bool {
         let black_l = relative_luminance(&Rgb::BLACK);
         let white_l = relative_luminance(&Rgb::WHITE);
@@ -167,9 +158,6 @@ pr4xis::register_axiom!(LuminanceBounded);
 pub struct ContrastBounded;
 
 impl Axiom for ContrastBounded {
-    fn description(&self) -> &str {
-        "WCAG contrast ratio in [1.0, 21.0]"
-    }
     fn holds(&self) -> bool {
         let min = contrast_ratio(&Rgb::BLACK, &Rgb::BLACK);
         let max = contrast_ratio(&Rgb::WHITE, &Rgb::BLACK);
@@ -184,9 +172,6 @@ pr4xis::register_axiom!(ContrastBounded);
 pub struct LuminanceMonotone;
 
 impl Axiom for LuminanceMonotone {
-    fn description(&self) -> &str {
-        "luminance is monotone: brighter channels → higher luminance"
-    }
     fn holds(&self) -> bool {
         // Test: (128,128,128) has higher luminance than (64,64,64)
         let dark = Rgb::new(64, 64, 64);
@@ -204,9 +189,6 @@ pr4xis::register_axiom!(LuminanceMonotone);
 pub struct ScreenDualOfMultiply;
 
 impl Axiom for ScreenDualOfMultiply {
-    fn description(&self) -> &str {
-        "screen blend is dual of multiply (W3C Compositing Level 1)"
-    }
     fn holds(&self) -> bool {
         use super::mixing::{MixMode, mix};
         // Test with several color pairs

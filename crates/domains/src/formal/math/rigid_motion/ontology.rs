@@ -11,9 +11,6 @@ use crate::formal::math::rigid_motion::pose::Pose;
 pub struct Associativity;
 
 impl Axiom for Associativity {
-    fn description(&self) -> &str {
-        "SE(3) composition is associative: (A*B)*C = A*(B*C)"
-    }
 
     fn holds(&self) -> bool {
         let poses = canonical_poses();
@@ -37,9 +34,6 @@ pr4xis::register_axiom!(Associativity);
 pub struct IdentityElement;
 
 impl Axiom for IdentityElement {
-    fn description(&self) -> &str {
-        "identity pose is the neutral element"
-    }
 
     fn holds(&self) -> bool {
         let id = Pose::identity();
@@ -57,8 +51,6 @@ pr4xis::register_axiom!(IdentityElement);
 pub struct InverseExists;
 
 impl Axiom for InverseExists {
-    fn description(&self) -> &str {
-        "every SE(3) element has an inverse: T * T^{-1} = identity"
     }
 
     fn holds(&self) -> bool {
@@ -77,9 +69,6 @@ pr4xis::register_axiom!(InverseExists);
 pub struct CompositionConsistency;
 
 impl Axiom for CompositionConsistency {
-    fn description(&self) -> &str {
-        "composing poses then transforming equals sequential transforms"
-    }
 
     fn holds(&self) -> bool {
         let poses = canonical_poses();

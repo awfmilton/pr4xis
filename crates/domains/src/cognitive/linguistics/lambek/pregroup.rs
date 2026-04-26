@@ -317,9 +317,6 @@ pub fn parse(word_types: &[PregroupType]) -> bool {
 pub struct LeftContraction;
 
 impl Axiom for LeftContraction {
-    fn description(&self) -> &str {
-        "pregroup left contraction: a^l · a ≤ 1 (Lambek 1999)"
-    }
 
     fn holds(&self) -> bool {
         // Verify for all basic types
@@ -342,9 +339,6 @@ pr4xis::register_axiom!(LeftContraction);
 pub struct RightContraction;
 
 impl Axiom for RightContraction {
-    fn description(&self) -> &str {
-        "pregroup right contraction: a · a^r ≤ 1 (Lambek 1999)"
-    }
 
     fn holds(&self) -> bool {
         for base in BasicType::variants() {

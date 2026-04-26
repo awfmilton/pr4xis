@@ -215,9 +215,6 @@ impl Quality for BondStrength {
 pub struct ChemistryTaxonomyIsDAG;
 
 impl Axiom for ChemistryTaxonomyIsDAG {
-    fn description(&self) -> &str {
-        "chemistry taxonomy is a directed acyclic graph"
-    }
 
     fn holds(&self) -> bool {
         taxonomy::NoCycles::<ChemistryTaxonomy>::new().holds()
@@ -229,9 +226,6 @@ pr4xis::register_axiom!(ChemistryTaxonomyIsDAG);
 pub struct ChemistryTaxonomyAntisymmetric;
 
 impl Axiom for ChemistryTaxonomyAntisymmetric {
-    fn description(&self) -> &str {
-        "chemistry taxonomy is antisymmetric"
-    }
 
     fn holds(&self) -> bool {
         taxonomy::Antisymmetric::<ChemistryTaxonomy>::new().holds()
@@ -243,9 +237,6 @@ pr4xis::register_axiom!(ChemistryTaxonomyAntisymmetric);
 pub struct ChemistryCausalAsymmetric;
 
 impl Axiom for ChemistryCausalAsymmetric {
-    fn description(&self) -> &str {
-        "chemistry causal graph is asymmetric"
-    }
 
     fn holds(&self) -> bool {
         causation::Asymmetric::<ChemistryCauses>::new().holds()
@@ -257,9 +248,6 @@ pr4xis::register_axiom!(ChemistryCausalAsymmetric);
 pub struct ChemistryCausalNoSelfCausation;
 
 impl Axiom for ChemistryCausalNoSelfCausation {
-    fn description(&self) -> &str {
-        "no chemistry event directly causes itself"
-    }
 
     fn holds(&self) -> bool {
         causation::NoSelfCausation::<ChemistryCauses>::new().holds()
@@ -271,9 +259,6 @@ pr4xis::register_axiom!(ChemistryCausalNoSelfCausation);
 pub struct DissolutionCausesIonDissociation;
 
 impl Axiom for DissolutionCausesIonDissociation {
-    fn description(&self) -> &str {
-        "dissolution causes ion dissociation"
-    }
 
     fn holds(&self) -> bool {
         use ChemistryCausalEvent::*;
@@ -287,9 +272,6 @@ pr4xis::register_axiom!(DissolutionCausesIonDissociation);
 pub struct AcidBaseCausesPHChange;
 
 impl Axiom for AcidBaseCausesPHChange {
-    fn description(&self) -> &str {
-        "acid-base reaction causes pH change"
-    }
 
     fn holds(&self) -> bool {
         use ChemistryCausalEvent::*;
@@ -303,9 +285,6 @@ pr4xis::register_axiom!(AcidBaseCausesPHChange);
 pub struct ElectrolytesConductElectricity;
 
 impl Axiom for ElectrolytesConductElectricity {
-    fn description(&self) -> &str {
-        "electrolytes conduct electricity"
-    }
 
     fn holds(&self) -> bool {
         ConductsElectricity.get(&ChemistryEntity::Electrolyte) == Some(true)
@@ -317,9 +296,6 @@ pr4xis::register_axiom!(ElectrolytesConductElectricity);
 pub struct ChemistryOppositionSymmetric;
 
 impl Axiom for ChemistryOppositionSymmetric {
-    fn description(&self) -> &str {
-        "chemistry opposition is symmetric"
-    }
 
     fn holds(&self) -> bool {
         opposition::Symmetric::<ChemistryOpposition>::new().holds()
@@ -331,9 +307,6 @@ pr4xis::register_axiom!(ChemistryOppositionSymmetric);
 pub struct ChemistryOppositionIrreflexive;
 
 impl Axiom for ChemistryOppositionIrreflexive {
-    fn description(&self) -> &str {
-        "chemistry opposition is irreflexive"
-    }
 
     fn holds(&self) -> bool {
         opposition::Irreflexive::<ChemistryOpposition>::new().holds()

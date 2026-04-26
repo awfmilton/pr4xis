@@ -159,9 +159,6 @@ impl Quality for DegreesOfFreedom {
 pub struct MetricNonNegativity;
 
 impl Axiom for MetricNonNegativity {
-    fn description(&self) -> &str {
-        "metric axiom: d(a,b) >= 0 (non-negativity)"
-    }
 
     fn holds(&self) -> bool {
         for a in &canonical_points_3d() {
@@ -180,9 +177,6 @@ pr4xis::register_axiom!(MetricNonNegativity);
 pub struct MetricIdentity;
 
 impl Axiom for MetricIdentity {
-    fn description(&self) -> &str {
-        "metric axiom: d(a,b) = 0 iff a = b (identity of indiscernibles)"
-    }
 
     fn holds(&self) -> bool {
         let pts = canonical_points_3d();
@@ -207,9 +201,6 @@ pr4xis::register_axiom!(MetricIdentity);
 pub struct MetricSymmetry;
 
 impl Axiom for MetricSymmetry {
-    fn description(&self) -> &str {
-        "metric axiom: d(a,b) = d(b,a) (symmetry)"
-    }
 
     fn holds(&self) -> bool {
         let pts = canonical_points_3d();
@@ -229,9 +220,6 @@ pr4xis::register_axiom!(MetricSymmetry);
 pub struct TriangleInequality;
 
 impl Axiom for TriangleInequality {
-    fn description(&self) -> &str {
-        "metric axiom: d(a,c) <= d(a,b) + d(b,c) (triangle inequality)"
-    }
 
     fn holds(&self) -> bool {
         let pts = canonical_points_3d();
@@ -253,9 +241,6 @@ pr4xis::register_axiom!(TriangleInequality);
 pub struct TriangleAngleSum;
 
 impl Axiom for TriangleAngleSum {
-    fn description(&self) -> &str {
-        "Euclidean theorem: triangle interior angles sum to pi"
-    }
 
     fn holds(&self) -> bool {
         for t in &canonical_triangles() {
@@ -275,9 +260,6 @@ pr4xis::register_axiom!(TriangleAngleSum);
 pub struct PythagoreanTheorem;
 
 impl Axiom for PythagoreanTheorem {
-    fn description(&self) -> &str {
-        "Pythagorean theorem: a^2 + b^2 = c^2 for right triangles"
-    }
 
     fn holds(&self) -> bool {
         // Construct known right triangles and verify
@@ -320,9 +302,6 @@ pr4xis::register_axiom!(PythagoreanTheorem);
 pub struct VectorAdditionCommutativity;
 
 impl Axiom for VectorAdditionCommutativity {
-    fn description(&self) -> &str {
-        "vector space axiom 2: u + v = v + u (commutativity)"
-    }
 
     fn holds(&self) -> bool {
         let vecs = canonical_vectors_3d();
@@ -347,9 +326,6 @@ pr4xis::register_axiom!(VectorAdditionCommutativity);
 pub struct VectorAdditionAssociativity;
 
 impl Axiom for VectorAdditionAssociativity {
-    fn description(&self) -> &str {
-        "vector space axiom 1: (u+v)+w = u+(v+w) (associativity)"
-    }
 
     fn holds(&self) -> bool {
         let vecs = canonical_vectors_3d();
@@ -376,9 +352,6 @@ pr4xis::register_axiom!(VectorAdditionAssociativity);
 pub struct CrossProductAnticommutativity;
 
 impl Axiom for CrossProductAnticommutativity {
-    fn description(&self) -> &str {
-        "cross product is anticommutative: a x b = -(b x a)"
-    }
 
     fn holds(&self) -> bool {
         let vecs = canonical_vectors_3d();
@@ -403,9 +376,6 @@ pr4xis::register_axiom!(CrossProductAnticommutativity);
 pub struct CrossProductPerpendicularity;
 
 impl Axiom for CrossProductPerpendicularity {
-    fn description(&self) -> &str {
-        "cross product is perpendicular to both inputs: (a x b) . a = 0"
-    }
 
     fn holds(&self) -> bool {
         let vecs = canonical_vectors_3d();
@@ -426,9 +396,6 @@ pr4xis::register_axiom!(CrossProductPerpendicularity);
 pub struct DotProductCommutativity;
 
 impl Axiom for DotProductCommutativity {
-    fn description(&self) -> &str {
-        "inner product is commutative: a . b = b . a"
-    }
 
     fn holds(&self) -> bool {
         let vecs = canonical_vectors_3d();
@@ -448,9 +415,6 @@ pr4xis::register_axiom!(DotProductCommutativity);
 pub struct ProjectionIdempotent;
 
 impl Axiom for ProjectionIdempotent {
-    fn description(&self) -> &str {
-        "vector projection is idempotent: proj(proj(a,b),b) = proj(a,b)"
-    }
 
     fn holds(&self) -> bool {
         let vecs = canonical_vectors_3d();
@@ -478,9 +442,6 @@ pr4xis::register_axiom!(ProjectionIdempotent);
 pub struct BetweennessSymmetry;
 
 impl Axiom for BetweennessSymmetry {
-    fn description(&self) -> &str {
-        "Hilbert II.1: if B is between A and C, then B is between C and A"
-    }
 
     fn holds(&self) -> bool {
         let a = Point3::new(0.0, 0.0, 0.0);

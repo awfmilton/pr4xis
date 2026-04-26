@@ -86,9 +86,6 @@ impl Quality for TrackStateDescription {
 pub struct DeletedIsAbsorbing;
 
 impl Axiom for DeletedIsAbsorbing {
-    fn description(&self) -> &str {
-        "Deleted is absorbing: once deleted, a track cannot return to any other state"
-    }
     fn holds(&self) -> bool {
         let morphisms = TrackLifecycleCategory::morphisms();
         // No morphism from Deleted to any non-Deleted state
@@ -103,9 +100,6 @@ pr4xis::register_axiom!(DeletedIsAbsorbing);
 pub struct TrackStartsTentative;
 
 impl Axiom for TrackStartsTentative {
-    fn description(&self) -> &str {
-        "every track begins in Tentative state"
-    }
     fn holds(&self) -> bool {
         // No transitions TO Tentative from Confirmed/Coasting/Deleted
         let morphisms = TrackLifecycleCategory::morphisms();
@@ -120,9 +114,6 @@ pr4xis::register_axiom!(TrackStartsTentative);
 pub struct ReDetectionPossible;
 
 impl Axiom for ReDetectionPossible {
-    fn description(&self) -> &str {
-        "coasting track can return to confirmed on re-detection"
-    }
     fn holds(&self) -> bool {
         let morphisms = TrackLifecycleCategory::morphisms();
         morphisms

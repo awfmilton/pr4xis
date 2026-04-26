@@ -246,9 +246,6 @@ impl Quality for RequiresMembraneTension {
 pub struct MechanobiologyTaxonomyIsDAG;
 
 impl Axiom for MechanobiologyTaxonomyIsDAG {
-    fn description(&self) -> &str {
-        "mechanobiology taxonomy is a directed acyclic graph"
-    }
 
     fn holds(&self) -> bool {
         taxonomy::NoCycles::<MechanobiologyTaxonomy>::new().holds()
@@ -263,9 +260,6 @@ pr4xis::register_axiom!(
 pub struct MechanobiologyCausalAsymmetric;
 
 impl Axiom for MechanobiologyCausalAsymmetric {
-    fn description(&self) -> &str {
-        "mechanobiology causal graph is asymmetric"
-    }
 
     fn holds(&self) -> bool {
         causation::Asymmetric::<MechanobiologyCauses>::new().holds()
@@ -280,10 +274,6 @@ pr4xis::register_axiom!(
 pub struct MechanicalLoadCausesSignaling;
 
 impl Axiom for MechanicalLoadCausesSignaling {
-    fn description(&self) -> &str {
-        "mechanical load transitively causes intracellular signaling \
-         (full chain: load -> deformation -> gating -> influx -> signaling)"
-    }
 
     fn holds(&self) -> bool {
         use MechanobiologyCausalEvent::*;
@@ -300,10 +290,6 @@ pr4xis::register_axiom!(
 pub struct RepetitiveStimulusCausesFrequencyResponse;
 
 impl Axiom for RepetitiveStimulusCausesFrequencyResponse {
-    fn description(&self) -> &str {
-        "repetitive stimulus causes frequency-dependent response \
-         (Lewis 2017: Piezo channels are frequency filters)"
-    }
 
     fn holds(&self) -> bool {
         use MechanobiologyCausalEvent::*;
@@ -320,9 +306,6 @@ pr4xis::register_axiom!(
 pub struct MechanosensitiveChannelIsFrequencyDependent;
 
 impl Axiom for MechanosensitiveChannelIsFrequencyDependent {
-    fn description(&self) -> &str {
-        "mechanosensitive channel is frequency-dependent (Lewis 2017)"
-    }
 
     fn holds(&self) -> bool {
         IsFrequencyDependent.get(&MechanobiologyEntity::MechanosensitiveChannel) == Some(true)
@@ -337,9 +320,6 @@ pr4xis::register_axiom!(
 pub struct ChannelGatingRequiresTension;
 
 impl Axiom for ChannelGatingRequiresTension {
-    fn description(&self) -> &str {
-        "channel gating (open state) requires membrane tension"
-    }
 
     fn holds(&self) -> bool {
         RequiresMembraneTension.get(&MechanobiologyEntity::OpenState) == Some(true)
@@ -354,9 +334,6 @@ pr4xis::register_axiom!(
 pub struct SustainedForceCausesAdaptation;
 
 impl Axiom for SustainedForceCausesAdaptation {
-    fn description(&self) -> &str {
-        "sustained force causes threshold shift (mechanoadaptation)"
-    }
 
     fn holds(&self) -> bool {
         use MechanobiologyCausalEvent::*;
@@ -373,9 +350,6 @@ pr4xis::register_axiom!(
 pub struct OpenOpposesClosedState;
 
 impl Axiom for OpenOpposesClosedState {
-    fn description(&self) -> &str {
-        "open state opposes closed state (mutually exclusive channel conformations)"
-    }
 
     fn holds(&self) -> bool {
         use MechanobiologyEntity::*;
@@ -391,9 +365,6 @@ pr4xis::register_axiom!(
 pub struct MechanobiologyOppositionSymmetric;
 
 impl Axiom for MechanobiologyOppositionSymmetric {
-    fn description(&self) -> &str {
-        "mechanobiology opposition is symmetric"
-    }
 
     fn holds(&self) -> bool {
         opposition::Symmetric::<MechanobiologyOpposition>::new().holds()
@@ -408,9 +379,6 @@ pr4xis::register_axiom!(
 pub struct MechanobiologyOppositionIrreflexive;
 
 impl Axiom for MechanobiologyOppositionIrreflexive {
-    fn description(&self) -> &str {
-        "mechanobiology opposition is irreflexive"
-    }
 
     fn holds(&self) -> bool {
         opposition::Irreflexive::<MechanobiologyOpposition>::new().holds()

@@ -483,9 +483,6 @@ impl OwlOntology {
 pub struct RestrictionNeedsProperty;
 
 impl pr4xis::logic::Axiom for RestrictionNeedsProperty {
-    fn description(&self) -> &str {
-        "every owl:Restriction must have exactly one owl:onProperty (W3C OWL 2 §8.2)"
-    }
 
     fn holds(&self) -> bool {
         // Structural: Restriction has morphisms to ObjectProperty and DatatypeProperty

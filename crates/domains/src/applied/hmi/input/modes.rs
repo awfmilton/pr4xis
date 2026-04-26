@@ -126,7 +126,7 @@ impl ModeGraph {
 
         for axiom in &axioms {
             if !axiom.holds() {
-                failures.push(axiom.description().to_string());
+                failures.push(axiom.meta().description.to_string());
             }
         }
 
@@ -202,9 +202,6 @@ pub struct NoDeadStates {
 }
 
 impl Axiom for NoDeadStates {
-    fn description(&self) -> &str {
-        "every mode can reach root (no dead states)"
-    }
     fn holds(&self) -> bool {
         for mode_id in self.graph.modes.keys() {
             if *mode_id == self.graph.root {
@@ -242,9 +239,6 @@ pub struct RootReachable {
 }
 
 impl Axiom for RootReachable {
-    fn description(&self) -> &str {
-        "root is reachable from every mode via transitions"
-    }
     fn holds(&self) -> bool {
         for mode_id in self.graph.modes.keys() {
             let reachable = self.graph.reachable_from(mode_id);
@@ -262,9 +256,6 @@ pub struct RootNoParent {
 }
 
 impl Axiom for RootNoParent {
-    fn description(&self) -> &str {
-        "root mode has no parent"
-    }
     fn holds(&self) -> bool {
         self.graph
             .modes

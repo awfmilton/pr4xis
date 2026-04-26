@@ -338,9 +338,6 @@ pub fn monotonicity_trace(palette_name: &str, passes: bool) -> ReasoningTrace {
 pub struct ActivationThemeMapped;
 
 impl Axiom for ActivationThemeMapped {
-    fn description(&self) -> &str {
-        "every activation state maps to a theme color role (self-referential theming)"
-    }
     fn holds(&self) -> bool {
         let states = [
             ActivationState::Inactive,
@@ -360,9 +357,6 @@ pr4xis::register_axiom!(ActivationThemeMapped);
 pub struct GraphConnected;
 
 impl Axiom for GraphConnected {
-    fn description(&self) -> &str {
-        "theming ontology graph has no isolated nodes"
-    }
     fn holds(&self) -> bool {
         let g = theming_ontology_graph();
         let connected: hashbrown::HashSet<&str> = g
@@ -380,9 +374,6 @@ pr4xis::register_axiom!(GraphConnected);
 pub struct TraceMinimalSteps;
 
 impl Axiom for TraceMinimalSteps {
-    fn description(&self) -> &str {
-        "reasoning trace has at least 2 steps"
-    }
     fn holds(&self) -> bool {
         let t = monotonicity_trace("test", true);
         t.step_count() >= 2

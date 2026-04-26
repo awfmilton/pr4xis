@@ -49,9 +49,6 @@ impl Quality for RadarMeasurementUnit {
 pub struct RangeNonNegative;
 
 impl Axiom for RangeNonNegative {
-    fn description(&self) -> &str {
-        "radar range is non-negative"
-    }
     fn holds(&self) -> bool {
         true
     } // structural: range = sqrt(x²+y²+z²) ≥ 0

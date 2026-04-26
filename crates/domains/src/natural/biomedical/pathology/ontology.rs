@@ -344,9 +344,6 @@ impl Quality for BarrettsStage {
 pub struct TissueInsultCausesNeoplasia;
 
 impl Axiom for TissueInsultCausesNeoplasia {
-    fn description(&self) -> &str {
-        "tissue insult transitively causes neoplastic transformation"
-    }
 
     fn holds(&self) -> bool {
         use PathologyCausalEvent::*;
@@ -360,9 +357,6 @@ pr4xis::register_axiom!(TissueInsultCausesNeoplasia);
 pub struct TissueInsultCausesStricture;
 
 impl Axiom for TissueInsultCausesStricture {
-    fn description(&self) -> &str {
-        "tissue insult transitively causes stricture formation (fibrotic pathway)"
-    }
 
     fn holds(&self) -> bool {
         use PathologyCausalEvent::*;
@@ -376,9 +370,6 @@ pr4xis::register_axiom!(TissueInsultCausesStricture);
 pub struct DysplasiaIsPremalignant;
 
 impl Axiom for DysplasiaIsPremalignant {
-    fn description(&self) -> &str {
-        "dysplasia has high malignant potential (premalignant)"
-    }
 
     fn holds(&self) -> bool {
         MalignantPotential.get(&PathologyEntity::Dysplasia) == Some(MalignantPotentialLevel::High)
@@ -390,9 +381,6 @@ pr4xis::register_axiom!(DysplasiaIsPremalignant);
 pub struct NormalHasNoMalignantPotential;
 
 impl Axiom for NormalHasNoMalignantPotential {
-    fn description(&self) -> &str {
-        "normal tissue has no malignant potential"
-    }
 
     fn holds(&self) -> bool {
         MalignantPotential.get(&PathologyEntity::Normal) == Some(MalignantPotentialLevel::None)
@@ -404,9 +392,6 @@ pr4xis::register_axiom!(NormalHasNoMalignantPotential);
 pub struct NeoplasiaIsMalignant;
 
 impl Axiom for NeoplasiaIsMalignant {
-    fn description(&self) -> &str {
-        "neoplasia is malignant"
-    }
 
     fn holds(&self) -> bool {
         MalignantPotential.get(&PathologyEntity::Neoplasia)
@@ -419,9 +404,6 @@ pr4xis::register_axiom!(NeoplasiaIsMalignant);
 pub struct MetaplasiaIsReversible;
 
 impl Axiom for MetaplasiaIsReversible {
-    fn description(&self) -> &str {
-        "metaplasia is reversible with intervention"
-    }
 
     fn holds(&self) -> bool {
         IsReversible.get(&PathologyEntity::Metaplasia) == Some(true)
@@ -433,9 +415,6 @@ pr4xis::register_axiom!(MetaplasiaIsReversible);
 pub struct AcuteReversibleNeoplasiaIrreversible;
 
 impl Axiom for AcuteReversibleNeoplasiaIrreversible {
-    fn description(&self) -> &str {
-        "acute injury is reversible but neoplasia is irreversible"
-    }
 
     fn holds(&self) -> bool {
         IsReversible.get(&PathologyEntity::AcuteInjury) == Some(true)

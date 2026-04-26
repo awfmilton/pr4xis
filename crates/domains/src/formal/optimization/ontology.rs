@@ -215,9 +215,6 @@ impl Quality for HandlesMultiObjective {
 pub struct FormulationCausesSolution;
 
 impl Axiom for FormulationCausesSolution {
-    fn description(&self) -> &str {
-        "problem formulation transitively causes solution selection (full pipeline)"
-    }
     fn holds(&self) -> bool {
         use OptimizationStep::*;
         let effects = causation::effects_of::<OptimizationCausalGraph>(&ProblemFormulation);
@@ -230,9 +227,6 @@ pr4xis::register_axiom!(FormulationCausesSolution);
 pub struct ExhaustiveGuaranteesGradientDoesNot;
 
 impl Axiom for ExhaustiveGuaranteesGradientDoesNot {
-    fn description(&self) -> &str {
-        "exhaustive search guarantees global optimum but gradient descent does not"
-    }
     fn holds(&self) -> bool {
         use OptimizationEntity::*;
         GuaranteesGlobal.get(&ExhaustiveSearch) == Some(true)
@@ -245,9 +239,6 @@ pr4xis::register_axiom!(ExhaustiveGuaranteesGradientDoesNot);
 pub struct ExactExponentialHeuristicPolynomial;
 
 impl Axiom for ExactExponentialHeuristicPolynomial {
-    fn description(&self) -> &str {
-        "exact methods (exhaustive) are exponential; heuristic methods (genetic) are polynomial"
-    }
     fn holds(&self) -> bool {
         use OptimizationEntity::*;
         TimeComplexity.get(&ExhaustiveSearch) == Some(TimeComplexityClass::Exponential)
@@ -260,9 +251,6 @@ pr4xis::register_axiom!(ExactExponentialHeuristicPolynomial);
 pub struct ParetoMultiObjectiveGradientNot;
 
 impl Axiom for ParetoMultiObjectiveGradientNot {
-    fn description(&self) -> &str {
-        "Pareto optimization handles multi-objective; gradient descent does not"
-    }
     fn holds(&self) -> bool {
         use OptimizationEntity::*;
         HandlesMultiObjective.get(&ParetoOptimization) == Some(true)

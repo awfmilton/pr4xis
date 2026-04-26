@@ -297,9 +297,6 @@ impl Quality for IsEndogenouslyDerivable {
 pub struct PharmacologyOppositionSymmetric;
 
 impl Axiom for PharmacologyOppositionSymmetric {
-    fn description(&self) -> &str {
-        "pharmacology opposition is symmetric"
-    }
 
     fn holds(&self) -> bool {
         opposition::Symmetric::<PharmacologyOpposition>::new().holds()
@@ -311,9 +308,6 @@ pr4xis::register_axiom!(PharmacologyOppositionSymmetric);
 pub struct PharmacologyOppositionIrreflexive;
 
 impl Axiom for PharmacologyOppositionIrreflexive {
-    fn description(&self) -> &str {
-        "pharmacology opposition is irreflexive"
-    }
 
     fn holds(&self) -> bool {
         opposition::Irreflexive::<PharmacologyOpposition>::new().holds()
@@ -329,9 +323,6 @@ pr4xis::register_axiom!(PharmacologyOppositionIrreflexive);
 pub struct PharmacologyTaxonomyIsDAG;
 
 impl Axiom for PharmacologyTaxonomyIsDAG {
-    fn description(&self) -> &str {
-        "pharmacology taxonomy is a directed acyclic graph"
-    }
 
     fn holds(&self) -> bool {
         taxonomy::NoCycles::<PharmacologyTaxonomy>::new().holds()
@@ -343,9 +334,6 @@ pr4xis::register_axiom!(PharmacologyTaxonomyIsDAG);
 pub struct PharmacologyCausalAsymmetry;
 
 impl Axiom for PharmacologyCausalAsymmetry {
-    fn description(&self) -> &str {
-        "pharmacology causal graph is asymmetric"
-    }
 
     fn holds(&self) -> bool {
         causation::Asymmetric::<PharmacologyCauses>::new().holds()
@@ -360,9 +348,6 @@ pr4xis::register_axiom!(PharmacologyCausalAsymmetry);
 pub struct DrugAdministrationCausesVmemShift;
 
 impl Axiom for DrugAdministrationCausesVmemShift {
-    fn description(&self) -> &str {
-        "drug administration transitively causes Vmem shift"
-    }
 
     fn holds(&self) -> bool {
         use PharmacologyEvent::*;
@@ -379,9 +364,6 @@ pr4xis::register_axiom!(DrugAdministrationCausesVmemShift);
 pub struct GJModulatorCausesCollectiveReprogramming;
 
 impl Axiom for GJModulatorCausesCollectiveReprogramming {
-    fn description(&self) -> &str {
-        "gap junction modulator causes collective reprogramming (Levin network effect)"
-    }
 
     fn holds(&self) -> bool {
         use PharmacologyEvent::*;
@@ -395,9 +377,6 @@ pr4xis::register_axiom!(GJModulatorCausesCollectiveReprogramming);
 pub struct IvermectinIsHyperpolarizing;
 
 impl Axiom for IvermectinIsHyperpolarizing {
-    fn description(&self) -> &str {
-        "ivermectin is hyperpolarizing (GlyR agonist, Cl- influx)"
-    }
 
     fn holds(&self) -> bool {
         VmemEffect.get(&PharmacologyEntity::Ivermectin) == Some(VmemDirection::Hyperpolarizing)
@@ -409,9 +388,6 @@ pr4xis::register_axiom!(IvermectinIsHyperpolarizing);
 pub struct OmeprazoleIsNotMorphoceutical;
 
 impl Axiom for OmeprazoleIsNotMorphoceutical {
-    fn description(&self) -> &str {
-        "omeprazole is not a morphoceutical (targets acid, not anatomy)"
-    }
 
     fn holds(&self) -> bool {
         IsMorphoceutical.get(&PharmacologyEntity::Omeprazole) == Some(false)
@@ -424,9 +400,6 @@ pr4xis::register_axiom!(OmeprazoleIsNotMorphoceutical);
 pub struct MorphoceuticalsTargetAnatomy;
 
 impl Axiom for MorphoceuticalsTargetAnatomy {
-    fn description(&self) -> &str {
-        "morphoceuticals target anatomical outcomes (subset of drugs, Levin 2023)"
-    }
 
     fn holds(&self) -> bool {
         use PharmacologyEntity::*;
@@ -441,9 +414,6 @@ pr4xis::register_axiom!(MorphoceuticalsTargetAnatomy);
 pub struct MechanosensitiveIsEndogenous;
 
 impl Axiom for MechanosensitiveIsEndogenous {
-    fn description(&self) -> &str {
-        "mechanosensitive modulator is endogenously derivable (vibration suffices)"
-    }
 
     fn holds(&self) -> bool {
         IsEndogenouslyDerivable.get(&PharmacologyEntity::MechanosensitiveModulator) == Some(true)
@@ -455,9 +425,6 @@ pr4xis::register_axiom!(MechanosensitiveIsEndogenous);
 pub struct EveryAgentHasTarget;
 
 impl Axiom for EveryAgentHasTarget {
-    fn description(&self) -> &str {
-        "every agent has a drug target"
-    }
 
     fn holds(&self) -> bool {
         use PharmacologyEntity::*;

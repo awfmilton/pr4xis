@@ -127,9 +127,6 @@ where
     C::Object: Clone + Eq + Hash,
     C::Morphism: Relationship<Object = C::Object>,
 {
-    fn description(&self) -> &str {
-        "edges of this kind have no cycles (form a DAG)"
-    }
 
     fn holds(&self) -> bool {
         let pairs = kinded_pairs::<C>(self.filter);
@@ -175,9 +172,6 @@ where
     C::Object: Clone + Eq + Hash,
     C::Morphism: Relationship<Object = C::Object>,
 {
-    fn description(&self) -> &str {
-        "edges of this kind are antisymmetric: if (A, B) and A ≠ B, then not (B, A)"
-    }
 
     fn holds(&self) -> bool {
         let pairs = kinded_pairs::<C>(self.filter);
@@ -227,9 +221,6 @@ where
     C::Object: Clone + Eq + Hash,
     C::Morphism: Relationship<Object = C::Object>,
 {
-    fn description(&self) -> &str {
-        "edges of this kind are asymmetric: if (A, B) then not (B, A) and A ≠ B"
-    }
 
     fn holds(&self) -> bool {
         let pairs = kinded_pairs::<C>(self.filter);
@@ -280,9 +271,6 @@ where
     C::Object: Clone + Eq + Hash,
     C::Morphism: Relationship<Object = C::Object>,
 {
-    fn description(&self) -> &str {
-        "edges of this kind are symmetric: (A, B) iff (B, A)"
-    }
 
     fn holds(&self) -> bool {
         let pairs = kinded_pairs::<C>(self.filter);
@@ -332,9 +320,6 @@ where
     C::Object: Clone + Eq,
     C::Morphism: Relationship<Object = C::Object>,
 {
-    fn description(&self) -> &str {
-        "edges of this kind are irreflexive: no (A, A)"
-    }
 
     fn holds(&self) -> bool {
         C::morphisms()

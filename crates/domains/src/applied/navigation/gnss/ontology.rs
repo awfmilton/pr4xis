@@ -79,9 +79,6 @@ impl Quality for SignalStrength {
 pub struct MinimumSatellites;
 
 impl Axiom for MinimumSatellites {
-    fn description(&self) -> &str {
-        "need >= 4 satellites for 3D fix (3 spatial + 1 clock unknown)"
-    }
     fn holds(&self) -> bool {
         let spatial_unknowns = 3;
         let clock_unknowns = 1;
@@ -98,9 +95,6 @@ pr4xis::register_axiom!(
 pub struct DopGeometry;
 
 impl Axiom for DopGeometry {
-    fn description(&self) -> &str {
-        "DOP improves with wider satellite angular spread"
-    }
     fn holds(&self) -> bool {
         let gdop_wide = compute_gdop_from_elevations_azimuths(
             &[45.0, 45.0, 45.0, 45.0, 89.0],
@@ -122,9 +116,6 @@ pr4xis::register_axiom!(
 pub struct PseudorangePositive;
 
 impl Axiom for PseudorangePositive {
-    fn description(&self) -> &str {
-        "pseudorange >= 0 (signal travel time * speed of light)"
-    }
     fn holds(&self) -> bool {
         taxonomy::is_a::<GnssTaxonomy>(&GnssConcept::Pseudorange, &GnssConcept::Observable) && {
             let speed_of_light = 299_792_458.0_f64;

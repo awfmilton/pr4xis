@@ -69,7 +69,7 @@ pub trait Ontology {
         // All axioms (structural ⊕ domain)
         for axiom in Self::axioms() {
             if !axiom.holds() {
-                errors.push(format!("axiom violated: {}", axiom.description()));
+                errors.push(format!("axiom violated: {}", axiom.meta().description));
             }
         }
 

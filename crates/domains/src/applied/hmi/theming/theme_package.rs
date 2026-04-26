@@ -74,7 +74,7 @@ impl ThemePackage {
 
         for axiom in &axioms {
             if !axiom.holds() {
-                failures.push(axiom.description().to_string());
+                failures.push(axiom.meta().description.to_string());
             }
         }
 
@@ -90,9 +90,6 @@ pub struct HasAtLeastOneVariant {
 }
 
 impl Axiom for HasAtLeastOneVariant {
-    fn description(&self) -> &str {
-        "theme must have at least one variant"
-    }
     fn holds(&self) -> bool {
         !self.theme.variants.is_empty()
     }
@@ -105,9 +102,6 @@ pub struct AllVariantsHavePalettes {
 }
 
 impl Axiom for AllVariantsHavePalettes {
-    fn description(&self) -> &str {
-        "every variant must have a palette"
-    }
     fn holds(&self) -> bool {
         self.theme
             .variants
@@ -126,9 +120,6 @@ pub struct PalettesHaveRequiredSlots {
 }
 
 impl Axiom for PalettesHaveRequiredSlots {
-    fn description(&self) -> &str {
-        "palettes must have required slots (at least base00 + base05)"
-    }
     fn holds(&self) -> bool {
         use super::base16::ColorSlot;
         self.theme
@@ -145,9 +136,6 @@ pub struct VariantOrdersUnique {
 }
 
 impl Axiom for VariantOrdersUnique {
-    fn description(&self) -> &str {
-        "variant orders must be unique"
-    }
     fn holds(&self) -> bool {
         super::variants::UniqueOrders {
             variants: self.theme.variants.clone(),

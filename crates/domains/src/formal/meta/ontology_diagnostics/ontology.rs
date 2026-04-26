@@ -308,9 +308,6 @@ impl Quality for IsAutomated {
 pub struct PipelineIsComplete;
 
 impl Axiom for PipelineIsComplete {
-    fn description(&self) -> &str {
-        "the full pipeline from formalization to assessment is connected"
-    }
     fn holds(&self) -> bool {
         use MethodologyStep::*;
         let effects = causation::effects_of::<MethodologyCausalGraph>(&FormalizeDomains);
@@ -324,9 +321,6 @@ pr4xis::register_axiom!(PipelineIsComplete);
 pub struct GapDetectionRequiresBothDirections;
 
 impl Axiom for GapDetectionRequiresBothDirections {
-    fn description(&self) -> &str {
-        "gap detection requires both unit and counit computation"
-    }
     fn holds(&self) -> bool {
         use MethodologyStep::*;
         let unit_causes = causation::causes_of::<MethodologyCausalGraph>(&DetectGaps);
@@ -340,9 +334,6 @@ pr4xis::register_axiom!(GapDetectionRequiresBothDirections);
 pub struct LiteratureBeforeImplementation;
 
 impl Axiom for LiteratureBeforeImplementation {
-    fn description(&self) -> &str {
-        "literature verification occurs after proposal, before implementation"
-    }
     fn holds(&self) -> bool {
         use MethodologyStep::*;
         let verify_causes =
@@ -359,9 +350,6 @@ pr4xis::register_axiom!(LiteratureBeforeImplementation);
 pub struct MostGapsAreAutoDetectable;
 
 impl Axiom for MostGapsAreAutoDetectable {
-    fn description(&self) -> &str {
-        "most gap types are automatically detectable by adjunction analysis"
-    }
     fn holds(&self) -> bool {
         use MetaEntity::*;
         let gap_types = [
@@ -387,9 +375,6 @@ pr4xis::register_axiom!(MostGapsAreAutoDetectable);
 pub struct ContextResolutionPreservesFunctors;
 
 impl Axiom for ContextResolutionPreservesFunctors {
-    fn description(&self) -> &str {
-        "context resolution preserves existing functor validity (non-destructive fix)"
-    }
     fn holds(&self) -> bool {
         use MetaEntity::*;
         PreservesFunctorValidity.get(&ContextResolution) == Some(true)
@@ -402,9 +387,6 @@ pr4xis::register_axiom!(ContextResolutionPreservesFunctors);
 pub struct EnrichmentMayBreakFunctors;
 
 impl Axiom for EnrichmentMayBreakFunctors {
-    fn description(&self) -> &str {
-        "ontology enrichment may break existing functors (destructive fix)"
-    }
     fn holds(&self) -> bool {
         use MetaEntity::*;
         PreservesFunctorValidity.get(&OntologyEnrichment) == Some(false)
@@ -418,9 +400,6 @@ pr4xis::register_axiom!(EnrichmentMayBreakFunctors);
 pub struct HighLossSuggestsIntermediateDomain;
 
 impl Axiom for HighLossSuggestsIntermediateDomain {
-    fn description(&self) -> &str {
-        ">80% loss suggests an intermediate domain is needed (empirical finding)"
-    }
     fn holds(&self) -> bool {
         use MetaEntity::*;
         SuggestedForLossLevel.get(&IntermediateDomain) == Some(LossThreshold::High)
@@ -440,9 +419,6 @@ pr4xis::register_axiom!(HighLossSuggestsIntermediateDomain);
 pub struct EveryAdjunctionHasGaps;
 
 impl Axiom for EveryAdjunctionHasGaps {
-    fn description(&self) -> &str {
-        "every adjunction between domains at different scales has gaps (empirical, proven by gap_analysis.rs)"
-    }
     fn holds(&self) -> bool {
         // Verified externally by gap_analysis::tests::test_all_adjunctions_have_gaps
         // Here we encode the structural claim: if UnitGap and CounitGap both

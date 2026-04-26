@@ -120,9 +120,6 @@ impl<T: MereologyDef> Default for NoCycles<T> {
 }
 
 impl<T: MereologyDef> crate::logic::Axiom for NoCycles<T> {
-    fn description(&self) -> &str {
-        "mereology has no cycles (part-whole is a DAG)"
-    }
 
     fn holds(&self) -> bool {
         let adj = graph::adjacency_map(&T::relations());
@@ -131,12 +128,16 @@ impl<T: MereologyDef> crate::logic::Axiom for NoCycles<T> {
             .all(|entity| !graph::has_cycle(entity, &adj))
     }
 
-    crate::axiom_meta!(
-        "NoCycles[Mereology]",
-        "mereology has no cycles (part-whole is a DAG)",
-        "Casati & Varzi (1999) 'Parts and Places' — Classical Extensional Mereology"
-    );
+    crate::axiom_meta!("NoCycles[Mereology]");
 }
+
+crate::register_lexicon!(
+    NoCycles_Mereology,
+    "NoCycles[Mereology]",
+    "NoCycles[Mereology]",
+    "mereology has no cycles (part-whole is a DAG)",
+    "Casati & Varzi (1999) 'Parts and Places' — Classical Extensional Mereology"
+);
 
 /// Axiom: weak supplementation — if A has-a B (and A != B),
 /// then A has at least one other direct part C != B.
@@ -159,9 +160,6 @@ impl<T: MereologyDef> Default for WeakSupplementation<T> {
 }
 
 impl<T: MereologyDef> crate::logic::Axiom for WeakSupplementation<T> {
-    fn description(&self) -> &str {
-        "weak supplementation: every proper whole has at least two direct parts"
-    }
 
     fn holds(&self) -> bool {
         let direct = T::relations();
@@ -175,12 +173,16 @@ impl<T: MereologyDef> crate::logic::Axiom for WeakSupplementation<T> {
         adj.values().all(|parts| parts.len() >= 2)
     }
 
-    crate::axiom_meta!(
-        "WeakSupplementation[Mereology]",
-        "weak supplementation: every proper whole has at least two direct parts",
-        "Simons (1987) 'Parts: A Study in Ontology'; Casati & Varzi (1999)"
-    );
+    crate::axiom_meta!("WeakSupplementation[Mereology]");
 }
+
+crate::register_lexicon!(
+    WeakSupplementation_Mereology,
+    "WeakSupplementation[Mereology]",
+    "WeakSupplementation[Mereology]",
+    "weak supplementation: every proper whole has at least two direct parts",
+    "Simons (1987) 'Parts: A Study in Ontology'; Casati & Varzi (1999)"
+);
 
 // ---- Algebraic structure integrations ----
 

@@ -80,9 +80,6 @@ impl Quality for PhaseDescription {
 pub struct Determinism;
 
 impl Axiom for Determinism {
-    fn description(&self) -> &str {
-        "fusion engine is deterministic: same inputs always produce same outputs"
-    }
 
     fn holds(&self) -> bool {
         // Test with multiple state/action combinations
@@ -110,9 +107,6 @@ pr4xis::register_axiom!(Determinism);
 pub struct PredictIncreasesUncertainty;
 
 impl Axiom for PredictIncreasesUncertainty {
-    fn description(&self) -> &str {
-        "prediction step never decreases uncertainty (no free information)"
-    }
 
     fn holds(&self) -> bool {
         for (state, _) in &determinism_test_cases() {
@@ -145,9 +139,6 @@ pr4xis::register_axiom!(PredictIncreasesUncertainty);
 pub struct UpdateReducesUncertainty;
 
 impl Axiom for UpdateReducesUncertainty {
-    fn description(&self) -> &str {
-        "measurement update never increases uncertainty (information gain)"
-    }
 
     fn holds(&self) -> bool {
         for (state, _) in &determinism_test_cases() {
@@ -182,9 +173,6 @@ pr4xis::register_axiom!(UpdateReducesUncertainty);
 pub struct CovarianceInvariant;
 
 impl Axiom for CovarianceInvariant {
-    fn description(&self) -> &str {
-        "covariance remains positive semi-definite through predict and update"
-    }
 
     fn holds(&self) -> bool {
         for (state, actions) in &determinism_test_cases() {

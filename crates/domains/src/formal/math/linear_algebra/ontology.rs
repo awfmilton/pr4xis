@@ -69,9 +69,6 @@ impl Quality for StructureDimension {
 pub struct MultiplicationAssociativity;
 
 impl Axiom for MultiplicationAssociativity {
-    fn description(&self) -> &str {
-        "matrix multiplication is associative: (AB)C = A(BC)"
-    }
 
     fn holds(&self) -> bool {
         for (a, b, c) in &canonical_matrix_triples() {
@@ -90,9 +87,6 @@ pr4xis::register_axiom!(MultiplicationAssociativity);
 pub struct MultiplicationIdentity;
 
 impl Axiom for MultiplicationIdentity {
-    fn description(&self) -> &str {
-        "identity matrix: AI = IA = A"
-    }
 
     fn holds(&self) -> bool {
         for m in &canonical_square_matrices() {
@@ -114,9 +108,6 @@ pr4xis::register_axiom!(MultiplicationIdentity);
 pub struct TransposeInvolution;
 
 impl Axiom for TransposeInvolution {
-    fn description(&self) -> &str {
-        "(A^T)^T = A (transpose is an involution)"
-    }
 
     fn holds(&self) -> bool {
         for m in &canonical_square_matrices() {
@@ -133,9 +124,6 @@ pr4xis::register_axiom!(TransposeInvolution);
 pub struct TransposeProduct;
 
 impl Axiom for TransposeProduct {
-    fn description(&self) -> &str {
-        "(AB)^T = B^T A^T"
-    }
 
     fn holds(&self) -> bool {
         let matrices = canonical_square_matrices();
@@ -160,9 +148,6 @@ pr4xis::register_axiom!(TransposeProduct);
 pub struct DetNormalization;
 
 impl Axiom for DetNormalization {
-    fn description(&self) -> &str {
-        "det(I) = 1 (determinant normalization axiom)"
-    }
 
     fn holds(&self) -> bool {
         for n in 1..=5 {
@@ -180,9 +165,6 @@ pr4xis::register_axiom!(DetNormalization);
 pub struct DetMultiplicativity;
 
 impl Axiom for DetMultiplicativity {
-    fn description(&self) -> &str {
-        "det(AB) = det(A) * det(B) (multiplicativity)"
-    }
 
     fn holds(&self) -> bool {
         let matrices = canonical_square_matrices();
@@ -207,9 +189,6 @@ pr4xis::register_axiom!(DetMultiplicativity);
 pub struct DetTranspose;
 
 impl Axiom for DetTranspose {
-    fn description(&self) -> &str {
-        "det(A^T) = det(A) (transpose invariance)"
-    }
 
     fn holds(&self) -> bool {
         for m in &canonical_square_matrices() {
@@ -228,9 +207,6 @@ pr4xis::register_axiom!(DetTranspose);
 pub struct TraceEigenvalueSum;
 
 impl Axiom for TraceEigenvalueSum {
-    fn description(&self) -> &str {
-        "tr(A) = sum of eigenvalues"
-    }
 
     fn holds(&self) -> bool {
         for m in &canonical_symmetric_matrices() {
@@ -250,9 +226,6 @@ pr4xis::register_axiom!(TraceEigenvalueSum);
 pub struct DetEigenvalueProduct;
 
 impl Axiom for DetEigenvalueProduct {
-    fn description(&self) -> &str {
-        "det(A) = product of eigenvalues"
-    }
 
     fn holds(&self) -> bool {
         for m in &canonical_symmetric_matrices() {
@@ -272,9 +245,6 @@ pr4xis::register_axiom!(DetEigenvalueProduct);
 pub struct CholeskyFactorization;
 
 impl Axiom for CholeskyFactorization {
-    fn description(&self) -> &str {
-        "A = L L^T for positive definite matrices (Cholesky)"
-    }
 
     fn holds(&self) -> bool {
         for m in &canonical_pd_matrices() {
@@ -296,9 +266,6 @@ pr4xis::register_axiom!(CholeskyFactorization);
 pub struct PsdQuadraticForm;
 
 impl Axiom for PsdQuadraticForm {
-    fn description(&self) -> &str {
-        "x^T A x >= 0 for PSD matrices (positive semi-definiteness)"
-    }
 
     fn holds(&self) -> bool {
         let test_vectors = canonical_vectors();
@@ -322,9 +289,6 @@ pr4xis::register_axiom!(PsdQuadraticForm);
 pub struct JosephPreservesPsd;
 
 impl Axiom for JosephPreservesPsd {
-    fn description(&self) -> &str {
-        "Joseph form covariance update preserves positive semi-definiteness"
-    }
 
     fn holds(&self) -> bool {
         // 2x2 test case

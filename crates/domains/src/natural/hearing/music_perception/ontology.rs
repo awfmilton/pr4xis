@@ -143,9 +143,6 @@ impl Quality for OctaveRatio {
 
 pub struct OctaveRatioIsTwo;
 impl Axiom for OctaveRatioIsTwo {
-    fn description(&self) -> &str {
-        "octave equivalence has a 2:1 frequency ratio"
-    }
     fn holds(&self) -> bool {
         OctaveRatio.get(&MusicEntity::OctaveEquivalence) == Some(2.0)
     }
@@ -153,9 +150,6 @@ impl Axiom for OctaveRatioIsTwo {
 pr4xis::register_axiom!(OctaveRatioIsTwo);
 pub struct ConsonanceOpposesDissonance;
 impl Axiom for ConsonanceOpposesDissonance {
-    fn description(&self) -> &str {
-        "consonance and dissonance are opposed"
-    }
     fn holds(&self) -> bool {
         opposition::are_opposed::<MusicOpposition>(
             &MusicEntity::Consonance,
@@ -166,9 +160,6 @@ impl Axiom for ConsonanceOpposesDissonance {
 pr4xis::register_axiom!(ConsonanceOpposesDissonance);
 pub struct TensionOpposesResolution;
 impl Axiom for TensionOpposesResolution {
-    fn description(&self) -> &str {
-        "tension and resolution are opposed"
-    }
     fn holds(&self) -> bool {
         opposition::are_opposed::<MusicOpposition>(&MusicEntity::Tension, &MusicEntity::Resolution)
     }
@@ -176,9 +167,6 @@ impl Axiom for TensionOpposesResolution {
 pr4xis::register_axiom!(TensionOpposesResolution);
 pub struct ConsonanceRankedHigher;
 impl Axiom for ConsonanceRankedHigher {
-    fn description(&self) -> &str {
-        "consonance ranks higher (lower number) than dissonance"
-    }
     fn holds(&self) -> bool {
         use MusicEntity::*;
         ConsonanceRanking.get(&Consonance).unwrap() < ConsonanceRanking.get(&Dissonance).unwrap()
@@ -187,9 +175,6 @@ impl Axiom for ConsonanceRankedHigher {
 pr4xis::register_axiom!(ConsonanceRankedHigher);
 pub struct FivePerceptualCategories;
 impl Axiom for FivePerceptualCategories {
-    fn description(&self) -> &str {
-        "pitch, harmonic, rhythmic, timbre, and affective categories exist"
-    }
     fn holds(&self) -> bool {
         use MusicEntity::*;
         taxonomy::is_a::<MusicTaxonomy>(&PitchHeight, &PitchPercept)
@@ -202,9 +187,6 @@ impl Axiom for FivePerceptualCategories {
 pr4xis::register_axiom!(FivePerceptualCategories);
 pub struct InputCausesEmotion;
 impl Axiom for InputCausesEmotion {
-    fn description(&self) -> &str {
-        "auditory input transitively causes emotional response"
-    }
     fn holds(&self) -> bool {
         use MusicCausalEvent::*;
         causation::effects_of::<MusicCausalGraph>(&AuditoryInput).contains(&EmotionalResponse)

@@ -55,9 +55,6 @@ impl Quality for StageDescription {
 pub struct BothModalitiesRequired;
 
 impl Axiom for BothModalitiesRequired {
-    fn description(&self) -> &str {
-        "both radar and camera detections feed into temporal alignment"
-    }
     fn holds(&self) -> bool {
         let morphisms = RadarCameraCategory::morphisms();
         let radar_to_align = morphisms.iter().any(|m| {
@@ -80,9 +77,6 @@ pr4xis::register_axiom!(
 pub struct FusedOutputIsTerminal;
 
 impl Axiom for FusedOutputIsTerminal {
-    fn description(&self) -> &str {
-        "fused output is the terminal stage of the pipeline"
-    }
     fn holds(&self) -> bool {
         let morphisms = RadarCameraCategory::morphisms();
         !morphisms.iter().any(|m| {

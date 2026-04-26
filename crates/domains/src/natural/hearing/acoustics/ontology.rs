@@ -289,9 +289,6 @@ impl Quality for MediumPhase {
 pub struct BoneFasterThanAir;
 
 impl Axiom for BoneFasterThanAir {
-    fn description(&self) -> &str {
-        "speed of sound in cortical bone exceeds speed in air"
-    }
 
     fn holds(&self) -> bool {
         use AcousticEntity::*;
@@ -309,9 +306,6 @@ pr4xis::register_axiom!(BoneFasterThanAir);
 pub struct BoneAirImpedanceMismatch;
 
 impl Axiom for BoneAirImpedanceMismatch {
-    fn description(&self) -> &str {
-        "bone acoustic impedance is at least 1000x air impedance"
-    }
 
     fn holds(&self) -> bool {
         use AcousticEntity::*;
@@ -330,9 +324,6 @@ pr4xis::register_axiom!(BoneAirImpedanceMismatch);
 pub struct SoftTissueMatchesWater;
 
 impl Axiom for SoftTissueMatchesWater {
-    fn description(&self) -> &str {
-        "soft tissue impedance is within 15% of water"
-    }
 
     fn holds(&self) -> bool {
         use AcousticEntity::*;
@@ -351,9 +342,6 @@ pr4xis::register_axiom!(SoftTissueMatchesWater);
 pub struct OnlySolidsHaveShearWaves;
 
 impl Axiom for OnlySolidsHaveShearWaves {
-    fn description(&self) -> &str {
-        "only solid media support shear waves"
-    }
 
     fn holds(&self) -> bool {
         use AcousticEntity::*;
@@ -373,9 +361,6 @@ pr4xis::register_axiom!(OnlySolidsHaveShearWaves);
 pub struct SourceCausesReceiver;
 
 impl Axiom for SourceCausesReceiver {
-    fn description(&self) -> &str {
-        "source vibration transitively causes receiver excitation"
-    }
 
     fn holds(&self) -> bool {
         use AcousticCausalEvent::*;

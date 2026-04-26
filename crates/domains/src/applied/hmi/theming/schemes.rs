@@ -318,9 +318,6 @@ impl Ansi16Color {
 pub struct Vogix16Bijection;
 
 impl Axiom for Vogix16Bijection {
-    fn description(&self) -> &str {
-        "vogix16 semantic names map bijectively to base16 slots"
-    }
     fn holds(&self) -> bool {
         let slots: Vec<ColorSlot> = Vogix16Semantic::variants()
             .iter()
@@ -341,9 +338,6 @@ pr4xis::register_axiom!(Vogix16Bijection);
 pub struct Ansi16Bijection;
 
 impl Axiom for Ansi16Bijection {
-    fn description(&self) -> &str {
-        "ANSI 16 colors map bijectively to base16/base24 slots"
-    }
     fn holds(&self) -> bool {
         let slots: Vec<ColorSlot> = Ansi16Color::variants()
             .iter()
@@ -365,9 +359,6 @@ pr4xis::register_axiom!(Ansi16Bijection);
 pub struct AnsiBase16Consistency;
 
 impl Axiom for AnsiBase16Consistency {
-    fn description(&self) -> &str {
-        "ANSI↔base16 mapping is consistent (round-trip)"
-    }
     fn holds(&self) -> bool {
         // For each ANSI color, to_base16_slot().ansi_index() == self.index()
         Ansi16Color::variants().iter().all(|ansi| {
@@ -382,9 +373,6 @@ pr4xis::register_axiom!(AnsiBase16Consistency);
 pub struct SgrRanges;
 
 impl Axiom for SgrRanges {
-    fn description(&self) -> &str {
-        "SGR foreground codes in [30-37] ∪ [90-97] per ECMA-48"
-    }
     fn holds(&self) -> bool {
         Ansi16Color::variants().iter().all(|c| {
             let fg = c.sgr_fg();
