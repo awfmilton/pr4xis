@@ -132,6 +132,79 @@ fn comment_is_preserved() {
     assert_eq!(node.value.as_deref(), Some("this is a comment"));
 }
 
+#[cfg(feature = "codegen")]
+mod emission {
+    use super::*;
+    use crate::social::software::markup::emit::Html;
+    use pr4xis::codegen::Emit;
+
+    #[test]
+    fn emit_simple_html() {
+        let node = MarkupNode::element(
+            "div",
+            vec![("class", "foo")],
+            vec![
+                MarkupNode::text("hello"),
+                MarkupNode::element("span", vec![], vec![MarkupNode::text("world")]),
+            ],
+        );
+        let html = Emit::<Html>::emit(&node);
+        assert_eq!(html, "<div class=\"foo\">hello<span>world</span></div>");
+    }
+
+    #[test]
+    fn emit_void_element() {
+        let node = MarkupNode::element("img", vec![("src", "foo.png")], vec![]);
+        let html = Emit::<Html>::emit(&node);
+        assert_eq!(html, "<img src=\"foo.png\" />");
+    }
+
+    #[test]
+    fn emit_escaping() {
+        let node = MarkupNode::element(
+            "p",
+            vec![("title", "a & b")],
+            vec![MarkupNode::text("<script>alert('hi')</script>")],
+        );
+        let html = Emit::<Html>::emit(&node);
+        assert_eq!(
+            html,
+            "<p title=\"a &amp; b\">&lt;script&gt;alert(&#39;hi&#39;)&lt;/script&gt;</p>"
+        );
+    }
+
+    #[test]
+    fn emit_document_with_doctype() {
+        let doc = MarkupNode::document(vec![
+            MarkupNode {
+                kind: NodeKind::ProcessingInstruction,
+                name: Some("doctype".into()),
+                value: Some("html".into()),
+                attributes: vec![],
+                children: vec![],
+            },
+            MarkupNode::element(
+                "html",
+                vec![],
+                vec![MarkupNode::element(
+                    "body",
+                    vec![],
+                    vec![MarkupNode::text("hi")],
+                )],
+            ),
+        ]);
+        let html = Emit::<Html>::emit(&doc);
+        assert_eq!(html, "<!DOCTYPE html><html><body>hi</body></html>");
+    }
+
+    #[test]
+    fn emit_comment() {
+        let node = MarkupNode::comment("secret");
+        let html = Emit::<Html>::emit(&node);
+        assert_eq!(html, "<!-- secret -->");
+    }
+}
+
 use pr4xis::category::Category;
 
 // =============================================================================
