@@ -32,6 +32,7 @@ default = ["std"]
 # loader). The categorical stack (ontologies + functors + axioms) runs
 # no_std + alloc; per issue #91, only these 4 I/O surfaces need std.
 std = ["pr4xis/std"]
+codegen = ["pr4xis/codegen"]
 fetch = ["std", "dep:ureq", "dep:flate2"]
 
 [lints]
