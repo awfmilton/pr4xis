@@ -36,6 +36,8 @@ pub enum Sem {
     },
     /// Predicate domain (N): a property that can be true of entities.
     Pred { word: String },
+    /// Operator domain: mathematical operators (+, -, etc.)
+    Op { word: String },
     /// Proposition domain (S): a complete truth-evaluable statement.
     Prop {
         predicate: String,
@@ -55,6 +57,7 @@ impl Sem {
         match self {
             Sem::Concept { word, .. } => word.clone(),
             Sem::Pred { word } => format!("λx.{}(x)", word),
+            Sem::Op { word } => word.clone(),
             Sem::Prop {
                 predicate,
                 arguments,
@@ -87,6 +90,13 @@ impl Sem {
 /// Assign a lexical semantic value to a word based on its Lambek type.
 /// This is the LEXICAL part of the functor — mapping words to their semantic domains.
 fn lex(word: &str, ty: &LambekType, en: &English) -> Sem {
+    // Detect mathematical operators
+    if ["+", "-", "*", "/", "=", "<", ">", "%", "^"].contains(&word) {
+        return Sem::Op {
+            word: word.to_string(),
+        };
+    }
+
     let concepts: Vec<ConceptId> = en.lookup(word).to_vec();
 
     match ty {
@@ -156,6 +166,14 @@ pub fn interpret(tokens: &[TypedToken], en: &English) -> Sem {
 /// When types reduce via A/B + B → A, the semantics is f(x).
 /// The result domain is determined by the result type.
 fn apply(func: &Sem, arg: &Sem, result_type: &LambekType) -> Sem {
+    // Operator partial application: (N\N)/N applied to N
+    if let Sem::Op { word } = func {
+        return Sem::Func {
+            word: word.clone(),
+            body: Box::new(arg.clone()),
+        };
+    }
+
     match result_type {
         // Result is S (any feature) — check if question or proposition
         LambekType::Atom(super::types::AtomicType::S(feature)) => {
@@ -206,6 +224,7 @@ fn apply(func: &Sem, arg: &Sem, result_type: &LambekType) -> Sem {
 fn extract_predicate(sem: &Sem) -> String {
     match sem {
         Sem::Pred { word } => word.clone(),
+        Sem::Op { word } => word.clone(),
         Sem::Func { word, .. } => word.clone(),
         Sem::Concept { word, .. } => word.clone(),
         Sem::Prop { predicate, .. } | Sem::Question { predicate, .. } => predicate.clone(),
@@ -215,6 +234,7 @@ fn extract_predicate(sem: &Sem) -> String {
 fn extract_word(sem: &Sem) -> String {
     match sem {
         Sem::Pred { word } => word.clone(),
+        Sem::Op { word } => word.clone(),
         Sem::Func { word, .. } => word.clone(),
         Sem::Concept { word, .. } => word.clone(),
         Sem::Prop { predicate, .. } | Sem::Question { predicate, .. } => predicate.clone(),

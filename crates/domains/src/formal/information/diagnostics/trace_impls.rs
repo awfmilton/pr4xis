@@ -101,6 +101,7 @@ impl Traceable for InterpretResult<'_> {
             }
             Sem::Concept { word, .. } => format!("entity: {word}"),
             Sem::Pred { word } => format!("concept: {word}"),
+            Sem::Op { word } => format!("operator: {word}"),
             Sem::Func { word, .. } => format!("function: {word}"),
         }
     }

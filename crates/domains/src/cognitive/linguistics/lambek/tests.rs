@@ -587,3 +587,54 @@ fn chart_reduce_full_priority() {
     let ft = result.final_type.unwrap();
     assert!(ft == LambekType::q() || ft == LambekType::wq());
 }
+
+#[test]
+fn montague_operator_handling() {
+    let en = sample_english();
+    // Test that "+" is recognized as an operator
+    let ty = LambekType::right_div(
+        LambekType::left_div(LambekType::n(), LambekType::n()),
+        LambekType::n(),
+    ); // (N\N)/N
+    let tokens = vec![TypedToken {
+        word: "+".into(),
+        lambek_type: ty,
+    }];
+
+    let sem = montague::interpret(&tokens, &en);
+    match sem {
+        montague::Sem::Op { word } => assert_eq!(word, "+"),
+        other => panic!("expected Op, got {:?}", other),
+    }
+}
+
+#[test]
+fn montague_operator_application() {
+    let en = sample_english();
+    // Test partial application of "+" to "dog" (as a noun/predicate)
+    // + : (N\N)/N
+    // dog : N
+    // result: N\N
+    let op_ty = LambekType::right_div(
+        LambekType::left_div(LambekType::n(), LambekType::n()),
+        LambekType::n(),
+    );
+    let n_ty = LambekType::n();
+
+    let tokens = vec![
+        TypedToken {
+            word: "+".into(),
+            lambek_type: op_ty,
+        },
+        TypedToken {
+            word: "dog".into(),
+            lambek_type: n_ty,
+        },
+    ];
+
+    let sem = montague::interpret(&tokens, &en);
+    match sem {
+        montague::Sem::Func { word, .. } => assert_eq!(word, "+"),
+        other => panic!("expected Func from partial application of Op, got {:?}", other),
+    }
+}
