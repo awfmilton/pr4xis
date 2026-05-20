@@ -97,7 +97,10 @@ fn infix_operator_full_expression_reduces_to_noun() {
     let result = reduce_sequence(&tokens);
     assert_eq!(result.remaining.len(), 1, "expression should fully reduce");
     assert_eq!(result.final_type, Some(LambekType::n()));
-    assert!(!result.success, "an arithmetic value is an N, not a sentence");
+    assert!(
+        !result.success,
+        "an arithmetic value is an N, not a sentence"
+    );
 }
 
 #[test]
