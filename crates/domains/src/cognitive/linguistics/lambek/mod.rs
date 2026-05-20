@@ -13,4 +13,6 @@ pub use tokenize::tokenize_ontological;
 pub use types::LambekType;
 
 #[cfg(test)]
+mod operator_tests;
+#[cfg(test)]
 mod tests;
