@@ -29,7 +29,8 @@ pub fn tokenize(text: &str, language: &dyn Language) -> Vec<TypedToken> {
         .iter()
         .enumerate()
         .filter_map(|(i, word)| {
-            let word_clean = word.trim_matches(|c: char| c.is_ascii_punctuation() && !"+-*/=".contains(c));
+            let word_clean =
+                word.trim_matches(|c: char| c.is_ascii_punctuation() && !"+-*/=".contains(c));
             if word_clean.is_empty() {
                 return None;
             }
@@ -64,7 +65,8 @@ pub fn tokenize_with_alternatives(
     let mut alternatives = Vec::new();
 
     for (i, word) in words.iter().enumerate() {
-        let word_clean = word.trim_matches(|c: char| c.is_ascii_punctuation() && !"+-*/=".contains(c));
+        let word_clean =
+            word.trim_matches(|c: char| c.is_ascii_punctuation() && !"+-*/=".contains(c));
         if word_clean.is_empty() {
             continue;
         }
@@ -112,7 +114,8 @@ pub fn tokenize_ontological(text: &str, language: &dyn Language) -> Vec<Token> {
         .iter()
         .enumerate()
         .filter_map(|(i, word)| {
-            let word_clean = word.trim_matches(|c: char| c.is_ascii_punctuation() && !"+-*/=".contains(c));
+            let word_clean =
+                word.trim_matches(|c: char| c.is_ascii_punctuation() && !"+-*/=".contains(c));
             if word_clean.is_empty() {
                 return None;
             }
