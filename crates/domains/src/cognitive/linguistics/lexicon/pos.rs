@@ -201,13 +201,6 @@ pub struct Numeral {
     pub text: String,
 }
 
-/// A mathematical operator: "+", "-", "*", "/", "=", "<", ">".
-/// OLiA: Operator.
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
-pub struct Operator {
-    pub text: String,
-}
-
 /// A lexical entry — a word with its full part-of-speech structure.
 /// Each variant carries the rich type for that part of speech.
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
@@ -226,7 +219,6 @@ pub enum LexicalEntry {
     Particle(Particle),
     Operator(Operator),
     Numeral(Numeral),
-    Operator(Operator),
 }
 
 impl LexicalEntry {
@@ -246,7 +238,6 @@ impl LexicalEntry {
             Self::Particle(p) => &p.text,
             Self::Operator(o) => &o.text,
             Self::Numeral(n) => &n.text,
-            Self::Operator(o) => &o.text,
         }
     }
 
@@ -316,7 +307,6 @@ impl LexicalEntry {
             Self::Particle(_) => PosTag::Particle,
             Self::Operator(_) => PosTag::Operator,
             Self::Numeral(_) => PosTag::Numeral,
-            Self::Operator(_) => PosTag::Operator,
         }
     }
 }

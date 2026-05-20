@@ -167,6 +167,5 @@ pub fn pos_to_olia_fragments(pos: PosTag) -> Vec<&'static str> {
         PosTag::Particle => vec!["Particle", "NegativeParticle", "InfinitiveParticle"],
         PosTag::Operator => vec!["Operator"],
         PosTag::Numeral => vec!["Numeral", "CardinalNumber", "OrdinalNumber"],
-        PosTag::Operator => vec!["Operator"],
     }
 }
