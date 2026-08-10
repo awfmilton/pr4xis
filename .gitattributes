@@ -1,0 +1,4 @@
+# Fork-local material — excluded from `git archive` tarballs so it cannot ride along in a
+# release artifact. This is a backstop; branch discipline is the actual control.
+# See FORK-LOCAL/README.md.
+FORK-LOCAL/ export-ignore
